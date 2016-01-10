@@ -30,7 +30,7 @@ public class Combat07 {
      * @return True if in combat; false otherwise.
      * */
     public static boolean isInCombat() {
-        return Combat.getAttackingEntities().length > 0 && Player.getRSPlayer().isInCombat() || Combat.isUnderAttack();
+        return Combat.getAttackingEntities().length > 0 || Player.getRSPlayer().isInCombat() || Combat.isUnderAttack();
     }
 
 }

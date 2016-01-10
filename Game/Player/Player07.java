@@ -1,6 +1,5 @@
 package scripts.API.Game.Player;
 
-import org.tribot.api.General;
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.types.RSInterface;
@@ -20,18 +19,21 @@ public class Player07 {
     }
 
     /**
-     * Checks the players combat level. - NOTE THIS METHOD IS NOT FINISHED.
+     * Gets the players combat level.
      * @return The players combat level.
      * */
     public static int getCombatLevel() {
-            RSInterface level = Interfaces.get(593, 2);
-            if (level != null) {
-                String text = level.getText();
-                if (text != null) {
-                    General.println(text);
-                    //TODO Extract number from text.
+        RSInterface level = Interfaces.get(593, 2);
+        if (level != null) {
+            String text = level.getText();
+            if (text != null) {
+                text = text.replace("Combat Lvl: ", "");
+                int parse = Integer.parseInt(text);
+                if (parse > 0) {
+                    return parse;
                 }
             }
+        }
         return -1;
     }
 
