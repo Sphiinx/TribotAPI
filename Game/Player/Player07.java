@@ -19,7 +19,7 @@ public class Player07 {
     }
 
     /**
-     * Gets the players combat level.
+     * Gets the players combat level. Note - I realised there was an API method for this after I wrote it. I'm just going to leave it here...
      * @return The players combat level.
      * */
     public static int getCombatLevel() {
