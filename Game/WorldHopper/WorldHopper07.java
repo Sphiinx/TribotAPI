@@ -16,21 +16,21 @@ import java.awt.*;
  */
 public class WorldHopper07 {
 
-    private static final int[] MEMBER_WORLDS = new int[] {
+    public static final int[] MEMBER_WORLDS = new int[] {
             2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 22, 25, 27, 28,
             29, 30, 33, 34, 36, 37, 38, 41, 42, 43, 44, 45, 46, 49, 50, 51, 52, 53, 54,
             57, 58, 59, 60, 61, 62, 65, 66, 67, 68, 69, 70, 73, 74, 75, 76, 77, 78
     };
 
-    private static final int[] FREE_WORLDS = {
+    public static final int[] FREE_WORLDS = {
             1, 8, 16, 26, 35, 81, 82, 83, 84, 85, 93, 94
     };
 
-    private static final int[] PVP_WORLDS = {
+    public static final int[] PVP_WORLDS = {
             25, 37
     };
 
-    private static final int[] DEADMAN_WORLDS = {
+    public static final int[] DEADMAN_WORLDS = {
             19, 45, 52, 57, 60, 74
     };
 
