@@ -1,10 +1,8 @@
 package scripts.API.Game.Projection;
 
+import org.tribot.api.General;
 import org.tribot.api2007.Projection;
-import org.tribot.api2007.types.RSArea;
-import org.tribot.api2007.types.RSNPC;
-import org.tribot.api2007.types.RSObject;
-import org.tribot.api2007.types.RSTile;
+import org.tribot.api2007.types.*;
 
 import java.awt.*;
 
@@ -19,12 +17,13 @@ public class Projection07 {
     public static final Color YELLOW_COLOR = new Color(255, 247, 0, 25);
     public static final Color BOLD_YELLOW_COLOR = new Color(255, 247, 0, 75);
     public static final Color BOLDEST_YELLOW_COLOR = new Color(255, 247, 0, 125);
+    public static final Color TEXT_YELLOW = new Color(255, 247, 0, 255);
 
     /**
      * Attempts to draw the polygons of the given RSObjects.
      *
      * @param objects The objects in which to draw.
-     * @param g      Graphics parameter.
+     * @param g       Graphics parameter.
      */
     public static void drawObjects(final RSObject[] objects, Graphics g) {
         if (objects.length > 0) {
@@ -45,7 +44,7 @@ public class Projection07 {
      * Attempts to draw the polygons of the given RSObjects.
      *
      * @param objects The objects in which to draw.
-     * @param g      Graphics parameter.
+     * @param g       Graphics parameter.
      */
     public static void drawMinimapObjects(final RSObject[] objects, Graphics g) {
         if (objects.length > 0) {
@@ -113,6 +112,38 @@ public class Projection07 {
                         g.fillPolygon(p);
                         g.setColor(YELLOW_COLOR);
                         g.drawPolygon(p);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Attempts to draw the Health of the given RSNPC you're interacting with.
+     *
+     * @param npcs The NPCs in which to draw.
+     * @param g    Graphics parameter.
+     * */
+    public static void drawInteractingNPCHealth(final RSNPC[] npcs, Graphics g) {
+        if (npcs.length > 0) {
+            for (RSNPC npc : npcs) {
+                if (npc.isOnScreen()) {
+                    General.println("Running 4");
+                    RSModel model = npc.getModel();
+                    if (model != null) {
+                        General.println("Running 5");
+                        if (npc.isInteractingWithMe()) {
+                            General.println("Running 6");
+                            Point p = model.getCentrePoint();
+                            double x = p.getX() - 35;
+                            double y = p.getY();
+                            g.setColor(BOLD_WHITE_COLOR);
+                            g.fillRoundRect((int)x, (int)y, 80, 15, 5, 5);
+                            g.setColor(BOLDEST_YELLOW_COLOR);
+                            g.drawRoundRect((int)x, (int)y, 80, 15, 5, 5);
+                            g.setColor(TEXT_YELLOW);
+                            g.drawString("Health: " + npc.getHealth() + "/" + npc.getMaxHealth(), (int)x + 5, (int)y + 12);
+                        }
                     }
                 }
             }
