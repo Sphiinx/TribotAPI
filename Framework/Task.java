@@ -1,6 +1,6 @@
 package scripts.API.Framework;
 
-public abstract class Node {
+public abstract class Task {
 
     public abstract void execute();
 
