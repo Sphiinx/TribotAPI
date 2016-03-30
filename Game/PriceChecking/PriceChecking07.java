@@ -48,7 +48,6 @@ public class PriceChecking07 {
         if (queryResult != null) {
             HashMap<String, String> results = JSONToMap(queryResult);
             if (results.containsKey(key)) {
-
                 String price = results.get(key);
                 double multiplier = 1;
 
@@ -108,4 +107,5 @@ public class PriceChecking07 {
         }
         return map;
     }
+
 }

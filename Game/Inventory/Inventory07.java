@@ -19,6 +19,7 @@ public class Inventory07 {
 
     /**
      * Gets the amount of items in the players inventory.
+     *
      * @return How many items are in the players inventory.
      */
     public static int getCount() {
@@ -27,6 +28,7 @@ public class Inventory07 {
 
     /**
      * Gets the amount of free space in the players inventory.
+     *
      * @return How many free spaces is in the players inventory.
      */
     public static int getAmountOfSpace() {
@@ -34,64 +36,68 @@ public class Inventory07 {
     }
 
     /**
-    * Checks if we have the item specified.
-    * @return True if we have the item, false otherwise.
-    * @param itemNames The names of the items to check.
-    * */
+     * Checks if we have the item specified.
+     *
+     * @param itemNames The names of the items to check.
+     * @return True if we have the item, false otherwise.
+     */
     public static boolean hasItem(String... itemNames) {
         return Inventory.getCount(itemNames) > 0;
     }
 
     /**
-    * Checks if we have the item specified.
-    * @return True if we have the item; false otherwise.
-    * @param itemIDs The IDs of the items to check.
-    * */
+     * Checks if we have the item specified.
+     *
+     * @param itemIDs The IDs of the items to check.
+     * @return True if we have the item; false otherwise.
+     */
     public static boolean hasItem(int... itemIDs) {
         return Inventory.getCount(itemIDs) > 0;
     }
 
     /**
      * Drops all specified items.
-     * @return The amount of items dropped. Takes item stack into account.
+     *
      * @param itemNames The names of the items to drop.
-     * */
+     * @return The amount of items dropped. Takes item stack into account.
+     */
     public static int drop(String... itemNames) {
         return Inventory.drop(itemNames);
     }
 
     /**
      * Drops all items except the items specified.
-     * @return The amount of items dropped. Takes item stack into account.
+     *
      * @param itemNames The names of the items to keep.
-     * */
+     * @return The amount of items dropped. Takes item stack into account.
+     */
     public static int dropAllExcept(String... itemNames) {
         return Inventory.dropAllExcept(itemNames);
     }
 
     /**
-     * @author Encoded
-     * Emulates mouse keys and drops all the inventory items except the specified ids.
      * @param ignore The ids of the items that should not be dropped.
      * @return True if all items were dropped except for those specified, false otherwise.
+     * @author Encoded
+     * Emulates mouse keys and drops all the inventory items except the specified ids.
      */
     public static boolean mouseKeysDropAllExcept(int... ignore) {
         return mouseKeysDropAllExcept(2, ignore);
     }
 
     /**
+     * @param sleepMod A multiplier for the delay in between dropping items. The lower the number, the shorter the delay.
+     * @param ignore   The ids of the items that should not be dropped.
+     * @return True if all items were dropped except for those specified, false otherwise.
      * @author Encoded
      * Emulates mouse keys and drops all the inventory items except the specified ids.
-     * @param sleepMod A multiplier for the delay in between dropping items. The lower the number, the shorter the delay.
-     * @param ignore The ids of the items that should not be dropped.
-     * @return True if all items were dropped except for those specified, false otherwise.
      */
     public static boolean mouseKeysDropAllExcept(int sleepMod, int... ignore) {
         if (sleepMod < 0) sleepMod = 0;
         if (GameTab.getOpen() != GameTab.TABS.INVENTORY)
             GameTab.open(GameTab.TABS.INVENTORY);
         RSItem[] items = convertTo28(Inventory.find(Filters.Items.idNotEquals(ignore)));
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++)
             for (int j = 0; j < 7; j++) {
                 if (deselectedItem()) {
                     if (j > 0) {
@@ -108,14 +114,13 @@ public class Inventory07 {
                 mouseKeysDropItem(r, sleepMod);
                 waitForInventoryFullMessage();
             }
-        }
         return Timing.waitCondition(itemsDropped(ignore), General.random(800, 1200));
     }
 
     private static RSItem[] convertTo28(RSItem[] items) {
         RSItem[] out = new RSItem[28];
-        for (int i = 0; i < items.length; i++) {
-            out[items[i].getIndex()] = items[i];
+        for (RSItem item : items) {
+            out[item.getIndex()] = item;
         }
         return out;
     }
@@ -124,7 +129,7 @@ public class Inventory07 {
         return new Condition() {
             @Override
             public boolean active() {
-                General.sleep(100, 200);
+                General.sleep(100);
                 return Inventory.find(Filters.Items.idNotEquals(ignore)).length == 0;
             }
         };
@@ -133,7 +138,7 @@ public class Inventory07 {
     private static Condition itemNotSelected = new Condition() {
         @Override
         public boolean active() {
-            General.sleep(50, 100);
+            General.sleep(100);
             return Game.getItemSelectionState() != 1;
         }
     };
@@ -191,7 +196,8 @@ public class Inventory07 {
         if (!General.isLookingGlass()) {
             String message = NPCChat.getMessage();
             if (message != null && (message.contains("You don't have") || message.contains("You can't carry"))) {
-                for (int i = 0; i < 10 && NPCChat.getMessage() != null; i++) General.sleep(90, 110); // TODO replace with condition
+                for (int i = 0; i < 10 && NPCChat.getMessage() != null; i++)
+                    General.sleep(90, 110); // TODO replace with condition
             }
         }
     }

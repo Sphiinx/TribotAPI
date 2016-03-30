@@ -26,7 +26,7 @@ public class Projection07 {
      * @param g       Graphics parameter.
      */
     public static void drawObjects(final RSObject[] objects, Graphics g) {
-        if (objects.length > 0) {
+        if (objects != null && objects.length > 0) {
             for (RSObject object : objects) {
                 if (object.isOnScreen()) {
                     for (Polygon p : object.getModel().getTriangles()) {
@@ -47,7 +47,7 @@ public class Projection07 {
      * @param g       Graphics parameter.
      */
     public static void drawMinimapObjects(final RSObject[] objects, Graphics g) {
-        if (objects.length > 0) {
+        if (objects != null && objects.length > 0) {
             for (RSObject object : objects) {
                 Point p = Projection.tileToMinimap(object);
                 if (Projection.isInMinimap(p)) {
@@ -67,7 +67,7 @@ public class Projection07 {
      * @param g      Graphics parameter.
      */
     public static void drawObject(final RSObject[] object, Graphics g) {
-        if (object.length > 0) {
+        if (object != null && object.length > 0) {
             if (object[0].isOnScreen()) {
                 for (Polygon p : object[0].getModel().getTriangles()) {
                     g.setColor(WHITE_COLOR);
@@ -86,7 +86,7 @@ public class Projection07 {
      * @param g      Graphics parameter.
      */
     public static void drawMinimapObject(final RSObject[] object, Graphics g) {
-        if (object.length > 0) {
+        if (object != null && object.length > 0) {
             Point p = Projection.tileToMinimap(object[0]);
             if (Projection.isInMinimap(p)) {
                 g.setColor(Color.YELLOW);
@@ -104,7 +104,7 @@ public class Projection07 {
      * @param g    Graphics parameter.
      */
     public static void drawNPCs(final RSNPC[] npcs, Graphics g) {
-        if (npcs.length > 0) {
+        if (npcs != null && npcs.length > 0) {
             for (RSNPC npc : npcs) {
                 if (npc.isOnScreen()) {
                     for (Polygon p : npc.getModel().getTriangles()) {
@@ -125,7 +125,7 @@ public class Projection07 {
      * @param g    Graphics parameter.
      * */
     public static void drawInteractingNPCHealth(final RSNPC[] npcs, Graphics g) {
-        if (npcs.length > 0) {
+        if (npcs != null && npcs.length > 0) {
             for (RSNPC npc : npcs) {
                 if (npc.isOnScreen()) {
                     General.println("Running 4");
@@ -157,7 +157,7 @@ public class Projection07 {
      * @param g    Graphics parameter.
      */
     public static void drawMinimapNPCs(final RSNPC[] npcs, Graphics g) {
-        if (npcs.length > 0) {
+        if (npcs != null && npcs.length > 0) {
             for (RSNPC npc : npcs) {
                 Point p = Projection.tileToMinimap(npc);
                 if (Projection.isInMinimap(p)) {
@@ -177,7 +177,7 @@ public class Projection07 {
      * @param g   Graphics parameter.
      */
     public static void drawNPC(final RSNPC[] npc, Graphics g) {
-        if (npc.length > 0) {
+        if (npc != null && npc.length > 0) {
             if (npc[0].isOnScreen()) {
                 for (Polygon p : npc[0].getModel().getTriangles()) {
                     g.setColor(BOLD_WHITE_COLOR);
@@ -196,7 +196,7 @@ public class Projection07 {
      * @param g   Graphics parameter.
      */
     public static void drawMinimapNPC(final RSNPC[] npc, Graphics g) {
-        if (npc.length > 0) {
+        if (npc != null && npc.length > 0) {
             Point p = Projection.tileToMinimap(npc[0]);
             if (Projection.isInMinimap(p)) {
                 g.setColor(Color.YELLOW);
@@ -244,9 +244,9 @@ public class Projection07 {
     }
 
     /**
-     * Attempts to draw the polygons of the given Area.
+     * Attempts to draw the polygons of the given area.
      *
-     * @param area The Area in which to draw.
+     * @param area The area in which to draw.
      * @param g    Graphics parameter.
      */
     public static void drawArea(final RSArea area, Graphics g) {
@@ -266,9 +266,9 @@ public class Projection07 {
     }
 
     /**
-     * Attempts to draw the polygons of the given Area.
+     * Attempts to draw the polygons of the given area.
      *
-     * @param area The Area in which to draw.
+     * @param area The area in which to draw.
      * @param g    Graphics parameter.
      */
     public static void drawMinimapArea(final RSArea area, Graphics g) {

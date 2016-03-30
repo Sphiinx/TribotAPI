@@ -5,7 +5,7 @@ import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
-import scripts.API.Game.Inventory.Inventory07;
+import scripts.SPXAIOMiner.api.game.inventory.Inventory07;
 
 
 /**

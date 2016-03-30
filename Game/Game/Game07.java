@@ -1,6 +1,5 @@
 package scripts.API.Game.Game;
 
-
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Login;
 
