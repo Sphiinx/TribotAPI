@@ -1,4 +1,4 @@
-package scripts.API.Game.Interfaces;
+package api.Game.Interfaces;
 
 import org.tribot.api.General;
 import org.tribot.api.input.Keyboard;

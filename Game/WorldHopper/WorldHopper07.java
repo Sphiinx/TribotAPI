@@ -1,4 +1,4 @@
-package scripts.API.Game.WorldHopper;
+package api.Game.WorldHopper;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -47,7 +47,7 @@ public class WorldHopper07 {
         for (int i = 1; i <= WORLD_END; i++) {
             if (arrayContains(WORLDS_DO_NOT_EXIST, i)) diff++;
             if (i == world) {
-                worldNum = i - diff;  //finds the world sequentially skipping all the worlds that d.n.e.
+                worldNum = i - diff;  //finds the world sequentially skipping all the worldType that d.n.e.
                 break;
             }
         }

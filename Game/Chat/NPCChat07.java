@@ -1,4 +1,4 @@
-package scripts.API.Game.Chat;
+package api.Game.Chat;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;

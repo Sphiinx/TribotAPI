@@ -1,4 +1,4 @@
-package scripts.API.Game.GroundItems;
+package api.Game.GroundItems;
 
 import org.tribot.api2007.Camera;
 import org.tribot.api2007.Inventory;

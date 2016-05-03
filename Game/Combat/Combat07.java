@@ -1,4 +1,4 @@
-package scripts.API.Game.Combat;
+package api.Game.Combat;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;

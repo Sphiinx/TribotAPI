@@ -1,4 +1,4 @@
-package scripts.API.Game.Projection;
+package api.Game.Projection;
 
 import org.tribot.api.General;
 import org.tribot.api2007.Projection;

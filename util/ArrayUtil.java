@@ -1,4 +1,4 @@
-package scripts.API.util;
+package api.util;
 
 /**
  * Created by Sphiinx on 2/16/2016.

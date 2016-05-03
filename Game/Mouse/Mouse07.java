@@ -1,4 +1,4 @@
-package scripts.API.Game.Mouse;
+package api.Game.Mouse;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;

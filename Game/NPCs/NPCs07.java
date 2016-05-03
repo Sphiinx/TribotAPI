@@ -1,4 +1,4 @@
-package scripts.API.Game.NPCs;
+package api.Game.NPCs;
 
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api.util.Sorting;

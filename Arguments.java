@@ -1,4 +1,4 @@
-package scripts.API;
+package api;
 
 import java.util.HashMap;
 

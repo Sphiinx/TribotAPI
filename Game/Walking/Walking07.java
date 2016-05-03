@@ -1,4 +1,4 @@
-package scripts.API.Game.Walking;
+package api.Game.Walking;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;

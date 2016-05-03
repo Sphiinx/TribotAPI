@@ -1,4 +1,4 @@
-package scripts.API.Framework;
+package api.Framework;
 
 import scripts.SPXAIOMiner.data.Variables;
 

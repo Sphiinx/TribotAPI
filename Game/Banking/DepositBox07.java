@@ -1,4 +1,4 @@
-package scripts.API.Game.Banking;
+package api.Game.Banking;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;

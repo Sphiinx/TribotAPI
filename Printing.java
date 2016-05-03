@@ -1,4 +1,4 @@
-package scripts.API;
+package api;
 
 import org.tribot.api.General;
 

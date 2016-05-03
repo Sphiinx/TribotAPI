@@ -1,4 +1,4 @@
-package scripts.API.Game.PriceChecking;
+package api.Game.PriceChecking;
 
 import org.tribot.api.General;
 

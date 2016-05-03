@@ -1,4 +1,4 @@
-package scripts.API.Game.Inventory;
+package api.Game.Inventory;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
