@@ -1,9 +1,10 @@
-package api;
+package TribotAPI;
 
 import org.tribot.api.General;
 
 /**
  * Created by Sphiinx on 2/15/2016.
+ * Re-written by Sphiinx on 6/11/2016
  */
 public class Printing {
 
@@ -14,19 +15,9 @@ public class Printing {
      *
      * @param text The text that is being printed.
      */
-    public static void dev(Object text) {
-        if (isDebugging) {
+    public static void dev(String text) {
+        if (General.getTRiBotUsername().equals("Sphiinx"))
             General.println("Debug: " + text);
-        }
-    }
-
-    /**
-     * Prints the specified text via the Client Debug with the header "WARNING: "
-     *
-     * @param text The text that is being printed.
-     */
-    public static void warn(Object text) {
-        General.println("WARNING: " + text);
     }
 
     /**
@@ -34,10 +25,18 @@ public class Printing {
      *
      * @param text The text that is being printed.
      */
-    public static void err(Object text) {
-        if (isDebugging) {
+    public static void err(String text) {
+        if (General.getTRiBotUsername().equals("Sphiinx"))
             General.println("ERROR: " + text);
-        }
+    }
+
+    /**
+     * Prints the specified text via the Client Debug with the header "WARNING: "
+     *
+     * @param text The text that is being printed.
+     */
+    public static void warn(String text) {
+        General.println("WARNING: " + text);
     }
 
     /**
@@ -45,7 +44,7 @@ public class Printing {
      *
      * @param text The text that is being printed.
      */
-    public static void status(Object text) {
+    public static void status(String text) {
         General.println("STATUS: " + text);
     }
 
@@ -59,4 +58,3 @@ public class Printing {
     }
 
 }
-

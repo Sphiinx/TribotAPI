@@ -1,43 +1,36 @@
-package api.Game.Mouse;
+package TribotAPI.game.mouse;
 
 import org.tribot.api.General;
-import org.tribot.api.Timing;
 import org.tribot.api.input.Mouse;
-import org.tribot.api.types.generic.Condition;
 import org.tribot.api2007.ChooseOption;
 import org.tribot.api2007.Game;
+import TribotAPI.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 2/14/2016.
+ * Re-written by Sphiinx on 6/11/2016
  */
 public class Mouse07 {
 
     /**
-     * If something is selected it will unselect it.
+     * If something is selected it will un-select it.
      *
      * @return True if successful; false otherwise.
      */
     public static boolean fixSelected() {
-        if (Game.isUptext("->")) {
-            if (!ChooseOption.isOpen()) {
-                Mouse.click(3);
-            }
-            if (Timing.waitCondition(new Condition() {
-                @Override
-                public boolean active() {
-                    General.sleep(100);
-                    return ChooseOption.isOpen();
-                }
-            }, 250)) {
-                if (ChooseOption.select("Cancel")) {
-                    System.out.println("Fixed selected mouse.");
-                    return true;
-                }
+        if (!Game.isUptext("->"))
+            return false;
+
+        if (!ChooseOption.isOpen())
+            Mouse.click(3);
+
+        if (Timing07.waitCondition(ChooseOption::isOpen, General.random(1000, 1200))) {
+            if (ChooseOption.select("Cancel")) {
+                return true;
             }
         }
-        return true;
+
+        return false;
     }
 
 }
-
-

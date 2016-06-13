@@ -1,103 +1,106 @@
-package api.Game.Inventory;
+package TribotAPI.game.inventory;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api.input.Keyboard;
 import org.tribot.api.input.Mouse;
 import org.tribot.api.types.generic.Condition;
+import org.tribot.api.types.generic.Filter;
+import org.tribot.api.util.Sorting;
 import org.tribot.api2007.*;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSItem;
+import org.tribot.api2007.types.RSObject;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 /**
  * Created by Sphiinx on 1/10/2016.
+ * Re-written by Sphiinx on 6/11/2016
  */
 public class Inventory07 {
 
     /**
-     * Gets the amount of items in the players inventory.
+     * Gets the number of RSItems in the RSPlayers inventory.
      *
-     * @return How many items are in the players inventory.
+     * @return How many items are in the RSPlayers inventory.
      */
     public static int getCount() {
         return Inventory.getAll().length;
     }
 
     /**
-     * Gets the amount of free space in the players inventory.
+     * Gets the number of free space in the RSPlayers inventory.
      *
-     * @return How many free spaces is in the players inventory.
+     * @return How many free spaces is in the RSPlayers inventory.
      */
     public static int getAmountOfSpace() {
         return 28 - Inventory.getAll().length;
     }
 
     /**
-     * Checks if we have the item specified.
+     * Finds the specified RSItem in the RSPlayers inventory.
      *
-     * @param itemNames The names of the items to check.
-     * @return True if we have the item, false otherwise.
+     * @param id The ID of the RSItem.
+     * @return The RSItem; Null if no RSItems are found.
      */
-    public static boolean hasItem(String... itemNames) {
-        return Inventory.getCount(itemNames) > 0;
+    public static RSItem getItem(int id) {
+        RSItem[] items = Inventory.find(Filters.Items.idEquals(id));
+        return items.length > 0 ? items[0] : null;
     }
 
     /**
-     * Checks if we have the item specified.
+     * Finds the specified RSItem in the RSPlayers inventory.
      *
-     * @param itemIDs The IDs of the items to check.
-     * @return True if we have the item; false otherwise.
+     * @param name The name of the RSItem.
+     * @return The RSItem; Null if no RSItems are found.
      */
-    public static boolean hasItem(int... itemIDs) {
-        return Inventory.getCount(itemIDs) > 0;
+    public static RSItem getItem(String name) {
+        if (name == null)
+            return null;
+
+        RSItem[] items = Inventory.find(Filters.Items.nameEquals(name));
+        return items.length > 0 ? items[0] : null;
     }
 
     /**
-     * Drops all specified items.
+     * Finds the specified RSItem in the RSPlayers inventory.
      *
-     * @param itemNames The names of the items to drop.
-     * @return The amount of items dropped. Takes item stack into account.
+     * @param filter The filter.
+     * @return The RSItem; Null if no RSItems were found.
      */
-    public static int drop(String... itemNames) {
-        return Inventory.drop(itemNames);
+    public static RSItem getItem(Filter<RSItem> filter) {
+        if (filter == null)
+            return null;
+
+        RSItem[] items = Inventory.find(filter);
+        return items.length > 0 ? items[0] : null;
     }
 
     /**
-     * Drops all items except the items specified.
+     * Emulates mouse keys and drops all the inventory items except the specified ids.
      *
-     * @param itemNames The names of the items to keep.
-     * @return The amount of items dropped. Takes item stack into account.
-     */
-    public static int dropAllExcept(String... itemNames) {
-        return Inventory.dropAllExcept(itemNames);
-    }
-
-    /**
      * @param ignore The ids of the items that should not be dropped.
      * @return True if all items were dropped except for those specified, false otherwise.
-     * @author Encoded
-     * Emulates mouse keys and drops all the inventory items except the specified ids.
      */
     public static boolean mouseKeysDropAllExcept(int... ignore) {
         return mouseKeysDropAllExcept(2, ignore);
     }
 
     /**
+     * Emulates mouse keys and drops all the inventory items except the specified ids.
+     *
      * @param sleepMod A multiplier for the delay in between dropping items. The lower the number, the shorter the delay.
      * @param ignore   The ids of the items that should not be dropped.
      * @return True if all items were dropped except for those specified, false otherwise.
-     * @author Encoded
-     * Emulates mouse keys and drops all the inventory items except the specified ids.
      */
     public static boolean mouseKeysDropAllExcept(int sleepMod, int... ignore) {
-        if (sleepMod < 0) sleepMod = 0;
-        if (GameTab.getOpen() != GameTab.TABS.INVENTORY)
-            GameTab.open(GameTab.TABS.INVENTORY);
+        if (!GameTab.TABS.INVENTORY.isOpen())
+            GameTab.TABS.INVENTORY.open();
+
         RSItem[] items = convertTo28(Inventory.find(Filters.Items.idNotEquals(ignore)));
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 7; j++) {
                 if (deselectedItem()) {
                     if (j > 0) {
@@ -114,6 +117,7 @@ public class Inventory07 {
                 mouseKeysDropItem(r, sleepMod);
                 waitForInventoryFullMessage();
             }
+        }
         return Timing.waitCondition(itemsDropped(ignore), General.random(800, 1200));
     }
 
@@ -146,10 +150,13 @@ public class Inventory07 {
     private static boolean deselectedItem() {
         if (Game.getItemSelectionState() == 1) {
             Mouse.click(3);
-            if (Timing.waitMenuOpen(General.random(450, 550)))
-                if (ChooseOption.isOptionValid("Cancel"))
-                    if (ChooseOption.select("Cancel"))
+            if (Timing.waitMenuOpen(General.random(450, 550))) {
+                if (ChooseOption.isOptionValid("Cancel")) {
+                    if (ChooseOption.select("Cancel")) {
                         return Timing.waitCondition(itemNotSelected, General.random(700, 1000));
+                    }
+                }
+            }
         }
         return false;
     }
@@ -157,8 +164,7 @@ public class Inventory07 {
     private static void mouseKeysDropItem(Rectangle r, int sleepMod) {
         if (!r.contains(Mouse.getPos())) {
             General.sleep(50, 100);
-            Mouse.move(new Point((int) r.getCenterX() + General.random(-3, 3),
-                    (int) r.getCenterY() + General.random(-3, 3)));
+            Mouse.move(new Point((int) r.getCenterX() + General.random(-3, 3), (int) r.getCenterY() + General.random(-3, 3)));
         }
         if (r.contains(Mouse.getPos())) {
             Mouse.click(3);
@@ -168,7 +174,6 @@ public class Inventory07 {
                 Mouse.click(1);
                 General.sleep(50, 100);
             } else {
-                // Holding ctrl per request by TRiLeZ
                 Keyboard.sendPress(KeyEvent.CHAR_UNDEFINED, Keyboard.getKeyCode((char) KeyEvent.VK_CONTROL));
                 General.sleep(30, 60);
                 Mouse.hop(new Point((int) Mouse.getPos().getX(), y));
@@ -192,15 +197,13 @@ public class Inventory07 {
     }
 
     private static void waitForInventoryFullMessage() {
-        // NPCChat methods are really slow on looking glass.
         if (!General.isLookingGlass()) {
             String message = NPCChat.getMessage();
             if (message != null && (message.contains("You don't have") || message.contains("You can't carry"))) {
                 for (int i = 0; i < 10 && NPCChat.getMessage() != null; i++)
-                    General.sleep(90, 110); // TODO replace with condition
+                    General.sleep(90, 110);
             }
         }
     }
 
 }
-

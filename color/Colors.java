@@ -1,0 +1,26 @@
+package TribotAPI.color;
+
+import java.awt.*;
+
+/**
+ * Created by Sphiinx on 6/12/2016.
+ * Re-written by Sphiinx on 6/12/2016
+ */
+public enum Colors {
+
+    RED_COLOR(new Color(214, 39, 39, 240)),
+    GRAY_COLOR(new Color(26, 24, 24, 75)),
+    GREEN_COLOR(new Color(65, 161, 40, 240));
+
+    private final Color color;
+
+    Colors(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+}
+

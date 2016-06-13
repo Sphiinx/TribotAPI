@@ -1,4 +1,4 @@
-package api.Game.Entities;
+package TribotAPI.game.entities;
 
 import org.tribot.api.input.Mouse;
 import org.tribot.api2007.types.RSModel;
@@ -7,6 +7,7 @@ import java.awt.*;
 
 /**
  * Created by Sphiinx on 2/14/2016.
+ * Re-written by Sphiinx on 6/11/2016
  */
 public class Entities07 {
 
@@ -16,7 +17,7 @@ public class Entities07 {
      * @param model The model.
      * @return The Polygon.
      */
-    public static Polygon getModelArea(final RSModel model) {
+    public static Polygon getModelArea(RSModel model) {
         if (model == null) {
             return new Polygon();
         }
@@ -27,12 +28,14 @@ public class Entities07 {
      * Checks if the mouse is inside the specified model.
      *
      * @param model The model.
-     * @return True if the bot mouse is inside the model; false otherwise.
+     * @return True if the mouse is inside the model; false otherwise.
      */
-    public static boolean isHovering(final RSModel model) {
+    public static boolean isHovering(RSModel model) {
+        if (model == null)
+            return false;
+
         final Polygon area = getModelArea(model);
         return area != null && area.contains(Mouse.getPos());
     }
 
 }
-

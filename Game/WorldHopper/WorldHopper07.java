@@ -1,4 +1,4 @@
-package api.Game.WorldHopper;
+package TribotAPI.game.worldhopper;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -10,7 +10,7 @@ import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSInterfaceChild;
 import org.tribot.api2007.types.RSInterfaceComponent;
 import org.tribot.api2007.types.RSItem;
-import scripts.SPXAIOMiner.api.game.utiity.Utility07;
+import TribotAPI.game.utiity.Utility07;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -129,7 +129,7 @@ public class WorldHopper07 {
 
         if (WorldHopper.getWorld() == world) {
             if (isInWorldSelect() && Login.getLoginState() == Login.STATE.LOGINSCREEN) {
-                clickRectangle(new Rectangle(710, 7, 45, 9), 16, 3);    //cancel button
+                clickRectangle(new Rectangle(710, 7, 45, 9), 16, 3);
             }
             return true;
         }

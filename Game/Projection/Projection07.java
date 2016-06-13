@@ -1,291 +1,310 @@
-package api.Game.Projection;
+package TribotAPI.game.projection;
 
-import org.tribot.api.General;
+import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Projection;
 import org.tribot.api2007.types.*;
+import TribotAPI.color.Colors;
 
 import java.awt.*;
 
 /**
  * Created by Sphiinx on 1/28/2016.
+ * Re-written by Sphiinx on 6/11/2016
  */
 public class Projection07 {
 
-    public static final Color WHITE_COLOR = new Color(255, 255, 255, 25);
-    public static final Color BOLD_WHITE_COLOR = new Color(255, 255, 255, 75);
-    public static final Color BOLDEST_WHITE_COLOR = new Color(255, 255, 255, 125);
-    public static final Color YELLOW_COLOR = new Color(255, 247, 0, 25);
-    public static final Color BOLD_YELLOW_COLOR = new Color(255, 247, 0, 75);
-    public static final Color BOLDEST_YELLOW_COLOR = new Color(255, 247, 0, 125);
-    public static final Color TEXT_YELLOW = new Color(255, 247, 0, 255);
+    /**
+     * The master x axis for the RSNPC information box.
+     */
+    public static final int INFO_BOX_X = 10;
 
     /**
-     * Attempts to draw the polygons of the given RSObjects.
-     *
-     * @param objects The objects in which to draw.
-     * @param g       Graphics parameter.
+     * The master y axis for the RSNPC information box.
      */
-    public static void drawObjects(final RSObject[] objects, Graphics g) {
-        if (objects != null && objects.length > 0) {
-            for (RSObject object : objects) {
-                if (object.isOnScreen()) {
-                    for (Polygon p : object.getModel().getTriangles()) {
-                        g.setColor(WHITE_COLOR);
-                        g.fillPolygon(p);
-                        g.setColor(BOLD_YELLOW_COLOR);
-                        g.drawPolygon(p);
-                    }
-                }
-            }
-        }
+    public static final int INFO_BOX_Y = 25;
+
+    /**
+     * The master width for the RSNPC information box.
+     */
+    public static int INFO_BOX_W = 0;
+
+    /**
+     * The master height for the RSNPC information box.
+     */
+    public static final int INFO_BOX_H = 50;
+
+    /**
+     * Draws the enclosed area of the given RSObject.
+     *
+     * @param object The RSObject in which to draw.
+     * @param g      Graphics.
+     */
+    public static void drawObject(RSObject object, Graphics g) {
+        if (object == null)
+            return;
+
+        if (!object.isOnScreen())
+            return;
+
+        Polygon p = object.getModel().getEnclosedArea();
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillPolygon(p);
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawPolygon(p);
     }
 
     /**
-     * Attempts to draw the polygons of the given RSObjects.
+     * Draws the enclosed area of the given RSNPC.
      *
-     * @param objects The objects in which to draw.
-     * @param g       Graphics parameter.
+     * @param npc The RSNPC in which to draw.
+     * @param g   Graphics.
      */
-    public static void drawMinimapObjects(final RSObject[] objects, Graphics g) {
-        if (objects != null && objects.length > 0) {
-            for (RSObject object : objects) {
-                Point p = Projection.tileToMinimap(object);
-                if (Projection.isInMinimap(p)) {
-                    g.setColor(Color.YELLOW);
-                    g.fillOval(p.x, p.y, 10, 10);
-                    g.setColor(Color.BLACK);
-                    g.drawOval(p.x, p.y, 10, 10);
-                }
-            }
-        }
+    public static void drawNPC(RSNPC npc, Graphics g) {
+        if (npc == null)
+            return;
+
+        if (!npc.isOnScreen())
+            return;
+
+        Polygon p = npc.getModel().getEnclosedArea();
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillPolygon(p);
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawPolygon(p);
     }
 
     /**
-     * Attempts to draw the polygons of the given RSObject.
+     * Draws the enclosed area of the given RSPlayer.
      *
-     * @param object The object in which to draw.
-     * @param g      Graphics parameter.
+     * @param player The RSPlayer in which to draw.
+     * @param g      Graphics.
      */
-    public static void drawObject(final RSObject[] object, Graphics g) {
-        if (object != null && object.length > 0) {
-            if (object[0].isOnScreen()) {
-                for (Polygon p : object[0].getModel().getTriangles()) {
-                    g.setColor(WHITE_COLOR);
-                    g.fillPolygon(p);
-                    g.setColor(BOLD_YELLOW_COLOR);
-                    g.drawPolygon(p);
-                }
-            }
-        }
+    public static void drawRSPlayer(RSPlayer player, Graphics g) {
+        if (player == null)
+            return;
+
+        if (!player.isOnScreen())
+            return;
+
+        Polygon p = player.getModel().getEnclosedArea();
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillPolygon(p);
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawPolygon(p);
     }
 
     /**
-     * Attempts to draw the polygons of the given RSObject.
+     * Draws the enclosed area of the given RSGroundItem.
      *
-     * @param object The object in which to draw.
-     * @param g      Graphics parameter.
+     * @param item The RSGroundItem in which to draw.
+     * @param g    Graphics.
      */
-    public static void drawMinimapObject(final RSObject[] object, Graphics g) {
-        if (object != null && object.length > 0) {
-            Point p = Projection.tileToMinimap(object[0]);
-            if (Projection.isInMinimap(p)) {
-                g.setColor(Color.YELLOW);
-                g.fillOval(p.x, p.y, 10, 10);
-                g.setColor(Color.BLACK);
-                g.drawOval(p.x, p.y, 10, 10);
-            }
-        }
+    public static void drawRSGroundItem(RSGroundItem item, Graphics g) {
+        if (item == null)
+            return;
+
+        if (!item.isOnScreen())
+            return;
+
+        Polygon p = item.getModel().getEnclosedArea();
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillPolygon(p);
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawPolygon(p);
     }
 
     /**
-     * Attempts to draw the polygons of the given RSNPCs.
+     * Draws the enclosed area of the given RSItem.
      *
-     * @param npcs The NPCs in which to draw.
-     * @param g    Graphics parameter.
+     * @param item The RSItem in which to draw.
+     * @param g    Graphics.
      */
-    public static void drawNPCs(final RSNPC[] npcs, Graphics g) {
-        if (npcs != null && npcs.length > 0) {
-            for (RSNPC npc : npcs) {
-                if (npc.isOnScreen()) {
-                    for (Polygon p : npc.getModel().getTriangles()) {
-                        g.setColor(BOLD_WHITE_COLOR);
-                        g.fillPolygon(p);
-                        g.setColor(YELLOW_COLOR);
-                        g.drawPolygon(p);
-                    }
-                }
-            }
-        }
+    public static void drawRSItem(RSItem item, Graphics g) {
+        if (item == null)
+            return;
+
+        if (Inventory.getCount(item.getID()) <= 0)
+            return;
+
+        Rectangle r = item.getArea().getBounds();
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillRect(r.x, r.y, r.width, r.height);
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawRect(r.x, r.y, r.width, r.height);
     }
 
     /**
-     * Attempts to draw the Health of the given RSNPC you're interacting with.
+     * Draws the enclosed area of the given RSTile.
      *
-     * @param npcs The NPCs in which to draw.
-     * @param g    Graphics parameter.
-     * */
-    public static void drawInteractingNPCHealth(final RSNPC[] npcs, Graphics g) {
-        if (npcs != null && npcs.length > 0) {
-            for (RSNPC npc : npcs) {
-                if (npc.isOnScreen()) {
-                    General.println("Running 4");
-                    RSModel model = npc.getModel();
-                    if (model != null) {
-                        General.println("Running 5");
-                        if (npc.isInteractingWithMe()) {
-                            General.println("Running 6");
-                            Point p = model.getCentrePoint();
-                            double x = p.getX() - 35;
-                            double y = p.getY();
-                            g.setColor(BOLD_WHITE_COLOR);
-                            g.fillRoundRect((int)x, (int)y, 80, 15, 5, 5);
-                            g.setColor(BOLDEST_YELLOW_COLOR);
-                            g.drawRoundRect((int)x, (int)y, 80, 15, 5, 5);
-                            g.setColor(TEXT_YELLOW);
-                            g.drawString("Health: " + npc.getHealth() + "/" + npc.getMaxHealth(), (int)x + 5, (int)y + 12);
-                        }
-                    }
-                }
-            }
-        }
+     * @param tile The RSTile in which to draw.
+     * @param g    Graphics.
+     */
+    public static void drawTile(RSTile tile, Graphics g) {
+        if (tile == null)
+            return;
+
+        if (!tile.isOnScreen())
+            return;
+
+        Polygon p = Projection.getTileBoundsPoly(tile, 0);
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillPolygon(p);
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawPolygon(p);
     }
 
     /**
-     * Attempts to draw the polygons of the given RSNPCs.
+     * Draws the enclosed area of the given RSArea.
      *
-     * @param npcs The NPCs in which to draw.
-     * @param g    Graphics parameter.
+     * @param area The RSArea in which to draw.
+     * @param g    Graphics.
      */
-    public static void drawMinimapNPCs(final RSNPC[] npcs, Graphics g) {
-        if (npcs != null && npcs.length > 0) {
-            for (RSNPC npc : npcs) {
-                Point p = Projection.tileToMinimap(npc);
-                if (Projection.isInMinimap(p)) {
-                    g.setColor(Color.YELLOW);
-                    g.fillOval(p.x, p.y, 10, 10);
-                    g.setColor(Color.BLACK);
-                    g.drawOval(p.x, p.y, 10, 10);
-                }
-            }
-        }
-    }
+    public static void drawArea(RSArea area, Graphics g) {
+        if (area == null)
+            return;
 
-    /**
-     * Attempts to draw the polygons of the given RSNPC.
-     *
-     * @param npc The NPC in which to draw.
-     * @param g   Graphics parameter.
-     */
-    public static void drawNPC(final RSNPC[] npc, Graphics g) {
-        if (npc != null && npc.length > 0) {
-            if (npc[0].isOnScreen()) {
-                for (Polygon p : npc[0].getModel().getTriangles()) {
-                    g.setColor(BOLD_WHITE_COLOR);
-                    g.fillPolygon(p);
-                    g.setColor(YELLOW_COLOR);
-                    g.drawPolygon(p);
-                }
-            }
-        }
-    }
-
-    /**
-     * Attempts to draw the polygons of the given RSNPC.
-     *
-     * @param npc The NPC in which to draw.
-     * @param g   Graphics parameter.
-     */
-    public static void drawMinimapNPC(final RSNPC[] npc, Graphics g) {
-        if (npc != null && npc.length > 0) {
-            Point p = Projection.tileToMinimap(npc[0]);
-            if (Projection.isInMinimap(p)) {
-                g.setColor(Color.YELLOW);
-                g.fillOval(p.x, p.y, 10, 10);
-                g.setColor(Color.BLACK);
-                g.drawOval(p.x, p.y, 10, 10);
-            }
-        }
-    }
-
-    /**
-     * Attempts to draw the polygons of the given Tile.
-     *
-     * @param tile The Tile in which to draw.
-     * @param g    Graphics parameter.
-     */
-    public static void drawTile(final RSTile tile, Graphics g) {
-        if (tile != null) {
+        for (RSTile tile : area.getAllTiles()) {
             if (tile.isOnScreen()) {
-                Polygon p = Projection.getTileBoundsPoly(tile, 0);
-                g.setColor(BOLDEST_WHITE_COLOR);
-                g.fillPolygon(p);
-                g.setColor(BOLDEST_YELLOW_COLOR);
-                g.drawPolygon(p);
+                drawTile(tile, g);
             }
         }
     }
 
     /**
-     * Attempts to draw the polygons of the given Tile.
+     * Draws the enclosed area of the given RSTile to the mini-map.
      *
-     * @param tile The Tile in which to draw.
-     * @param g    Graphics parameter.
+     * @param tile The center RSTile.
+     * @param r    The radius of the circle.
+     * @param g    Graphics.
      */
-    public static void drawMinimapTile(final RSTile tile, Graphics g) {
-        if (tile != null) {
-            Point p = Projection.tileToMinimap(tile);
-            if (Projection.isInMinimap(p)) {
-                g.setColor(Color.YELLOW);
-                g.fillOval(p.x, p.y, 10, 10);
-                g.setColor(Color.BLACK);
-                g.drawOval(p.x, p.y, 10, 10);
-            }
-        }
+    public static void drawMinimapArea(RSTile tile, int r, Graphics g) {
+        if (tile == null)
+            return;
+
+        Point point = Projection.tileToMinimap(tile);
+        if (!Projection.isInMinimap(point))
+            return;
+
+        if (r > 15)
+            r = 15;
+
+        r *= 9;
+        int x = point.x - (r / 2);
+        int y = point.y - (r / 2);
+
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillOval(x, y, r, r);
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawOval(x, y, r, r);
     }
 
     /**
-     * Attempts to draw the polygons of the given area.
+     * Draws the target information of the given RSNPC on the screen.
      *
-     * @param area The area in which to draw.
-     * @param g    Graphics parameter.
+     * @param npc The NPCs in which to draw information.
+     * @param g   Graphics.
      */
-    public static void drawArea(final RSArea area, Graphics g) {
-        if (area != null) {
-            if (area.getAllTiles().length > 0) {
-                for (RSTile t : area.getAllTiles()) {
-                    if (t.isOnScreen()) {
-                        Polygon p = Projection.getTileBoundsPoly(t, 0);
-                        g.setColor(BOLDEST_WHITE_COLOR);
-                        g.fillPolygon(p);
-                        g.setColor(BOLDEST_YELLOW_COLOR);
-                        g.drawPolygon(p);
-                    }
-                }
-            }
-        }
+    public static void drawTargetInfo(RSNPC npc, Graphics g) {
+        if (npc == null)
+            return;
+
+        if (!npc.isOnScreen())
+            return;
+
+        RSModel model = npc.getModel();
+        if (model == null)
+            return;
+
+        if (!npc.isInteractingWithMe())
+            return;
+
+        String npcHealth = npc.getHealth() + " / " + npc.getMaxHealth();
+        String npcLevel = "Level: " + npc.getCombatLevel();
+
+        int npcTitleWidth = getStringWidth(npc.getName(), g);
+        int npcHealthWidth = getStringWidth(npcHealth, g);
+        int npcLevelWidth = getStringWidth(npcLevel, g);
+
+        INFO_BOX_W = getBoxWidth(npcTitleWidth);
+
+        if (INFO_BOX_W < 135)
+            INFO_BOX_W = 135;
+
+        int INFO_BOX_TITLE_X = getInfoBoxXCenter(INFO_BOX_W, npcTitleWidth, INFO_BOX_X);
+        int INFO_BOX_LEVEL_X = getInfoBoxXCenter(INFO_BOX_W, npcLevelWidth, INFO_BOX_X);
+        int INFO_BOX_HEALTH_X = getInfoBoxXCenter(INFO_BOX_W, npcHealthWidth, INFO_BOX_X);
+
+        int INFO_BOX_HEALTH_Y = getInfoBoxYCenter(INFO_BOX_H, 2, g.getFontMetrics().getHeight(), INFO_BOX_Y);
+        int INFO_BOX_HEALTH_BAR_Y = getInfoBoxYCenter(INFO_BOX_H, 4, INFO_BOX_H / 3, INFO_BOX_Y);
+
+        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.fillRect(INFO_BOX_X, INFO_BOX_Y, INFO_BOX_W, INFO_BOX_H);
+
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.drawRect(INFO_BOX_X, INFO_BOX_Y, INFO_BOX_W, INFO_BOX_H);
+
+        g.setColor(Color.WHITE);
+        g.drawString(npc.getName(), INFO_BOX_TITLE_X, INFO_BOX_Y + 12);
+        g.drawString(npcLevel, INFO_BOX_LEVEL_X, INFO_BOX_Y + INFO_BOX_H - 2);
+
+        g.setColor(Colors.RED_COLOR.getColor());
+        g.fillRect(INFO_BOX_X + 6, INFO_BOX_HEALTH_BAR_Y, INFO_BOX_W - 12, INFO_BOX_H / 3);
+
+        g.setColor(Color.WHITE);
+        g.drawString(npcHealth, INFO_BOX_HEALTH_X, INFO_BOX_HEALTH_Y);
+
+        g.setColor(Colors.GREEN_COLOR.getColor());
+        g.fillRect(INFO_BOX_X + 6, INFO_BOX_HEALTH_BAR_Y, (npc.getHealth() * INFO_BOX_W) / npc.getMaxHealth() - 12, INFO_BOX_H / 3);
+
+        g.setColor(Color.WHITE);
+        g.drawString(npcHealth, INFO_BOX_HEALTH_X, INFO_BOX_HEALTH_Y);
+
     }
 
     /**
-     * Attempts to draw the polygons of the given area.
+     * Gets the RSNPC info box width.
      *
-     * @param area The area in which to draw.
-     * @param g    Graphics parameter.
+     * @param npcTitleWidth The pixel width of the RSNPC info box title.
+     * @return The RSNPC info box width.
      */
-    public static void drawMinimapArea(final RSArea area, Graphics g) {
-        if (area != null) {
-            if (area.getAllTiles().length > 0) {
-                for (RSTile t : area.getAllTiles()) {
-                    Point p = Projection.tileToMinimap(t);
-                    if (Projection.isInMinimap(p)) {
-                        g.setColor(BOLDEST_WHITE_COLOR);
-                        g.fillOval(p.x, p.y, 5, 5);
-                        g.setColor(BOLDEST_YELLOW_COLOR);
-                        g.drawOval(p.x, p.y, 5, 5);
-                    }
-                }
-            }
-        }
+    private static int getBoxWidth(int npcTitleWidth) {
+        return npcTitleWidth * 3;
+    }
+
+    /**
+     * Gets the width of a String.
+     *
+     * @param text The text to get the width of.
+     * @param g    Graphics.
+     * @return The width of the string.
+     */
+    private static int getStringWidth(String text, Graphics g) {
+        return g.getFontMetrics().stringWidth(text);
+    }
+
+    /**
+     * Gets the center x position of the box width.
+     *
+     * @param boxWidth    The width of the box.
+     * @param objectWidth The width of the object to be centered.
+     * @param boxX        The x position of the box.
+     * @return The center x position of the box width.
+     */
+    private static int getInfoBoxXCenter(int boxWidth, int objectWidth, int boxX) {
+        return (boxWidth - objectWidth) / 2 + boxX;
+    }
+
+    /**
+     * Gets the center y position of the box width.
+     *
+     * @param boxHeight    The height of the box.
+     * @param offset       The offset of the object to be centered.
+     * @param objectHeight The height of the object to be centered.
+     * @param boxY         The y position of the box.
+     * @return The center y position of the box height.
+     */
+    private static int getInfoBoxYCenter(int boxHeight, int offset, int objectHeight, int boxY) {
+        return (boxHeight / offset) + (objectHeight / 4) + boxY;
     }
 
 }
-

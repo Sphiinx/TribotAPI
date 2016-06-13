@@ -1,39 +1,41 @@
-package api.Game.Objects;
+package TribotAPI.game.objects;
 
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api.util.Sorting;
 import org.tribot.api2007.Objects;
 import org.tribot.api2007.PathFinding;
 import org.tribot.api2007.Player;
-import org.tribot.api2007.types.RSObject;
-import org.tribot.api2007.types.RSObjectDefinition;
-import scripts.SPXAIOMiner.antiban.AntiBan;
+import org.tribot.api2007.ext.Filters;
+import org.tribot.api2007.types.*;
 
 /**
  * Created by Sphiinx on 2/14/2016.
+ * Re-written by Sphiinx on 6/11/2016
  */
 public class Objects07 {
 
     /**
-     * Gets the list of actions for the specified object.
+     * Gets the list of actions for the specified RSObject.
      *
      * @return The list of actions.
-     * */
+     */
     public static String[] getActions(RSObject object) {
-        if (object != null) {
-            RSObjectDefinition def = object.getDefinition();
-            if (def != null) {
-                String[] actions = def.getActions();
-                if (actions != null) {
-                    return actions;
-                }
-            }
-        }
-        return new String[0];
+        if (object == null)
+            return null;
+
+        RSObjectDefinition def = object.getDefinition();
+        if (def == null)
+            return null;
+
+        String[] actions = def.getActions();
+        if (actions != null)
+            return actions;
+
+        return null;
     }
 
     /**
-     * Checks if the specified object is valid.
+     * Checks if the specified RSObject is valid.
      *
      * @param object The object to be checked.
      * @param reach  If you can reach the object or not.
@@ -49,49 +51,48 @@ public class Objects07 {
     }
 
     /**
-     * Gets the nearest object with the specified ID.
+     * Gets the nearest RSObject with the specified ID.
      *
-     * @param id The ID of the object.
+     * @param id       The ID of the RSObject.
      * @param distance The specified distance.
-     * @return The nearest object; Null if no objects are found.
+     * @return The nearest RSObject; Null if no RSObject are found.
      */
-    public static RSObject getObject(final int id, final int distance) {
-        RSObject[] objs = Objects.find(distance, id);
-        Sorting.sortByDistance(objs, Player.getPosition(), true);
-        return AntiBan.selectNextTarget(objs);
+    public static RSObject getObject(int id, int distance) {
+        RSObject[] object = Objects.find(distance, Filters.Objects.idEquals(id));
+        Sorting.sortByDistance(object, Player.getPosition(), true);
+        return object.length > 0 ? object[0] : null;
     }
 
     /**
-     * Gets the nearest object with the specified name.
+     * Gets the nearest RSObject with the specified name.
      *
-     * @param name The Name of the object.
+     * @param name     The name of the RSObject.
      * @param distance The specified distance.
-     * @return The nearest object; Null if no objects are found.
+     * @return The nearest RSObject; Null if no RSObjects are found.
      */
     public static RSObject getObject(String name, int distance) {
-        if (name != null) {
-            RSObject[] objs = Objects.find(distance, name);
-            Sorting.sortByDistance(objs, Player.getPosition(), true);
-            return objs.length > 0 ? objs[0] : null;
-        }
-        return null;
+        if (name == null)
+            return null;
+
+        RSObject[] object = Objects.find(distance, Filters.Objects.nameEquals(name));
+        Sorting.sortByDistance(object, Player.getPosition(), true);
+        return object.length > 0 ? object[0] : null;
     }
 
     /**
-     * Gets the nearest object by the specified filter.
+     * Gets the nearest RSObject with the specified filter.
      *
-     * @param filter The filter.
+     * @param filter   The filter.
      * @param distance The specified distance.
-     * @return The nearest object; Null if no objects were found.
+     * @return The nearest RSObject; Null if no RSObjects were found.
      */
     public static RSObject getObject(Filter<RSObject> filter, int distance) {
-        if (filter != null) {
-            RSObject[] objs = Objects.find(distance, filter);
-            Sorting.sortByDistance(objs, Player.getPosition(), true);
-            return objs.length > 0 ? objs[0] : null;
-        }
-        return null;
+        if (filter == null)
+            return null;
+
+        RSObject[] objs = Objects.find(distance, filter);
+        Sorting.sortByDistance(objs, Player.getPosition(), true);
+        return objs.length > 0 ? objs[0] : null;
     }
 
 }
-
