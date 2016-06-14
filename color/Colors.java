@@ -12,14 +12,14 @@ public enum Colors {
     GRAY_COLOR(new Color(26, 24, 24, 75)),
     GREEN_COLOR(new Color(65, 161, 40, 240));
 
-    private final Color color;
+    private final Color COLOR;
 
     Colors(Color color) {
-        this.color = color;
+        this.COLOR = color;
     }
 
-    public Color getColor() {
-        return color;
+    public Color getCOLOR() {
+        return COLOR;
     }
 
 }

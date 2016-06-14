@@ -378,7 +378,7 @@ public final class AntiBan {
     public static boolean mouseMovement() {
         if (getABCUtil().shouldMoveMouse()) {
             if (print_debug) {
-                debug("Printing moved");
+                debug("Logging moved");
             }
             getABCUtil().moveMouse();
             return true;

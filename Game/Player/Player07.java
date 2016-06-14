@@ -95,7 +95,7 @@ public class Player07 {
      * @param name The name of the RSPlayer.
      * @return The nearest RSPlayer. Null if no RSPlayer's were found.
      */
-    public static RSPlayer getRSPlayer(String name) {
+    public static RSPlayer getPlayer(String name) {
         if (name == null)
             return null;
 
@@ -110,7 +110,7 @@ public class Player07 {
      * @param filter The filter.
      * @return The nearest RSplayer. Null if no RSPlayers's were found.
      */
-    public static RSPlayer getRSPlayer(Filter<RSPlayer> filter) {
+    public static RSPlayer getPlayer(Filter<RSPlayer> filter) {
         if (filter == null)
             return null;
 

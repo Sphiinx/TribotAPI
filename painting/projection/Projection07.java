@@ -1,5 +1,6 @@
-package TribotAPI.game.projection;
+package TribotAPI.painting.projection;
 
+import TribotAPI.game.combat.Combat07;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Projection;
 import org.tribot.api2007.types.*;
@@ -14,24 +15,39 @@ import java.awt.*;
 public class Projection07 {
 
     /**
-     * The master x axis for the RSNPC information box.
+     * The master x position for the RSNPC information box.
      */
-    public static final int INFO_BOX_X = 10;
+    private int INFO_BOX_X = 10;
 
     /**
-     * The master y axis for the RSNPC information box.
+     * The master y position for the RSNPC information box.
      */
-    public static final int INFO_BOX_Y = 25;
+    private int INFO_BOX_Y = 25;
 
     /**
      * The master width for the RSNPC information box.
      */
-    public static int INFO_BOX_W = 0;
+    private int INFO_BOX_W = 0;
 
     /**
      * The master height for the RSNPC information box.
      */
-    public static final int INFO_BOX_H = 50;
+    private int INFO_BOX_H = 50;
+
+    /**
+     * The master color for the drawn methods.
+     * */
+    private Color mainColor;
+
+    /**
+     * The offset color for the drawn methods.
+     * */
+    private Color offsetColor;
+
+    public Projection07(Color mainColor, Color offsetColor) {
+        this.mainColor = mainColor;
+        this.offsetColor = offsetColor;
+    }
 
     /**
      * Draws the enclosed area of the given RSObject.
@@ -39,7 +55,7 @@ public class Projection07 {
      * @param object The RSObject in which to draw.
      * @param g      Graphics.
      */
-    public static void drawObject(RSObject object, Graphics g) {
+    public void drawObject(RSObject object, Graphics g) {
         if (object == null)
             return;
 
@@ -47,9 +63,9 @@ public class Projection07 {
             return;
 
         Polygon p = object.getModel().getEnclosedArea();
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillPolygon(p);
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawPolygon(p);
     }
 
@@ -59,7 +75,7 @@ public class Projection07 {
      * @param npc The RSNPC in which to draw.
      * @param g   Graphics.
      */
-    public static void drawNPC(RSNPC npc, Graphics g) {
+    public void drawNPC(RSNPC npc, Graphics g) {
         if (npc == null)
             return;
 
@@ -67,9 +83,9 @@ public class Projection07 {
             return;
 
         Polygon p = npc.getModel().getEnclosedArea();
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillPolygon(p);
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawPolygon(p);
     }
 
@@ -79,7 +95,7 @@ public class Projection07 {
      * @param player The RSPlayer in which to draw.
      * @param g      Graphics.
      */
-    public static void drawRSPlayer(RSPlayer player, Graphics g) {
+    public void drawPlayer(RSPlayer player, Graphics g) {
         if (player == null)
             return;
 
@@ -87,9 +103,9 @@ public class Projection07 {
             return;
 
         Polygon p = player.getModel().getEnclosedArea();
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillPolygon(p);
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawPolygon(p);
     }
 
@@ -99,7 +115,7 @@ public class Projection07 {
      * @param item The RSGroundItem in which to draw.
      * @param g    Graphics.
      */
-    public static void drawRSGroundItem(RSGroundItem item, Graphics g) {
+    public void drawGroundItem(RSGroundItem item, Graphics g) {
         if (item == null)
             return;
 
@@ -107,9 +123,9 @@ public class Projection07 {
             return;
 
         Polygon p = item.getModel().getEnclosedArea();
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillPolygon(p);
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawPolygon(p);
     }
 
@@ -119,7 +135,7 @@ public class Projection07 {
      * @param item The RSItem in which to draw.
      * @param g    Graphics.
      */
-    public static void drawRSItem(RSItem item, Graphics g) {
+    public void drawItem(RSItem item, Graphics g) {
         if (item == null)
             return;
 
@@ -127,9 +143,9 @@ public class Projection07 {
             return;
 
         Rectangle r = item.getArea().getBounds();
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillRect(r.x, r.y, r.width, r.height);
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawRect(r.x, r.y, r.width, r.height);
     }
 
@@ -139,7 +155,7 @@ public class Projection07 {
      * @param tile The RSTile in which to draw.
      * @param g    Graphics.
      */
-    public static void drawTile(RSTile tile, Graphics g) {
+    public void drawTile(RSTile tile, Graphics g) {
         if (tile == null)
             return;
 
@@ -147,9 +163,9 @@ public class Projection07 {
             return;
 
         Polygon p = Projection.getTileBoundsPoly(tile, 0);
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillPolygon(p);
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawPolygon(p);
     }
 
@@ -159,7 +175,7 @@ public class Projection07 {
      * @param area The RSArea in which to draw.
      * @param g    Graphics.
      */
-    public static void drawArea(RSArea area, Graphics g) {
+    public void drawArea(RSArea area, Graphics g) {
         if (area == null)
             return;
 
@@ -177,7 +193,7 @@ public class Projection07 {
      * @param r    The radius of the circle.
      * @param g    Graphics.
      */
-    public static void drawMinimapArea(RSTile tile, int r, Graphics g) {
+    public void drawMinimapArea(RSTile tile, int r, Graphics g) {
         if (tile == null)
             return;
 
@@ -192,9 +208,9 @@ public class Projection07 {
         int x = point.x - (r / 2);
         int y = point.y - (r / 2);
 
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillOval(x, y, r, r);
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawOval(x, y, r, r);
     }
 
@@ -204,7 +220,7 @@ public class Projection07 {
      * @param npc The NPCs in which to draw information.
      * @param g   Graphics.
      */
-    public static void drawTargetInfo(RSNPC npc, Graphics g) {
+    public void drawTargetInfo(RSNPC npc, Graphics g) {
         if (npc == null)
             return;
 
@@ -215,7 +231,7 @@ public class Projection07 {
         if (model == null)
             return;
 
-        if (!npc.isInteractingWithMe())
+        if (!Combat07.isInCombatWithMe(npc))
             return;
 
         String npcHealth = npc.getHealth() + " / " + npc.getMaxHealth();
@@ -237,23 +253,23 @@ public class Projection07 {
         int INFO_BOX_HEALTH_Y = getInfoBoxYCenter(INFO_BOX_H, 2, g.getFontMetrics().getHeight(), INFO_BOX_Y);
         int INFO_BOX_HEALTH_BAR_Y = getInfoBoxYCenter(INFO_BOX_H, 4, INFO_BOX_H / 3, INFO_BOX_Y);
 
-        g.setColor(Colors.GRAY_COLOR.getColor());
+        g.setColor(offsetColor);
         g.fillRect(INFO_BOX_X, INFO_BOX_Y, INFO_BOX_W, INFO_BOX_H);
 
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.drawRect(INFO_BOX_X, INFO_BOX_Y, INFO_BOX_W, INFO_BOX_H);
 
         g.setColor(Color.WHITE);
         g.drawString(npc.getName(), INFO_BOX_TITLE_X, INFO_BOX_Y + 12);
         g.drawString(npcLevel, INFO_BOX_LEVEL_X, INFO_BOX_Y + INFO_BOX_H - 2);
 
-        g.setColor(Colors.RED_COLOR.getColor());
+        g.setColor(mainColor);
         g.fillRect(INFO_BOX_X + 6, INFO_BOX_HEALTH_BAR_Y, INFO_BOX_W - 12, INFO_BOX_H / 3);
 
         g.setColor(Color.WHITE);
         g.drawString(npcHealth, INFO_BOX_HEALTH_X, INFO_BOX_HEALTH_Y);
 
-        g.setColor(Colors.GREEN_COLOR.getColor());
+        g.setColor(Colors.GREEN_COLOR.getCOLOR());
         g.fillRect(INFO_BOX_X + 6, INFO_BOX_HEALTH_BAR_Y, (npc.getHealth() * INFO_BOX_W) / npc.getMaxHealth() - 12, INFO_BOX_H / 3);
 
         g.setColor(Color.WHITE);
@@ -262,12 +278,30 @@ public class Projection07 {
     }
 
     /**
+     * Sets the information master x position and y position.
+     * */
+    public void setInfoBoxPosition(int x, int y) {
+        INFO_BOX_X = 0;
+        INFO_BOX_Y = 0;
+        INFO_BOX_X = x;
+        INFO_BOX_Y = y;
+    }
+
+    /**
+     * Sets the information box master width and height.
+     * */
+    public void setInfoBoxDimensions(int w, int h) {
+        INFO_BOX_W = w;
+        INFO_BOX_H = h;
+    }
+
+    /**
      * Gets the RSNPC info box width.
      *
      * @param npcTitleWidth The pixel width of the RSNPC info box title.
      * @return The RSNPC info box width.
      */
-    private static int getBoxWidth(int npcTitleWidth) {
+    private int getBoxWidth(int npcTitleWidth) {
         return npcTitleWidth * 3;
     }
 
@@ -278,7 +312,7 @@ public class Projection07 {
      * @param g    Graphics.
      * @return The width of the string.
      */
-    private static int getStringWidth(String text, Graphics g) {
+    private int getStringWidth(String text, Graphics g) {
         return g.getFontMetrics().stringWidth(text);
     }
 
@@ -290,7 +324,7 @@ public class Projection07 {
      * @param boxX        The x position of the box.
      * @return The center x position of the box width.
      */
-    private static int getInfoBoxXCenter(int boxWidth, int objectWidth, int boxX) {
+    private int getInfoBoxXCenter(int boxWidth, int objectWidth, int boxX) {
         return (boxWidth - objectWidth) / 2 + boxX;
     }
 
@@ -303,7 +337,7 @@ public class Projection07 {
      * @param boxY         The y position of the box.
      * @return The center y position of the box height.
      */
-    private static int getInfoBoxYCenter(int boxHeight, int offset, int objectHeight, int boxY) {
+    private int getInfoBoxYCenter(int boxHeight, int offset, int objectHeight, int boxY) {
         return (boxHeight / offset) + (objectHeight / 4) + boxY;
     }
 

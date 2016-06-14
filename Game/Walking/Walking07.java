@@ -16,25 +16,9 @@ import java.awt.*;
 public class Walking07 {
 
     /**
-     * Walks to the RSGroundItem via the screen if it's on the mini-map; uses web-walking if it's not.
-     */
-    public static void screenWalkToGroundItem(RSGroundItem item) {
-        Point point = Projection.tileToMinimap(item);
-
-        if (!Projection.isInMinimap(point)) {
-            WebWalking.walkTo(item);
-        } else {
-            RSTile[] path = Walking.generateStraightScreenPath(item.getPosition());
-            if (Walking.walkScreenPath(path)) {
-                Timing07.waitCondition(item::isOnScreen, General.random(1000, 1200));
-            }
-        }
-    }
-
-    /**
      * Walks to the RSObject via the screen if it's on the mini-map; uses web-walking if it's not.
      */
-    public static void screenWalkToObject(RSObject object) {
+    public static void screenWalkToRSObject(RSObject object) {
         Point point = Projection.tileToMinimap(object);
 
         if (!Projection.isInMinimap(point)) {
@@ -48,9 +32,25 @@ public class Walking07 {
     }
 
     /**
+     * Walks to the RSGroundItem via the screen if it's on the mini-map; uses web-walking if it's not.
+     */
+    public static void screenWalkToRSGroundItem(RSGroundItem item) {
+        Point point = Projection.tileToMinimap(item);
+
+        if (!Projection.isInMinimap(point)) {
+            WebWalking.walkTo(item);
+        } else {
+            RSTile[] path = Walking.generateStraightScreenPath(item.getPosition());
+            if (Walking.walkScreenPath(path)) {
+                Timing07.waitCondition(item::isOnScreen, General.random(1000, 1200));
+            }
+        }
+    }
+
+    /**
      * Walks to the RSNPC via the screen if it's on the mini-map; uses web-walking if it's not.
      */
-    public static void screenWalkToNPC(RSNPC npc) {
+    public static void screenWalkToRSNPC(RSNPC npc) {
         Point point = Projection.tileToMinimap(npc);
 
         if (!Projection.isInMinimap(point)) {
@@ -66,7 +66,7 @@ public class Walking07 {
     /**
      * Walks to the RSPlayer via the screen if it's on the mini-map; uses web-walking if it's not.
      */
-    public static void screenWalkToPlayer(RSPlayer player) {
+    public static void screenWalkToRSPlayer(RSPlayer player) {
         Point point = Projection.tileToMinimap(player);
 
         if (!Projection.isInMinimap(point)) {
