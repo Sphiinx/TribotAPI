@@ -1,6 +1,7 @@
 package TribotAPI.painting.projection;
 
 import TribotAPI.game.combat.Combat07;
+import org.tribot.api.General;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Projection;
 import org.tribot.api2007.types.*;
@@ -48,6 +49,7 @@ public class Projection07 {
         this.mainColor = mainColor;
         this.offsetColor = offsetColor;
     }
+
 
     /**
      * Draws the enclosed area of the given RSObject.
@@ -281,8 +283,6 @@ public class Projection07 {
      * Sets the information master x position and y position.
      * */
     public void setInfoBoxPosition(int x, int y) {
-        INFO_BOX_X = 0;
-        INFO_BOX_Y = 0;
         INFO_BOX_X = x;
         INFO_BOX_Y = y;
     }

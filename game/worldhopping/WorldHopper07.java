@@ -1,4 +1,4 @@
-package TribotAPI.game.worldhopper;
+package TribotAPI.game.worldhopping;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
