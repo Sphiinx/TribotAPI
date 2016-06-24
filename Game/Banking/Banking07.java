@@ -1,11 +1,11 @@
-package TribotAPI.game.banking;
+package scripts.TribotAPI.game.banking;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.*;
-import TribotAPI.game.inventory.Inventory07;
-import TribotAPI.game.timing.Timing07;
+import scripts.TribotAPI.game.inventory.Inventory07;
+import scripts.TribotAPI.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 1/10/2016.

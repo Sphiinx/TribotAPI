@@ -1,4 +1,4 @@
-package TribotAPI.game.utiity.enums;
+package scripts.TribotAPI.game.utiity.enums;
 
 /**
  * Created by Sphiinx on 4/5/2016.

@@ -1,4 +1,4 @@
-package TribotAPI.game.chat;
+package scripts.TribotAPI.game.chat;
 
 
 /**

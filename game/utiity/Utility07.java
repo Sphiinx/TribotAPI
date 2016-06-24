@@ -1,4 +1,4 @@
-package TribotAPI.game.utiity;
+package scripts.TribotAPI.game.utiity;
 
 import org.tribot.api.General;
 import org.tribot.api2007.Interfaces;

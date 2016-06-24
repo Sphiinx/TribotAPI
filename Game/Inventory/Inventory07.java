@@ -1,4 +1,4 @@
-package TribotAPI.game.inventory;
+package scripts.TribotAPI.game.inventory;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;
@@ -6,11 +6,9 @@ import org.tribot.api.input.Keyboard;
 import org.tribot.api.input.Mouse;
 import org.tribot.api.types.generic.Condition;
 import org.tribot.api.types.generic.Filter;
-import org.tribot.api.util.Sorting;
 import org.tribot.api2007.*;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSItem;
-import org.tribot.api2007.types.RSObject;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

@@ -1,11 +1,10 @@
-package TribotAPI.painting.projection;
+package scripts.TribotAPI.painting.projection;
 
-import TribotAPI.game.combat.Combat07;
-import org.tribot.api.General;
+import scripts.TribotAPI.game.combat.Combat07;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Projection;
 import org.tribot.api2007.types.*;
-import TribotAPI.color.Colors;
+import scripts.TribotAPI.color.Colors;
 
 import java.awt.*;
 
@@ -281,6 +280,9 @@ public class Projection07 {
 
     /**
      * Sets the information master x position and y position.
+     *
+     * @param x The x position.
+     * @param y The y position.
      * */
     public void setInfoBoxPosition(int x, int y) {
         INFO_BOX_X = x;
@@ -289,6 +291,9 @@ public class Projection07 {
 
     /**
      * Sets the information box master width and height.
+     *
+     * @param w The width.
+     * @param h The height.
      * */
     public void setInfoBoxDimensions(int w, int h) {
         INFO_BOX_W = w;

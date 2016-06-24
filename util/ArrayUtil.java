@@ -1,4 +1,4 @@
-package TribotAPI.util;
+package scripts.TribotAPI.util;
 
 import java.util.Arrays;
 

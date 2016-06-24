@@ -1,4 +1,4 @@
-package TribotAPI.game.timing;
+package scripts.TribotAPI.game.timing;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;

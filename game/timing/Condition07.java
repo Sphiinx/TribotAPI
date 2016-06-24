@@ -1,4 +1,4 @@
-package TribotAPI.game.timing;
+package scripts.TribotAPI.game.timing;
 
 /**
  * Created by Sphiinx on 6/9/2016.

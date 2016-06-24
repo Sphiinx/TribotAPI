@@ -1,4 +1,4 @@
-package TribotAPI.game.combat;
+package scripts.TribotAPI.game.combat;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -6,7 +6,7 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSCharacter;
 import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSNPC;
-import TribotAPI.game.timing.Timing07;
+import scripts.TribotAPI.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 1/10/2016.

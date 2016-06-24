@@ -1,4 +1,4 @@
-package TribotAPI.painting.mouse;
+package scripts.TribotAPI.painting.mouse;
 
 import org.tribot.api.input.Mouse;
 
@@ -27,6 +27,8 @@ public class SPXMouse07 {
 
     /**
      * Draws the SPXMouse to the RS Screen.
+     *
+     * @param g Graphics.
      * */
     public void drawMouse(Graphics g) {
         g.setColor(mainColor);

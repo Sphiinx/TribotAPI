@@ -1,4 +1,4 @@
-package TribotAPI.game.interfaces;
+package scripts.TribotAPI.game.interfaces;
 
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.Interfaces;

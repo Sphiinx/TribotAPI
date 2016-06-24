@@ -1,4 +1,4 @@
-package TribotAPI.game.area;
+package scripts.TribotAPI.game.area;
 
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Players;

@@ -1,4 +1,4 @@
-package TribotAPI.game.objects;
+package scripts.TribotAPI.game.objects;
 
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api.util.Sorting;

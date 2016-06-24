@@ -1,11 +1,11 @@
-package TribotAPI.game.walking;
+package scripts.TribotAPI.game.walking;
 
 import org.tribot.api.General;
 import org.tribot.api2007.Projection;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.*;
-import TribotAPI.game.timing.Timing07;
+import scripts.TribotAPI.game.timing.Timing07;
 
 import java.awt.*;
 

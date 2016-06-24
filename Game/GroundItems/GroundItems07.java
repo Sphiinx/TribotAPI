@@ -1,4 +1,4 @@
-package TribotAPI.game.grounditems;
+package scripts.TribotAPI.game.grounditems;
 
 import org.tribot.api.General;
 import org.tribot.api.types.generic.Filter;
@@ -7,7 +7,7 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
-import TribotAPI.game.timing.Timing07;
+import scripts.TribotAPI.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 1/10/2016.

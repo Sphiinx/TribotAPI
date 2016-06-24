@@ -1,4 +1,4 @@
-package TribotAPI.game.banking;
+package scripts.TribotAPI.game.banking;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -7,9 +7,9 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSItem;
 import org.tribot.api2007.types.RSObject;
-import TribotAPI.game.interfaces.Interfaces07;
-import TribotAPI.antiban.AntiBan;
-import TribotAPI.game.timing.Timing07;
+import scripts.TribotAPI.game.interfaces.Interfaces07;
+import scripts.TribotAPI.antiban.AntiBan;
+import scripts.TribotAPI.game.timing.Timing07;
 
 
 /**

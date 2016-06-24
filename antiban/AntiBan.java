@@ -1,4 +1,4 @@
-package TribotAPI.antiban;
+package scripts.TribotAPI.antiban;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -10,11 +10,11 @@ import org.tribot.api.util.abc.ABCProperties;
 import org.tribot.api.util.abc.ABCUtil;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.*;
-import TribotAPI.game.entities.Entities07;
-import TribotAPI.game.items.Items07;
-import TribotAPI.game.mouse.Mouse07;
-import TribotAPI.game.npcs.NPCs07;
-import TribotAPI.game.objects.Objects07;
+import scripts.TribotAPI.game.entities.Entities07;
+import scripts.TribotAPI.game.items.Items07;
+import scripts.TribotAPI.game.mouse.Mouse07;
+import scripts.TribotAPI.game.npcs.NPCs07;
+import scripts.TribotAPI.game.objects.Objects07;
 
 /**
  * Created by Sphiinx on 2/14/2016.

@@ -1,4 +1,4 @@
-package TribotAPI.game.items;
+package scripts.TribotAPI.game.items;
 
 import org.tribot.api2007.types.RSItem;
 import org.tribot.api2007.types.RSItemDefinition;
