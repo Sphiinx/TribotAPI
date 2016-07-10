@@ -1,10 +1,14 @@
 package scripts.TribotAPI.painting.projection;
 
+import org.tribot.api.General;
+import org.tribot.api2007.Interfaces;
 import scripts.TribotAPI.game.combat.Combat07;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Projection;
 import org.tribot.api2007.types.*;
 import scripts.TribotAPI.color.Colors;
+import scripts.TribotAPI.game.entities.Entities07;
+import scripts.TribotAPI.game.player.Player07;
 
 import java.awt.*;
 
@@ -15,38 +19,48 @@ import java.awt.*;
 public class Projection07 {
 
     /**
+     * The master interface for the friends list.
+     */
+    private final int FRIENDS_LIST_INTERFACE = 429;
+
+    /**
+     * The master child interface for the friends list.
+     */
+    private final int FRIENDS_LIST_INTERFACE_CHILD = 3;
+
+    /**
      * The master x position for the RSNPC information box.
      */
-    private int INFO_BOX_X = 10;
+    private int info_box_x = 10;
 
     /**
      * The master y position for the RSNPC information box.
      */
-    private int INFO_BOX_Y = 25;
+    private int info_box_y = 25;
 
     /**
      * The master width for the RSNPC information box.
      */
-    private int INFO_BOX_W = 0;
+    private int info_box_w = 0;
 
     /**
      * The master height for the RSNPC information box.
      */
-    private int INFO_BOX_H = 50;
+    private int info_box_h = 50;
 
     /**
      * The master color for the drawn methods.
-     * */
-    private Color mainColor;
+     */
+    private Color main_color;
 
     /**
      * The offset color for the drawn methods.
-     * */
-    private Color offsetColor;
+     */
+    private Color offset_color;
 
-    public Projection07(Color mainColor, Color offsetColor) {
-        this.mainColor = mainColor;
-        this.offsetColor = offsetColor;
+    public Projection07(Color main_color, Color offset_color) {
+        this.main_color = main_color;
+        this.offset_color = offset_color;
     }
 
 
@@ -63,11 +77,11 @@ public class Projection07 {
         if (!object.isOnScreen())
             return;
 
-        Polygon p = object.getModel().getEnclosedArea();
-        g.setColor(offsetColor);
-        g.fillPolygon(p);
-        g.setColor(mainColor);
-        g.drawPolygon(p);
+        final Polygon area = Entities07.getModelArea(object.getModel());
+        g.setColor(offset_color);
+        g.fillPolygon(area);
+        g.setColor(main_color);
+        g.drawPolygon(area);
     }
 
     /**
@@ -83,11 +97,11 @@ public class Projection07 {
         if (!npc.isOnScreen())
             return;
 
-        Polygon p = npc.getModel().getEnclosedArea();
-        g.setColor(offsetColor);
-        g.fillPolygon(p);
-        g.setColor(mainColor);
-        g.drawPolygon(p);
+        final Polygon area = Entities07.getModelArea(npc.getModel());
+        g.setColor(offset_color);
+        g.fillPolygon(area);
+        g.setColor(main_color);
+        g.drawPolygon(area);
     }
 
     /**
@@ -103,11 +117,43 @@ public class Projection07 {
         if (!player.isOnScreen())
             return;
 
-        Polygon p = player.getModel().getEnclosedArea();
-        g.setColor(offsetColor);
-        g.fillPolygon(p);
-        g.setColor(mainColor);
-        g.drawPolygon(p);
+        final Polygon area = Entities07.getModelArea(player.getModel());
+        g.setColor(offset_color);
+        g.fillPolygon(area);
+        g.setColor(main_color);
+        g.drawPolygon(area);
+    }
+
+    /**
+     * Draws all the players names who are on our friends list in the area or on the mini-map.
+     *
+     * @param g Graphics.
+     */
+    public void drawFriendFinder(Graphics g) {
+        RSInterface friends_list = Interfaces.get(FRIENDS_LIST_INTERFACE, FRIENDS_LIST_INTERFACE_CHILD);
+        if (friends_list == null)
+            return;
+
+        for (int i = 0; i <= 401; i++) {
+            RSInterface friends_list_component = friends_list.getChild(i);
+            if (friends_list_component == null)
+                return;
+
+            if (!friends_list_component.getText().contains("World") && !friends_list_component.getText().contains("Offline")) {
+                RSPlayer player = Player07.getPlayer(friends_list_component.getText());
+
+                if (player != null) {
+                    g.setColor(Color.GREEN);
+                    Point player_body = player.getModel().getCentrePoint();
+                    Point player_minimap = Projection.tileToMinimap(player);
+                    if (Projection.isInMinimap(player_minimap))
+                        g.drawString(player.getName(), player_minimap.x, player_minimap.y);
+
+                    if (player.isOnScreen())
+                        g.drawString(player.getName(), player_body.x, player_body.y);
+                }
+            }
+        }
     }
 
     /**
@@ -123,11 +169,11 @@ public class Projection07 {
         if (!item.isOnScreen())
             return;
 
-        Polygon p = item.getModel().getEnclosedArea();
-        g.setColor(offsetColor);
-        g.fillPolygon(p);
-        g.setColor(mainColor);
-        g.drawPolygon(p);
+        final Polygon area = Entities07.getModelArea(item.getModel());
+        g.setColor(offset_color);
+        g.fillPolygon(area);
+        g.setColor(main_color);
+        g.drawPolygon(area);
     }
 
     /**
@@ -144,9 +190,9 @@ public class Projection07 {
             return;
 
         Rectangle r = item.getArea().getBounds();
-        g.setColor(offsetColor);
+        g.setColor(offset_color);
         g.fillRect(r.x, r.y, r.width, r.height);
-        g.setColor(mainColor);
+        g.setColor(main_color);
         g.drawRect(r.x, r.y, r.width, r.height);
     }
 
@@ -164,9 +210,9 @@ public class Projection07 {
             return;
 
         Polygon p = Projection.getTileBoundsPoly(tile, 0);
-        g.setColor(offsetColor);
+        g.setColor(offset_color);
         g.fillPolygon(p);
-        g.setColor(mainColor);
+        g.setColor(main_color);
         g.drawPolygon(p);
     }
 
@@ -209,10 +255,74 @@ public class Projection07 {
         int x = point.x - (r / 2);
         int y = point.y - (r / 2);
 
-        g.setColor(offsetColor);
+        g.setColor(offset_color);
         g.fillOval(x, y, r, r);
-        g.setColor(mainColor);
+        g.setColor(main_color);
         g.drawOval(x, y, r, r);
+    }
+
+    /**
+     * Draws the target information of the given RSplayer on the screen.
+     *
+     * @param player_name The RSPlayer's name in which to draw information.
+     * @param g      Graphics.
+     */
+    public void drawTargetInfo(String player_name, Graphics g) {
+        RSPlayer player = Player07.getPlayer(player_name);
+        if (player == null)
+            return;
+
+        if (!player.isOnScreen())
+            return;
+
+        RSModel model = player.getModel();
+        if (model == null)
+            return;
+
+        if (!Combat07.isInCombatWithMe(player))
+            return;
+
+        String playerHealth = player.getHealth() + " / " + player.getMaxHealth();
+        String playerLevel = "Level: " + player.getCombatLevel();
+
+        int playerTitleWidth = getStringWidth(player.getName(), g);
+        int playerHealthWidth = getStringWidth(playerHealth, g);
+        int playerLevelWidth = getStringWidth(playerLevel, g);
+
+        info_box_w = getBoxWidth(playerTitleWidth);
+
+        if (info_box_w < 135)
+            info_box_w = 135;
+
+        int INFO_BOX_TITLE_X = getInfoBoxXCenter(info_box_w, playerTitleWidth, info_box_x);
+        int INFO_BOX_LEVEL_X = getInfoBoxXCenter(info_box_w, playerLevelWidth, info_box_x);
+        int INFO_BOX_HEALTH_X = getInfoBoxXCenter(info_box_w, playerHealthWidth, info_box_x);
+
+        int INFO_BOX_HEALTH_Y = getInfoBoxYCenter(info_box_h, 2, g.getFontMetrics().getHeight(), info_box_y);
+        int INFO_BOX_HEALTH_BAR_Y = getInfoBoxYCenter(info_box_h, 4, info_box_h / 3, info_box_y);
+
+        g.setColor(offset_color);
+        g.fillRect(info_box_x, info_box_y, info_box_w, info_box_h);
+
+        g.setColor(main_color);
+        g.drawRect(info_box_x, info_box_y, info_box_w, info_box_h);
+
+        g.setColor(Colors.WHITE_COLOR.getCOLOR());
+        g.drawString(player.getName(), INFO_BOX_TITLE_X, info_box_y + 12);
+        g.drawString(playerLevel, INFO_BOX_LEVEL_X, info_box_y + info_box_h - 2);
+
+        g.setColor(main_color);
+        g.fillRect(info_box_x + 6, INFO_BOX_HEALTH_BAR_Y, info_box_w - 12, info_box_h / 3);
+
+        g.setColor(Colors.WHITE_COLOR.getCOLOR());
+        g.drawString(playerHealth, INFO_BOX_HEALTH_X, INFO_BOX_HEALTH_Y);
+
+        g.setColor(Colors.GREEN_COLOR.getCOLOR());
+        g.fillRect(info_box_x + 6, INFO_BOX_HEALTH_BAR_Y, (player.getHealth() * info_box_w) / player.getMaxHealth() - 12, info_box_h / 3);
+
+        g.setColor(Colors.WHITE_COLOR.getCOLOR());
+        g.drawString(playerHealth, INFO_BOX_HEALTH_X, INFO_BOX_HEALTH_Y);
+
     }
 
     /**
@@ -242,38 +352,38 @@ public class Projection07 {
         int npcHealthWidth = getStringWidth(npcHealth, g);
         int npcLevelWidth = getStringWidth(npcLevel, g);
 
-        INFO_BOX_W = getBoxWidth(npcTitleWidth);
+        info_box_w = getBoxWidth(npcTitleWidth);
 
-        if (INFO_BOX_W < 135)
-            INFO_BOX_W = 135;
+        if (info_box_w < 135)
+            info_box_w = 135;
 
-        int INFO_BOX_TITLE_X = getInfoBoxXCenter(INFO_BOX_W, npcTitleWidth, INFO_BOX_X);
-        int INFO_BOX_LEVEL_X = getInfoBoxXCenter(INFO_BOX_W, npcLevelWidth, INFO_BOX_X);
-        int INFO_BOX_HEALTH_X = getInfoBoxXCenter(INFO_BOX_W, npcHealthWidth, INFO_BOX_X);
+        int INFO_BOX_TITLE_X = getInfoBoxXCenter(info_box_w, npcTitleWidth, info_box_x);
+        int INFO_BOX_LEVEL_X = getInfoBoxXCenter(info_box_w, npcLevelWidth, info_box_x);
+        int INFO_BOX_HEALTH_X = getInfoBoxXCenter(info_box_w, npcHealthWidth, info_box_x);
 
-        int INFO_BOX_HEALTH_Y = getInfoBoxYCenter(INFO_BOX_H, 2, g.getFontMetrics().getHeight(), INFO_BOX_Y);
-        int INFO_BOX_HEALTH_BAR_Y = getInfoBoxYCenter(INFO_BOX_H, 4, INFO_BOX_H / 3, INFO_BOX_Y);
+        int INFO_BOX_HEALTH_Y = getInfoBoxYCenter(info_box_h, 2, g.getFontMetrics().getHeight(), info_box_y);
+        int INFO_BOX_HEALTH_BAR_Y = getInfoBoxYCenter(info_box_h, 4, info_box_h / 3, info_box_y);
 
-        g.setColor(offsetColor);
-        g.fillRect(INFO_BOX_X, INFO_BOX_Y, INFO_BOX_W, INFO_BOX_H);
+        g.setColor(offset_color);
+        g.fillRect(info_box_x, info_box_y, info_box_w, info_box_h);
 
-        g.setColor(mainColor);
-        g.drawRect(INFO_BOX_X, INFO_BOX_Y, INFO_BOX_W, INFO_BOX_H);
+        g.setColor(main_color);
+        g.drawRect(info_box_x, info_box_y, info_box_w, info_box_h);
 
-        g.setColor(Color.WHITE);
-        g.drawString(npc.getName(), INFO_BOX_TITLE_X, INFO_BOX_Y + 12);
-        g.drawString(npcLevel, INFO_BOX_LEVEL_X, INFO_BOX_Y + INFO_BOX_H - 2);
+        g.setColor(Colors.WHITE_COLOR.getCOLOR());
+        g.drawString(npc.getName(), INFO_BOX_TITLE_X, info_box_y + 12);
+        g.drawString(npcLevel, INFO_BOX_LEVEL_X, info_box_y + info_box_h - 2);
 
-        g.setColor(mainColor);
-        g.fillRect(INFO_BOX_X + 6, INFO_BOX_HEALTH_BAR_Y, INFO_BOX_W - 12, INFO_BOX_H / 3);
+        g.setColor(main_color);
+        g.fillRect(info_box_x + 6, INFO_BOX_HEALTH_BAR_Y, info_box_w - 12, info_box_h / 3);
 
-        g.setColor(Color.WHITE);
+        g.setColor(Colors.WHITE_COLOR.getCOLOR());
         g.drawString(npcHealth, INFO_BOX_HEALTH_X, INFO_BOX_HEALTH_Y);
 
         g.setColor(Colors.GREEN_COLOR.getCOLOR());
-        g.fillRect(INFO_BOX_X + 6, INFO_BOX_HEALTH_BAR_Y, (npc.getHealth() * INFO_BOX_W) / npc.getMaxHealth() - 12, INFO_BOX_H / 3);
+        g.fillRect(info_box_x + 6, INFO_BOX_HEALTH_BAR_Y, (npc.getHealth() * info_box_w) / npc.getMaxHealth() - 12, info_box_h / 3);
 
-        g.setColor(Color.WHITE);
+        g.setColor(Colors.WHITE_COLOR.getCOLOR());
         g.drawString(npcHealth, INFO_BOX_HEALTH_X, INFO_BOX_HEALTH_Y);
 
     }
@@ -283,10 +393,10 @@ public class Projection07 {
      *
      * @param x The x position.
      * @param y The y position.
-     * */
+     */
     public void setInfoBoxPosition(int x, int y) {
-        INFO_BOX_X = x;
-        INFO_BOX_Y = y;
+        info_box_x = x;
+        info_box_y = y;
     }
 
     /**
@@ -294,10 +404,10 @@ public class Projection07 {
      *
      * @param w The width.
      * @param h The height.
-     * */
+     */
     public void setInfoBoxDimensions(int w, int h) {
-        INFO_BOX_W = w;
-        INFO_BOX_H = h;
+        info_box_w = w;
+        info_box_h = h;
     }
 
     /**

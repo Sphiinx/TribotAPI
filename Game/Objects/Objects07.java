@@ -10,7 +10,7 @@ import org.tribot.api2007.types.*;
 
 /**
  * Created by Sphiinx on 2/14/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Objects07 {
 
@@ -23,11 +23,11 @@ public class Objects07 {
         if (object == null)
             return null;
 
-        RSObjectDefinition def = object.getDefinition();
+        final RSObjectDefinition def = object.getDefinition();
         if (def == null)
             return null;
 
-        String[] actions = def.getActions();
+        final String[] actions = def.getActions();
         if (actions != null)
             return actions;
 
@@ -47,34 +47,35 @@ public class Objects07 {
                 return false;
             }
         }
+
         return object != null && object.isOnScreen() && object.isClickable();
     }
 
     /**
-     * Gets the nearest RSObject with the specified ID.
+     * Gets the nearest RSObject with the specified IDs.
      *
-     * @param id       The ID of the RSObject.
      * @param distance The specified distance.
-     * @return The nearest RSObject; Null if no RSObject are found.
+     * @param id       The IDs of the RSObjects.
+     * @return The nearest RSObject; Null if no RSObjects are found.
      */
-    public static RSObject getObject(int id, int distance) {
-        RSObject[] object = Objects.find(distance, Filters.Objects.idEquals(id));
+    public static RSObject getObject(int distance, int... id) {
+        final RSObject[] object = Objects.find(distance, Filters.Objects.idEquals(id));
         Sorting.sortByDistance(object, Player.getPosition(), true);
         return object.length > 0 ? object[0] : null;
     }
 
     /**
-     * Gets the nearest RSObject with the specified name.
+     * Gets the nearest RSObject with the specified names.
      *
-     * @param name     The name of the RSObject.
      * @param distance The specified distance.
+     * @param name     The names of the RSObjects.
      * @return The nearest RSObject; Null if no RSObjects are found.
      */
-    public static RSObject getObject(String name, int distance) {
+    public static RSObject getObject(int distance, String... name) {
         if (name == null)
             return null;
 
-        RSObject[] object = Objects.find(distance, Filters.Objects.nameEquals(name));
+        final RSObject[] object = Objects.find(distance, Filters.Objects.nameEquals(name));
         Sorting.sortByDistance(object, Player.getPosition(), true);
         return object.length > 0 ? object[0] : null;
     }
@@ -90,7 +91,7 @@ public class Objects07 {
         if (filter == null)
             return null;
 
-        RSObject[] objs = Objects.find(distance, filter);
+        final RSObject[] objs = Objects.find(distance, filter);
         Sorting.sortByDistance(objs, Player.getPosition(), true);
         return objs.length > 0 ? objs[0] : null;
     }

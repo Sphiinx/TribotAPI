@@ -1,6 +1,5 @@
 package scripts.TribotAPI.painting.paint;
 
-import org.tribot.api.General;
 import scripts.TribotAPI.color.Colors;
 import scripts.TribotAPI.font.Fonts;
 import scripts.TribotAPI.painting.paint.enums.Position;
@@ -10,17 +9,22 @@ import java.awt.*;
 /**
  * Created by Sphiinx on 6/22/2016.
  */
-public class PaintHandler {
+public class PaintManager {
 
     /**
-     * The master x position for the background.
+     * The rendering hints for antialiasing.
      */
-    private int BACKGROUND_X = 8;
+    private final RenderingHints ANTIALIASING = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
     /**
-     * The master y position for the background.
+     * The master x position for the paint background.
      */
-    private int BACKGROUND_Y = 345;
+    private int paint_background_x = 8;
+
+    /**
+     * The master y position for the paint background.
+     */
+    private int paint_background_y = 345;
 
     /**
      * The master width for the background.
@@ -35,12 +39,12 @@ public class PaintHandler {
     /**
      * The master x position for the script title.
      */
-    private int SCRIPT_TITLE_X = BACKGROUND_X + 7;
+    private int script_title_x = paint_background_x + 7;
 
     /**
      * The master y position for the script title.
      */
-    private int SCRIPT_TITLE_Y = BACKGROUND_Y + 22;
+    private int script_title_y = paint_background_y + 22;
 
     /**
      * The master padding for the script version.
@@ -72,9 +76,31 @@ public class PaintHandler {
      */
     private String scriptVersion = "";
 
-    public PaintHandler(String scriptTitle, String scriptVersion) {
+    public PaintManager(String scriptTitle, String scriptVersion) {
         this.scriptTitle = scriptTitle;
         this.scriptVersion = scriptVersion;
+    }
+
+    /**
+     * Draws the paint background, title, and version and sets the paint to use anti aliasing.
+     *
+     * @param g Graphics.
+     */
+    public void drawGeneralData(Graphics g) {
+        useAntialiasing(g);
+        drawPaintBackground(g);
+        drawScriptTitle(g);
+        drawScriptVersion(g);
+    }
+
+    /**
+     * Sets the rendering hints to use antialiasing.
+     *
+     * @param g Graphics.
+     */
+    public void useAntialiasing(Graphics g) {
+        Graphics2D g1 = (Graphics2D) g;
+        g1.setRenderingHints(ANTIALIASING);
     }
 
     /**
@@ -84,8 +110,8 @@ public class PaintHandler {
      */
     public void drawPaintBackground(Graphics g) {
         g.setColor(Colors.DARK_GRAY_COLOR.getCOLOR());
-        g.drawRect(BACKGROUND_X, BACKGROUND_Y, BACKGROUND_W, BACKGROUND_H);
-        g.fillRect(BACKGROUND_X, BACKGROUND_Y, BACKGROUND_W, BACKGROUND_H);
+        g.drawRect(paint_background_x, paint_background_y, BACKGROUND_W, BACKGROUND_H);
+        g.fillRect(paint_background_x, paint_background_y, BACKGROUND_W, BACKGROUND_H);
     }
 
     /**
@@ -96,7 +122,7 @@ public class PaintHandler {
     public void drawScriptTitle(Graphics g) {
         g.setColor(Colors.WHITE_COLOR.getCOLOR());
         g.setFont(Fonts.PAINT_TITLE_FONT.getFont());
-        g.drawString(scriptTitle, SCRIPT_TITLE_X, SCRIPT_TITLE_Y);
+        g.drawString(scriptTitle, script_title_x, script_title_y);
     }
 
     /**
@@ -105,30 +131,30 @@ public class PaintHandler {
      * @param g Graphics.
      */
     public void drawScriptVersion(Graphics g) {
-        final int VERSION_X = SCRIPT_TITLE_X + getTextLength(scriptTitle, g) + SCRIPT_VERSION_X_PADDING;
+        final int VERSION_X = script_title_x + getTextLength(scriptTitle, g) + SCRIPT_VERSION_X_PADDING;
         g.setColor(Colors.LIGHT_RED_COLOR.getCOLOR());
         g.setFont(Fonts.PAINT_VERSION_FONT.getFont());
-        g.drawString(scriptVersion, VERSION_X, SCRIPT_TITLE_Y);
+        g.drawString(scriptVersion, VERSION_X, script_title_y);
     }
 
     /**
      * Draws the paint info boxes
      *
-     * @param infoTitle The info title for the box.
+     * @param infoTitle   The info title for the box.
      * @param calculation The calculation for the box.
-     * @param pos       The position for the info box.
-     * @param g         Graphics.
+     * @param pos         The position for the info box.
+     * @param g           Graphics.
      */
     public void drawInfo(String infoTitle, String calculation, Position pos, Graphics g) {
         g.setFont(Fonts.PAINT_INFO_FONT.getFont());
         final int BOX_W = SCRIPT_INFO_X_PADDING + SCRIPT_INFO_BOX_PADDING + getTextLength(infoTitle + calculation, g);
         g.setColor(Colors.DARK_GRAY_COLOR.getCOLOR());
-        g.drawRect(pos.getX() + BACKGROUND_X, pos.getY() + BACKGROUND_Y, BOX_W, pos.getHeight());
+        g.drawRect(pos.getX() + paint_background_x, pos.getY() + paint_background_y, BOX_W, pos.getHeight());
         g.setColor(Colors.LIGHT_GRAY_COLOR.getCOLOR());
-        g.fillRect(pos.getX() + BACKGROUND_X, pos.getY() + BACKGROUND_Y, BOX_W, pos.getHeight());
+        g.fillRect(pos.getX() + paint_background_x, pos.getY() + paint_background_y, BOX_W, pos.getHeight());
 
-        final int INFO_X = pos.getX() + BACKGROUND_X + SCRIPT_INFO_X_PADDING;
-        final int INFO_Y = pos.getY() + BACKGROUND_Y + SCRIPT_INFO_Y_PADDING;
+        final int INFO_X = pos.getX() + paint_background_x + SCRIPT_INFO_X_PADDING;
+        final int INFO_Y = pos.getY() + paint_background_y + SCRIPT_INFO_Y_PADDING;
         g.setColor(Colors.LIGHT_RED_COLOR.getCOLOR());
         g.drawString(infoTitle, INFO_X, INFO_Y);
         g.setColor(Colors.WHITE_COLOR.getCOLOR());
@@ -140,12 +166,12 @@ public class PaintHandler {
      *
      * @param x The x position.
      * @param y The y position.
-     * */
+     */
     public void setPaintPosition(int x, int y) {
-        BACKGROUND_X = x;
-        BACKGROUND_Y = y;
-        SCRIPT_TITLE_X = BACKGROUND_X + 7;
-        SCRIPT_TITLE_Y = BACKGROUND_Y + 22;
+        paint_background_x = x;
+        paint_background_y = y;
+        script_title_x = paint_background_x + 7;
+        script_title_y = paint_background_y + 2;
     }
 
     /**

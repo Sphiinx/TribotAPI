@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.utiity;
+package scripts.TribotAPI.game.worldswitcher;
 
 import org.tribot.api.General;
 import org.tribot.api2007.GameTab;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Sphiinx on 4/5/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
-public class GetWorlds07 {
+public class GetSwitcherWorlds07 {
 
     /**
      * The master index for the world switcher interface.
@@ -43,16 +43,13 @@ public class GetWorlds07 {
     public static boolean openWorldSwitcher() {
         if (!GameTab.TABS.LOGOUT.isOpen())
             if (GameTab.TABS.LOGOUT.open())
-                Timing07.waitCondition(GameTab.TABS.LOGOUT::isOpen, General.random(1000, 1200));
+                Timing07.waitCondition(GameTab.TABS.LOGOUT::isOpen, General.random(1500, 2000));
 
-        RSInterface worldSwitcherButton = Interfaces.get(LOGOUT_INTERFACE, WORLD_SWITCHER_BUTTON_INTERFACE);
+        final RSInterface worldSwitcherButton = Interfaces.get(LOGOUT_INTERFACE, WORLD_SWITCHER_BUTTON_INTERFACE);
         if (worldSwitcherButton == null)
             return false;
 
-        if (worldSwitcherButton.click("World Switcher"))
-            return Timing07.waitCondition(GetWorlds07::isWorldSwitcherOpen, General.random(1000, 1200));
-
-        return false;
+        return worldSwitcherButton.click("World Switcher");
     }
 
     /**
@@ -61,7 +58,7 @@ public class GetWorlds07 {
      * @return True if it's open; false otherwise.
      */
     public static boolean isWorldSwitcherOpen() {
-        RSInterface worldSwitcher = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE);
+        final RSInterface worldSwitcher = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE);
         return worldSwitcher != null;
     }
 
@@ -72,21 +69,21 @@ public class GetWorlds07 {
      * @return An Int Array with the worlds for the specified type.
      */
     public static int[] getWorlds(int TEXTURE_ID) {
-        ArrayList<Integer> worlds = new ArrayList<>();
+        final ArrayList<Integer> worlds = new ArrayList<>();
         if (!isWorldSwitcherOpen())
             return null;
 
         for (int i = 2; i < 419; i += 6) {
-            RSInterface world = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i);
+            final RSInterface world = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i);
             if (world == null)
                 return null;
 
-            RSInterface worldTexture = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i - 1);
+            final RSInterface worldTexture = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i - 1);
             if (worldTexture == null)
                 return null;
 
             if (worldTexture.getTextureID() == TEXTURE_ID) {
-                int worldNumber = Integer.parseInt(world.getText());
+                final int worldNumber = Integer.parseInt(world.getText());
                 worlds.add(worldNumber);
             }
         }

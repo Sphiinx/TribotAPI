@@ -10,33 +10,53 @@ import java.util.Arrays;
 
 /**
  * Created by Sphiinx on 1/10/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Interfaces07 {
+
+    /**
+     * Gets all of the RSInterfaces that match the specified text.
+     *
+     * @param text The text.
+     * @return Array of RSInterfaces that match the text.
+     */
+    public static RSInterface[] find(String text) {
+        final Filter<RSInterface> filter = new Filter<RSInterface>() {
+            @Override
+            public boolean accept(RSInterface rs_interface) {
+                return rs_interface != null && rs_interface.getText().equals(text);
+            }
+        };
+
+        return matches(filter, Interfaces.getAll());
+    }
 
     /**
      * Gets all of the RSInterfaces that match the specified filter.
      *
      * @param filter The filter.
-     * @Return Array of RSInterfaces that match the filter.
+     * @return Array of RSInterfaces that match the filter.
      */
     public static RSInterface[] find(Filter<RSInterface> filter) {
         return matches(filter, Interfaces.getAll());
     }
 
+    /**
+     * Gets all the matching interfaces of the filter.
+     *
+     * @param filter     The filter.
+     * @param interfaces The array of interfaces.
+     */
     private static RSInterface[] matches(Filter<RSInterface> filter, RSInterface[] interfaces) {
-        ArrayList<RSInterface> matches = new ArrayList<>();
-
+        final ArrayList<RSInterface> matches = new ArrayList<>();
         for (RSInterface i : interfaces) {
             if (i != null) {
-                if (filter.accept(i)) {
+                if (filter.accept(i))
                     matches.add(i);
-                }
 
-                RSInterface[] children = i.getChildren();
-                if (children != null) {
+                final RSInterface[] children = i.getChildren();
+                if (children != null)
                     matches.addAll(Arrays.asList(matches(filter, children)));
-                }
             }
         }
 
@@ -44,7 +64,7 @@ public class Interfaces07 {
     }
 
     /**
-     * Checks to if the select option interface is open.
+     * Checks to if the chat select option interface is open.
      *
      * @return True if is is; false otherwise.
      */
@@ -53,18 +73,12 @@ public class Interfaces07 {
     }
 
     /**
-     * Checks to if the enter amount menu is open.
+     * Checks to if the chat enter amount menu is open.
      *
      * @return True if it is; false otherwise.
      */
     public static boolean isEnterAmountMenuUp() {
-        RSInterface[] interfaces = find(new Filter<RSInterface>() {
-            @Override
-            public boolean accept(RSInterface rsInterface) {
-                return rsInterface.getText().equals("Enter amount:");
-            }
-        });
-
+        final RSInterface[] interfaces = find("Enter amount:");
         return interfaces.length > 0;
     }
 

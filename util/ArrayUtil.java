@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * Created by Sphiinx on 2/16/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class ArrayUtil {
 

@@ -8,7 +8,7 @@ import scripts.TribotAPI.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 2/14/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Mouse07 {
 
@@ -24,10 +24,8 @@ public class Mouse07 {
         if (!ChooseOption.isOpen())
             Mouse.click(3);
 
-        if (Timing07.waitCondition(ChooseOption::isOpen, General.random(1000, 1200))) {
-            if (ChooseOption.select("Cancel")) {
-                return true;
-            }
+        if (Timing07.waitCondition(ChooseOption::isOpen, General.random(1500, 2000))) {
+            return ChooseOption.select("Cancel");
         }
 
         return false;

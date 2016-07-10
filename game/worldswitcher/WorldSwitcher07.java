@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.worldhopping;
+package scripts.TribotAPI.game.worldswitcher;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -10,6 +10,7 @@ import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSInterfaceChild;
 import org.tribot.api2007.types.RSInterfaceComponent;
 import org.tribot.api2007.types.RSItem;
+import scripts.TribotAPI.game.game.Game07;
 import scripts.TribotAPI.game.utiity.Utility07;
 
 import java.awt.*;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 /**
  * Created by Sphiinx on 1/10/2016.
  */
-public class WorldHopper07 {
+public class WorldSwitcher07 {
 
     private static final HashMap<Integer, Integer> CACHE = new HashMap<>();
     private static final int WORLD_SWITCH_COLOR = -4351943;
@@ -272,41 +273,26 @@ public class WorldHopper07 {
         }, General.random(4000, 6000));
     }
 
-    public static boolean logOutSelectWorld(int world) {
-
-        if (Game.getCurrentWorld() - 300 == world) {
-            return true;
-        }
-
-        if (Login.getLoginState() == Login.STATE.INGAME) {
-
-            if (!Timing.waitCondition(logoutCondition(), General.random(2000, 3000))) {
-                return false;
-            }
-        }
-
-        if (Login.getLoginState() == Login.STATE.LOGINSCREEN) {
-            WorldHopper.changeWorld(world);
-            return WorldHopper.getWorld() == world;
-        }
-        return false;
-    }
-
     public static boolean fastLogout() {
+        if (Game07.isAtLoginScreen())
+            return false;
+
         if (GameTab.TABS.LOGOUT.open()) {
             if (Interfaces.isInterfaceValid(69)) {
                 RSInterfaceChild child = Interfaces.get(69, 3);
                 if (child != null) {
                     clickRectangle(child.getAbsoluteBounds());
+                    return false;
                 }
             } else {
                 RSInterfaceChild logOut = Interfaces.get(182, 10);
                 if (logOut != null) {
                     clickRectangle(logOut.getAbsoluteBounds());
+                    return true;
                 }
             }
         }
-        return Login.getLoginState() == Login.STATE.LOGINSCREEN;
+        return false;
     }
 
     private static void clickRectangle(Rectangle area) {
@@ -325,30 +311,6 @@ public class WorldHopper07 {
                 return fastLogout();
             }
         };
-    }
-
-    public static boolean isF2P(int world) {
-        switch (world) {
-            case 1:
-            case 8:
-            case 16:
-            case 26:
-            case 35:
-            case 81:
-            case 82:
-            case 83:
-            case 84:
-            case 85:
-            case 93:
-            case 94:
-                return true;
-        }
-        return false;
-    }
-
-    public static int getRandomWorld(boolean members) {
-        int world = WorldHopper.getRandomWorld(members);
-        return (world == 85 || world == 86 || world == 53) ? getRandomWorld(members) : world;
     }
 
     private static boolean isInWorldSelect() {

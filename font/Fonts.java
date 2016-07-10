@@ -4,6 +4,7 @@ import java.awt.*;
 
 /**
  * Created by Sphiinx on 6/22/2016.
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public enum Fonts {
 
@@ -17,6 +18,9 @@ public enum Fonts {
         this.FONT = font;
     }
 
+    /**
+     * Returns the specified font.
+     * */
     public Font getFont() {
         return FONT;
     }

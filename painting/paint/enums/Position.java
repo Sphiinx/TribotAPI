@@ -1,7 +1,5 @@
 package scripts.TribotAPI.painting.paint.enums;
 
-import scripts.TribotAPI.painting.paint.PaintHandler;
-
 /**
  * Created by Sphiinx on 6/22/2016.
  */
@@ -11,7 +9,12 @@ public enum Position {
     TWO(7, 44, 15),
     THREE(7, 59, 15),
     FOUR(7, 74, 15),
-    FIVE(7, 89, 15);
+    FIVE(7, 89, 15),
+    SIX(258, 29, 15),
+    SEVEN(258, 44, 15),
+    EIGHT(258, 59, 15),
+    NINE(258, 74, 15),
+    TEN(258, 89, 15);
 
     private final int X;
     private final int Y;

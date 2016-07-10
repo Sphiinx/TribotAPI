@@ -7,7 +7,7 @@ import java.awt.*;
 
 /**
  * Created by Sphiinx on 2/14/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Entities07 {
 
@@ -18,14 +18,14 @@ public class Entities07 {
      * @return The Polygon.
      */
     public static Polygon getModelArea(RSModel model) {
-        if (model == null) {
+        if (model == null)
             return new Polygon();
-        }
+
         return model.getEnclosedArea();
     }
 
     /**
-     * Checks if the mouse is inside the specified model.
+     * Checks if the mouse is hovering the specified model.
      *
      * @param model The model.
      * @return True if the mouse is inside the model; false otherwise.
@@ -35,7 +35,7 @@ public class Entities07 {
             return false;
 
         final Polygon area = getModelArea(model);
-        return area != null && area.contains(Mouse.getPos());
+        return area.contains(Mouse.getPos());
     }
 
 }

@@ -1,10 +1,10 @@
-package scripts.TribotAPI.game.utiity.enums;
+package scripts.TribotAPI.game.worldswitcher.enums;
 
 /**
  * Created by Sphiinx on 4/5/2016.
  * Re-written by Sphiinx on 6/11/2016
  */
-public enum WorldType {
+public enum SwitcherWorldType {
 
     FREE(1130),
     MEMBER(1131),
@@ -14,8 +14,8 @@ public enum WorldType {
 
     private final int TEXTURE_ID;
 
-    WorldType(int TEXTURE_ID) {
-        this.TEXTURE_ID = TEXTURE_ID;
+    SwitcherWorldType(int texture_id) {
+        this.TEXTURE_ID = texture_id;
     }
 
     /**

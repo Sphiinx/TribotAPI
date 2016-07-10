@@ -5,7 +5,7 @@ import org.tribot.api.Timing;
 
 /**
  * Created by Sphiinx on 6/9/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016
  */
 public class Timing07 {
 
@@ -17,7 +17,7 @@ public class Timing07 {
      * @return True if the condition was true before the timeout; false otherwise.
      */
     public static boolean waitCondition(Condition07 condition, long timeout) {
-        long time = Timing.currentTimeMillis() + timeout;
+        final long time = Timing.currentTimeMillis() + timeout;
         while (!condition.active()) {
             if (Timing.currentTimeMillis() >= time)
                 return false;

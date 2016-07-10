@@ -8,7 +8,7 @@ import org.tribot.api2007.types.*;
 
 /**
  * Created by Sphiinx on 1/10/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Player07 {
 
@@ -35,7 +35,34 @@ public class Player07 {
     /**
      * The child index for each combat wilderness level.
      */
-    private static final int WILDERNESS_LEVEL_INTERFACE = 26;
+    private static final int WILDERNESS_LEVEL_INTERFACE = 27;
+
+    /**
+     * The master index for the friends list interface.
+     */
+    private static final int FRIENDS_LIST_INTERFACE = 429;
+
+    /**
+     * The child index for the friends list text interface.
+     */
+    private static final int FRIENDS_LIST_INTERFACE_CHILD = 1;
+
+    /**
+     * Gets the current world the RSPlayer is in.
+     *
+     * @return The current world the RSPlayer is in.
+     */
+    public static int getCurrentWorld() {
+        final RSInterface friendsList = Interfaces.get(FRIENDS_LIST_INTERFACE, FRIENDS_LIST_INTERFACE_CHILD);
+        if (friendsList == null)
+            return -1;
+
+        String text = friendsList.getText();
+        if (text == null)
+            return -1;
+
+        return Integer.parseInt(text.substring(22));
+    }
 
     /**
      * Checks if the RSPlayer is poisoned.
@@ -52,7 +79,7 @@ public class Player07 {
      * @return The RSPlayers combat level.
      */
     public static int getCombatLevel() {
-        RSInterface level = Interfaces.get(COMBAT_INTERFACE, COMBAT_INTERFACE_TEXT_INTERFACE);
+        final RSInterface level = Interfaces.get(COMBAT_INTERFACE, COMBAT_INTERFACE_TEXT_INTERFACE);
         if (level == null)
             return -1;
 
@@ -61,7 +88,7 @@ public class Player07 {
             return -1;
 
         text = text.replace("Combat Lvl: ", "");
-        int parse = Integer.parseInt(text);
+        final int parse = Integer.parseInt(text);
         if (parse > 0)
             return parse;
 
@@ -73,33 +100,29 @@ public class Player07 {
      *
      * @return The RSPlayers wilderness level.
      */
-    public static int getLevel() {
-        RSInterface wilderness = Interfaces.get(WILDERNESS_INTERFACE);
-        if (wilderness == null)
+    public static int getWildernessLevel() {
+        final RSInterface wilderness_level = Interfaces.get(WILDERNESS_INTERFACE, WILDERNESS_LEVEL_INTERFACE);
+        if (wilderness_level == null)
             return -1;
 
-        RSInterfaceChild child = Interfaces.get(WILDERNESS_INTERFACE, WILDERNESS_LEVEL_INTERFACE);
-        if (child == null) {
+        final String text = wilderness_level.getText();
+        if (text == null)
             return -1;
-        }
-        String text = child.getText();
-        if (text == null || text.length() == 0) {
-            return -1;
-        }
+
         return Integer.parseInt(text.replace("Level: ", ""));
     }
 
     /**
-     * Gets the nearest RSPlayer with the specified name.
+     * Gets the nearest RSPlayer with the specified names.
      *
-     * @param name The name of the RSPlayer.
+     * @param name The names of the RSPlayer.
      * @return The nearest RSPlayer. Null if no RSPlayer's were found.
      */
-    public static RSPlayer getPlayer(String name) {
+    public static RSPlayer getPlayer(String... name) {
         if (name == null)
             return null;
 
-        RSPlayer[] player = Players.find(Filters.Players.nameEquals(name));
+        final RSPlayer[] player = Players.find(Filters.Players.nameEquals(name));
         Sorting.sortByDistance(player, Player.getPosition(), true);
         return player.length > 0 ? player[0] : null;
     }
@@ -114,7 +137,7 @@ public class Player07 {
         if (filter == null)
             return null;
 
-        RSPlayer[] player = Players.find(filter);
+        final RSPlayer[] player = Players.find(filter);
         Sorting.sortByDistance(player, Player.getPosition(), true);
         return player.length > 0 ? player[0] : null;
     }

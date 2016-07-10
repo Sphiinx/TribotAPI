@@ -6,18 +6,18 @@ import java.awt.*;
 
 /**
  * Created by Sphiinx on 2/15/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class SPXMouse07 {
 
     /**
      * The master color for the drawn methods.
-     * */
+     */
     private Color mainColor;
 
     /**
      * The offset color for the drawn methods.
-     * */
+     */
     private Color offsetColor;
 
     public SPXMouse07(Color mainColor, Color offsetColor) {
@@ -29,7 +29,7 @@ public class SPXMouse07 {
      * Draws the SPXMouse to the RS Screen.
      *
      * @param g Graphics.
-     * */
+     */
     public void drawMouse(Graphics g) {
         g.setColor(mainColor);
         g.drawRect(Mouse.getPos().x - 13, Mouse.getPos().y - 13, 27, 27); // Rectangle.

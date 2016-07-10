@@ -15,18 +15,9 @@ import java.awt.event.KeyEvent;
 
 /**
  * Created by Sphiinx on 1/10/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Inventory07 {
-
-    /**
-     * Gets the number of RSItems in the RSPlayers inventory.
-     *
-     * @return How many items are in the RSPlayers inventory.
-     */
-    public static int getCount() {
-        return Inventory.getAll().length;
-    }
 
     /**
      * Gets the number of free space in the RSPlayers inventory.
@@ -38,32 +29,32 @@ public class Inventory07 {
     }
 
     /**
-     * Finds the specified RSItem in the RSPlayers inventory.
+     * Finds the specified RSItems in the RSPlayers inventory.
      *
-     * @param id The ID of the RSItem.
+     * @param id The IDs of the RSItems.
      * @return The RSItem; Null if no RSItems are found.
      */
-    public static RSItem getItem(int id) {
-        RSItem[] items = Inventory.find(Filters.Items.idEquals(id));
+    public static RSItem getItem(int... id) {
+        final RSItem[] items = Inventory.find(Filters.Items.idEquals(id));
         return items.length > 0 ? items[0] : null;
     }
 
     /**
-     * Finds the specified RSItem in the RSPlayers inventory.
+     * Finds the specified RSItems in the RSPlayers inventory.
      *
-     * @param name The name of the RSItem.
+     * @param name The names of the RSItems.
      * @return The RSItem; Null if no RSItems are found.
      */
-    public static RSItem getItem(String name) {
+    public static RSItem getItem(String... name) {
         if (name == null)
             return null;
 
-        RSItem[] items = Inventory.find(Filters.Items.nameEquals(name));
+        final RSItem[] items = Inventory.find(Filters.Items.nameEquals(name));
         return items.length > 0 ? items[0] : null;
     }
 
     /**
-     * Finds the specified RSItem in the RSPlayers inventory.
+     * Finds the specified RSItems in the RSPlayers inventory.
      *
      * @param filter The filter.
      * @return The RSItem; Null if no RSItems were found.
@@ -72,7 +63,7 @@ public class Inventory07 {
         if (filter == null)
             return null;
 
-        RSItem[] items = Inventory.find(filter);
+        final RSItem[] items = Inventory.find(filter);
         return items.length > 0 ? items[0] : null;
     }
 
@@ -89,15 +80,15 @@ public class Inventory07 {
     /**
      * Emulates mouse keys and drops all the inventory items except the specified ids.
      *
-     * @param sleepMod A multiplier for the delay in between dropping items. The lower the number, the shorter the delay.
+     * @param sleep_mod A multiplier for the delay in between dropping items. The lower the number, the shorter the delay.
      * @param ignore   The ids of the items that should not be dropped.
      * @return True if all items were dropped except for those specified, false otherwise.
      */
-    public static boolean mouseKeysDropAllExcept(int sleepMod, int... ignore) {
+    public static boolean mouseKeysDropAllExcept(int sleep_mod, int... ignore) {
         if (!GameTab.TABS.INVENTORY.isOpen())
             GameTab.TABS.INVENTORY.open();
 
-        RSItem[] items = convertTo28(Inventory.find(Filters.Items.idNotEquals(ignore)));
+        final RSItem[] items = convertTo28(Inventory.find(Filters.Items.idNotEquals(ignore)));
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 7; j++) {
                 if (deselectedItem()) {
@@ -112,7 +103,7 @@ public class Inventory07 {
                 }
                 if (items[4 * j + i] == null) continue;
                 Rectangle r = new RSItem(4 * j + i, 0, 0, RSItem.TYPE.INVENTORY).getArea();
-                mouseKeysDropItem(r, sleepMod);
+                mouseKeysDropItem(r, sleep_mod);
                 waitForInventoryFullMessage();
             }
         }

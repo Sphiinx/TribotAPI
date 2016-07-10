@@ -4,7 +4,7 @@ import org.tribot.api.General;
 
 /**
  * Created by Sphiinx on 2/15/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Logging {
 

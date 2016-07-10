@@ -7,6 +7,7 @@ import java.net.URL;
 
 /**
  * Created by Sphiinx on 6/13/2016.
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Utility {
 

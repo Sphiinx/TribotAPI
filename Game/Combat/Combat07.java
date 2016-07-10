@@ -6,11 +6,12 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSCharacter;
 import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSNPC;
+import org.tribot.api2007.types.RSPlayer;
 import scripts.TribotAPI.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 1/10/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Combat07 {
 
@@ -81,17 +82,17 @@ public class Combat07 {
 
         if (!GameTab.TABS.COMBAT.isOpen())
             if (GameTab.TABS.COMBAT.open())
-                Timing07.waitCondition(GameTab.TABS.COMBAT::isOpen, General.random(1000, 1200));
+                Timing07.waitCondition(GameTab.TABS.COMBAT::isOpen, General.random(1500, 2000));
 
-        RSInterface styleButton = Interfaces.get(COMBAT_INTERFACE, COMBAT_STYLE_INTERFACES[index]);
-        if (styleButton != null && Clicking.click(styleButton))
-            return Timing07.waitCondition(() -> getSelectedStyleIndex() == index, General.random(1000, 1200));
+        final RSInterface style_button = Interfaces.get(COMBAT_INTERFACE, COMBAT_STYLE_INTERFACES[index]);
+        if (style_button == null)
+            return false;
 
-        return false;
+        return Clicking.click(style_button);
     }
 
     /**
-     * Gets your players special attack percent.
+     * Gets the RSPlayers special attack percent.
      * This value will always be from 0-100.
      *
      * @return The special attack percent.
@@ -118,11 +119,15 @@ public class Combat07 {
     public static boolean selectSpecialAttack() {
         if (!GameTab.TABS.COMBAT.isOpen())
             if (GameTab.TABS.COMBAT.open())
-                Timing07.waitCondition(GameTab.TABS.COMBAT::isOpen, General.random(1000, 1200));
+                Timing07.waitCondition(GameTab.TABS.COMBAT::isOpen, General.random(1500, 2000));
 
-        boolean selected = isSpecialAttackSelected();
-        if (Clicking.click(Interfaces.get(COMBAT_INTERFACE, SPECIAL_ATTACK_INTERFACE)))
-            return Timing07.waitCondition(() -> selected != isSpecialAttackSelected(), General.random(1000, 1200));
+        final RSInterface special_attack = Interfaces.get(COMBAT_INTERFACE, SPECIAL_ATTACK_INTERFACE);
+        if (special_attack == null)
+            return false;
+
+        final boolean selected = isSpecialAttackSelected();
+        if (special_attack.click())
+            return Timing07.waitCondition(() -> selected != isSpecialAttackSelected(), General.random(1500, 2000));
 
         return false;
     }
@@ -137,7 +142,7 @@ public class Combat07 {
     }
 
     /**
-     * Selects the auto retaliate button hwther it's selected or not.
+     * Selects the auto retaliate button whether it's selected or not.
      * Opens the combat tab if it's not open.
      *
      * @return True if auto retaliate was selected or de-selected; false otherwise.
@@ -147,24 +152,45 @@ public class Combat07 {
             if (GameTab.TABS.COMBAT.open())
                 Timing07.waitCondition(GameTab.TABS.COMBAT::isOpen, General.random(1000, 1200));
 
-        boolean enabled = isAutoRetaliateEnabled();
-        if (Clicking.click(Interfaces.get(COMBAT_INTERFACE, AUTO_RETALIATE_INTERFACE)))
+        final RSInterface auto_retaliate = Interfaces.get(COMBAT_INTERFACE, AUTO_RETALIATE_INTERFACE);
+        if (auto_retaliate == null)
+            return false;
+
+        final boolean enabled = isAutoRetaliateEnabled();
+        if (auto_retaliate.click())
             return Timing07.waitCondition(() -> enabled != isAutoRetaliateEnabled(), General.random(1000, 1200));
 
         return false;
     }
 
     /**
-     * Checks to see if the specified RSNPC is interacting with your player.
+     * Checks to see if the specified RSPlayer is interacting with your RSPlayer.
+     *
+     * @param player The RSPlayer to check.
+     * @return True if the specified RSPlayer is interacting with your RSPlayer; false otherwise.
+     */
+    public static boolean isInCombatWithMe(RSPlayer player) {
+        if (player == null)
+            return false;
+
+        final RSCharacter interactingCharacter = player.getInteractingCharacter();
+        if (interactingCharacter != null)
+            return interactingCharacter.equals(Player.getRSPlayer());
+
+        return false;
+    }
+
+    /**
+     * Checks to see if the specified RSNPC is interacting with your RSPlayer.
      *
      * @param rsnpc The RSNPC to check.
-     * @return True if the specified RSNPC is interacting with your player; false otherwise.
+     * @return True if the specified RSNPC is interacting with your RSPlayer; false otherwise.
      */
     public static boolean isInCombatWithMe(RSNPC rsnpc) {
         if (rsnpc == null)
             return false;
 
-        RSCharacter interactingCharacter = rsnpc.getInteractingCharacter();
+        final RSCharacter interactingCharacter = rsnpc.getInteractingCharacter();
         if (interactingCharacter != null)
             return interactingCharacter.equals(Player.getRSPlayer());
 

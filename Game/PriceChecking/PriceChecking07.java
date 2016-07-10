@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Sphiinx on 1/10/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016
  */
 public class PriceChecking07 {
 
     /**
-     * Gets the price of the item from the Runescape website.
+     * Gets the price of the itemID from the Runescape website.
      *
      * @param id The id of the item.
      * @return The price of the item.
@@ -25,8 +25,8 @@ public class PriceChecking07 {
             Matcher matcher = Pattern.compile(".*\"price\":\"?(\\d+\\,?\\.?\\d*)([k|m]?)\"?},\"today\".*").matcher(reader.readLine());
             reader.close();
             if (matcher.matches()) {
-                double price = Double.parseDouble(matcher.group(1).replace(",", ""));
-                String suffix = matcher.group(2);
+                final double price = Double.parseDouble(matcher.group(1).replace(",", ""));
+                final String suffix = matcher.group(2);
                 return (int) (suffix.isEmpty() ? price : price * (suffix.charAt(0) == 'k' ? 1000 : 1000000));
             }
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class PriceChecking07 {
     }
 
     /**
-     * Gets the price of the item from the OSBuddy website.
+     * Gets the price of the itemID from the OSBuddy website.
      *
      * @param id The id of the item.
      * @return The price of the item.
@@ -45,7 +45,7 @@ public class PriceChecking07 {
         try {
             URL url = new URL("https://api.rsbuddy.com/grandExchange?a=guidePrice&i=" + id);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
-                String line = reader.readLine();
+                final String line = reader.readLine();
                 reader.close();
                 return line == null ? -1 : Integer.parseInt(line.substring(11, line.indexOf(',')));
             } catch (IOException e) {

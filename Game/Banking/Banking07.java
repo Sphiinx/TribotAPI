@@ -1,62 +1,75 @@
 package scripts.TribotAPI.game.banking;
 
 import org.tribot.api.Clicking;
-import org.tribot.api.General;
+import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.*;
+import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.*;
-import scripts.TribotAPI.game.inventory.Inventory07;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.TribotAPI.game.npcs.NPCs07;
+import scripts.TribotAPI.game.objects.Objects07;
 
 /**
  * Created by Sphiinx on 1/10/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Banking07 {
 
     /**
      * The master index for the banking Interface.
      */
-    public static final int BANKING_INTERFACE = 12;
+    private static final int BANKING_INTERFACE = 12;
+
     /**
      * The child index for the bank space in the banking Interface.
      */
-    public static final int BANK_AMOUNT_INTERFACE = 12;
-    /**
-     * The child index for the bank space in the banking Interface.
-     */
-    public static final int BANK_AMOUNT_CHILD_INTERFACE = 5;
+    private static final int BANK_AMOUNT_CHILD_INTERFACE = 5;
+
     /**
      * The child index for the note button in the banking Interface.
      */
-    public static final int NOTE_INTERFACE = 24;
+    private static final int NOTE_INTERFACE = 24;
+
     /**
      * The varbit index for the banking Interface.
      */
-    public static final int NOTE_VARBIT = 115;
+    private static final int NOTE_VARBIT = 115;
 
     /**
-     * Deposits all items in the players inventory using the 'Deposit inventory' button.
-     *
-     * @return The amount of items deposited. Takes item stack into account.
-     */
-    public static boolean depositAll() {
-        return Banking.depositAll() > 0;
-    }
-
-    /**
-     * Opens the bank in the Grand Exchange.
+     * Opens the Grand Exchange bank if it's not open.
      *
      * @return True if successful; false otherwise.
      */
     public static boolean openGrandExchangeBank() {
-        RSNPC[] banker = NPCs.findNearest("Banker");
-        if (banker.length <= 0)
+        if (Banking07.isBankItemsLoaded())
             return false;
 
-        if (banker[0].isOnScreen())
-            return Clicking.click("Bank Banker", banker[0]);
+        final RSNPC banker = NPCs07.getNPC("Banker");
+        if (banker == null)
+            return false;
+
+        if (banker.isOnScreen())
+            return Clicking.click("Bank Banker", banker);
 
         return false;
+    }
+
+    /**
+     * Checks if the RSPlayer is in a bank.
+     *
+     * @return True if the RSPlayer is in a bank; false otherwise.
+     */
+    public static boolean isInBank() {
+        final String[] banks = new String[]{
+                "Bank booth",
+                "Banker",
+                "Bank chest",
+        };
+
+        final RSObject bank = Objects07.getObject(15, banks);
+        if (bank == null)
+            return false;
+
+        return bank.isOnScreen() && bank.isClickable();
     }
 
     /**
@@ -81,38 +94,25 @@ public class Banking07 {
         if (Interfaces.get(BANKING_INTERFACE) == null)
             return false;
 
-        final RSInterfaceChild noteInterface = Interfaces.get(BANKING_INTERFACE, NOTE_INTERFACE);
-        return noteInterface != null && noteInterface.click();
+        final RSInterfaceChild note_interface = Interfaces.get(BANKING_INTERFACE, NOTE_INTERFACE);
+        if (note_interface == null)
+            return false;
+
+        return note_interface.click();
     }
 
     /**
-     * Checks if the player is in a bank.
+     * Gets the amount of space in the RSPlayers bank.
      *
-     * @return True if the player is in a bank; false otherwise.
+     * @return The amount of space in the RSPlayers bank.
      */
-    public static boolean isInBank() {
-        final String[] banks = new String[]{
-                "Bank booth",
-                "Banker",
-                "Bank chest",
-        };
-
-        RSObject[] bank = Objects.findNearest(15, banks);
-        return bank.length > 0 && bank[0].isOnScreen() && bank[0].isClickable();
-    }
-
-    /**
-     * Gets the amount of space in the players bank.
-     *
-     * @return The amount of space in the players bank.
-     */
-    public static int getCurrentBankSpace() {
-        RSInterface amount = Interfaces.get(BANK_AMOUNT_INTERFACE, BANK_AMOUNT_CHILD_INTERFACE);
+    public static int getCurrentUsedBankSpace() {
+        final RSInterface amount = Interfaces.get(BANKING_INTERFACE, BANK_AMOUNT_CHILD_INTERFACE);
         if (amount == null)
             return -1;
 
         String text = amount.getText();
-        if (text == null)
+        if (text.length() <= 0)
             return -1;
 
         int parse = Integer.parseInt(text);
@@ -128,147 +128,96 @@ public class Banking07 {
      * @return True if the bank is loaded; false otherwise.
      */
     public static boolean isBankItemsLoaded() {
-        return getCurrentBankSpace() == Banking.getAll().length;
+        return getCurrentUsedBankSpace() == Banking.getAll().length;
     }
 
     /**
-     * Checks if any of the given RSItems are equal to the given ID.
+     * Finds the specified RSItems in the RSPlayers bank.
+     * Takes into account if the bank is loaded.
      *
-     * @param items The items to check the IDs of.
-     * @param id    The ID to check the itemIDs of.
-     * @return The RSItem with the matching ID.
+     * @param id The IDs of the RSItems.
+     * @return The RSItem; Null if no RSItems are found.
      */
-    private static RSItem getItem(int id, RSItem[] items) {
-        if (items.length <= 0)
+    public static RSItem findItem(int... id) {
+        if (!Banking07.isBankItemsLoaded())
             return null;
 
-        for (RSItem item : items) {
-            if (item.getID() == id) {
-                return item;
-            }
-        }
-
-        return null;
+        final RSItem[] items = Banking.find(Filters.Items.idEquals(id));
+        return items.length > 0 ? items[0] : null;
     }
 
     /**
-     * Withdraws the given ID with the given amount.
-     * Caches the Bank to make sure it's completely loaded before checking if the given items are in the bank.
+     * Finds the specified RSItems in the RSPlayers bank.
+     * Takes into account if the bank is loaded.
      *
-     * @param id     The ID in which to withdraw.
+     * @param name The name of the RSItems.
+     * @return The RSItem; Null if no RSItems are found.
+     */
+    public static RSItem findItem(String... name) {
+        if (name == null)
+            return null;
+
+        if (!isBankItemsLoaded())
+            return null;
+
+        final RSItem[] items = Banking.find(Filters.Items.nameEquals(name));
+        return items.length > 0 ? items[0] : null;
+    }
+
+    /**
+     * Finds the specified RSItems in the RSPlayers bank.
+     * Takes into account if the bank is loaded.
+     *
+     * @param filter The filter.
+     * @return The RSItem; Null if no RSItems were found.
+     */
+    public static RSItem findItem(Filter<RSItem> filter) {
+        if (filter == null)
+            return null;
+
+        if (!isBankItemsLoaded())
+            return null;
+
+        final RSItem[] items = Banking.find(filter);
+        return items.length > 0 ? items[0] : null;
+    }
+
+    /**
+     * Withdraws the given names with the given amount.
+     * Takes into account if the bank is loaded.
+     *
+     * @param names  The names in which to withdraw.
      * @param amount The amount in which to withdraw.
-     * @return True if the withdraw was successful; false otherwise.
+     * @return True if successful; false otherwise.
      */
-    public static boolean withdrawItem(int id, int amount) {
-        RSItem[] itemCache;
-        if (getCurrentBankSpace() == (itemCache = Banking.getAll()).length) {
-            RSItem itemToWithdraw = getItem(id, itemCache);
-            return itemToWithdraw != null && Banking.withdrawItem(itemToWithdraw, amount);
-        }
+    public static boolean withdrawItem(int amount, String... names) {
+        if (!isBankItemsLoaded())
+            return false;
 
-        return false;
+        final RSItem itemToWithdraw = findItem(names);
+        if (itemToWithdraw == null)
+            return false;
+
+        return Banking.withdrawItem(itemToWithdraw, amount);
     }
 
     /**
-     * Deposits the players entire inventory.
-     * Takes into account if there are any items in the players inventory.
+     * Withdraws the given IDs with the given amount.
+     * Takes into account if the bank is loaded.
      *
+     * @param ids    The IDs in which to withdraw.
+     * @param amount The amount in which to withdraw.
      * @return True if successful; false otherwise.
      */
-    public static boolean depositInventory() {
-        if (Inventory07.getAmountOfSpace() == 28)
+    public static boolean withdrawItem(int amount, int... ids) {
+        if (!isBankItemsLoaded())
             return false;
 
-        if (Banking.depositAll() > 0)
-            return Timing07.waitCondition(() -> Inventory07.getAmountOfSpace() == 28, General.random(1000, 1200));
-
-        return false;
-    }
-
-    /**
-     * Deposits the players entire inventory except the itemID specified.
-     * Takes into account if there are any items in the players inventory.
-     *
-     * @return True if successful; false otherwise.
-     */
-    public static boolean depositAllExcept(int itemID) {
-        if (Inventory07.getAmountOfSpace() == 28)
+        final RSItem itemToWithdraw = findItem(ids);
+        if (itemToWithdraw == null)
             return false;
 
-        final RSItem[] INVENTORY_CACHE = Inventory.getAll();
-        if (Banking.depositAllExcept(itemID) > 0) {
-            final RSItem[] INVENTORY = Inventory.getAll();
-            return Timing07.waitCondition(() -> INVENTORY_CACHE != INVENTORY, General.random(1000, 1200));
-        }
-
-        return false;
+        return Banking.withdrawItem(itemToWithdraw, amount);
     }
 
-    /**
-     * Deposits all equipment using the deposit equipment button.
-     * Takes into account if the player is wearing any items.
-     *
-     * @return True if successful; false otherwise.
-     */
-    public static boolean depositEquipment() {
-        if (Equipment.getItems().length >= 0)
-            return false;
-
-        if (Banking.depositEquipment())
-            return Timing07.waitCondition(() -> Equipment.getItem(Equipment.SLOTS.WEAPON) == null, General.random(1000, 1200));
-
-        return false;
-    }
-
-    /**
-     * Opens the bank if you're in a bank and the bank screen isn't open.
-     * If you're not in the bank it will walk to one.
-     *
-     * @return True if successful; false otherwise.
-     */
-    public static boolean openBank() {
-        if (!isInBank())
-            walkToBank();
-
-        if (Banking.isBankScreenOpen())
-            return false;
-
-        if (Banking.openBank()) {
-            return Timing07.waitCondition(Banking::isBankScreenOpen, General.random(1000, 1200));
-        }
-
-        return false;
-    }
-
-    /**
-     * Walks to the bank if you're not in one.
-     *
-     * @return True if successful; false otherwise.
-     */
-    public static boolean walkToBank() {
-        if (Banking07.isInBank())
-            return false;
-
-        if (WebWalking.walkToBank()) {
-            return Timing07.waitCondition(Banking::isInBank, General.random(1000, 1200));
-        }
-
-        return false;
-    }
-
-    /**
-     * Closes the bank if the bank screen is open.
-     *
-     * @return True if successful; false otherwise.
-     */
-    public static boolean closeBank() {
-        if (!Banking.isBankScreenOpen())
-            return false;
-
-        if (Banking.close()) {
-            return Timing07.waitCondition(() -> !Banking.isBankScreenOpen(), General.random(1000, 1200));
-        }
-
-        return false;
-    }
 }

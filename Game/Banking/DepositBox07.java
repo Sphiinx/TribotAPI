@@ -4,105 +4,107 @@ import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api.input.Keyboard;
 import org.tribot.api2007.*;
-import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSItem;
+import org.tribot.api2007.types.RSItemDefinition;
 import org.tribot.api2007.types.RSObject;
 import scripts.TribotAPI.game.interfaces.Interfaces07;
-import scripts.TribotAPI.antiban.AntiBan;
+import scripts.TribotAPI.game.objects.Objects07;
 import scripts.TribotAPI.game.timing.Timing07;
 
 
 /**
  * Created by Sphiinx on 2/16/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class DepositBox07 {
 
     /**
-     * Checks if the player is at a deposit box.
+     * Checks if the RSPlayer is at a deposit box.
      *
-     * @return True if the player is at a deposit box; false otherwise.
+     * @return True if the RSPlayer is at a deposit box; false otherwise.
      */
     public static boolean isAtDepositBox() {
         final String[] banks = new String[]{
                 "Bank deposit box"
         };
 
-        RSObject[] bank = Objects.findNearest(15, banks);
-        return bank.length > 0 && bank[0].isOnScreen() && bank[0].isClickable();
+        final RSObject bank = Objects07.getObject(15, banks);
+        if (bank == null)
+            return false;
+
+        return bank.isOnScreen() && bank.isClickable();
     }
 
     /**
-     * Opens the Bank deposit box.
+     * Opens the Bank deposit box; walks to it if it's not on the screen.
      * Takes into account if the Bank deposit box is already open.
      *
      * @return True if successful; false otherwise.
      */
     public static boolean openDepositBox() {
-        RSObject[] bank = Objects.findNearest(10, Filters.Objects.nameEquals("Bank deposit box"));
-        if (bank.length <= 0)
-            return false;
-
         if (Banking.isDepositBoxOpen())
             return false;
 
-        if (!bank[0].isOnScreen()) {
-            WebWalking.walkTo(bank[0]);
-        } else {
-            if (Clicking.click("Deposit", bank)) {
-                return Timing07.waitCondition(Banking::isDepositBoxOpen, General.random(1000, 1200));
-            }
-        }
+        final RSObject bank = Objects07.getObject(15, "Bank deposit box");
+        if (bank == null)
+            return false;
 
-        return false;
+        if (!bank.isOnScreen())
+            WebWalking.walkTo(bank);
+
+        return Clicking.click("Deposit", bank);
     }
 
+
     /**
-     * Deposits the specified RSItem and amount by using the RSItem on the deposit box.
+     * Deposits the specified name and amount by using the item on the deposit box; walks to it if it's not on the screen.
      * Takes into account if you have the item.
      *
      * @param amount The amount of the RSItem to deposit.
-     * @param item   The RSItem to deposit.
+     * @param items   The RSItem to deposit.
      * @return True if successful; false otherwise.
      */
-    public static boolean deposit(int amount, RSItem item) {
-        if (item == null || Inventory.find(item.getID()).length <= 0)
+    public static boolean deposit(int amount, RSItem... items) {
+        if (items[0] == null)
             return false;
 
-        RSObject[] deposit_box = Objects.findNearest(15, Filters.Objects.nameEquals("Bank deposit box"));
-        if (deposit_box.length <= 0)
+        if (items[0].getDefinition() == null)
             return false;
 
-        if (!deposit_box[0].isOnScreen()) {
-            WebWalking.walkTo(deposit_box[0]);
-        } else {
-            if (!Interfaces07.isSelectOptionOpen()) {
-                if (Game.getUptext() != null) {
-                    if (Game.getUptext().equals("Use Logs ->")) {
-                        if (Clicking.click("Use", deposit_box)) {
-                            Timing07.waitCondition(Interfaces07::isSelectOptionOpen, General.random(1000, 1200));
-                        }
-                    } else {
-                        if (Clicking.click("Use", item)) {
-                            Timing07.waitCondition(() -> Game.getUptext() != null, General.random(1000, 1200));
-                        }
-                    }
-                }
+        final RSItemDefinition item_definition = items[0].getDefinition();
+        final String name = item_definition.getName();
+        if (name == null)
+            return false;
+
+        final RSObject deposit_box = Objects07.getObject(15, "Bank deposit box");
+        if (deposit_box == null)
+            return false;
+
+        if (!deposit_box.isOnScreen())
+            WebWalking.walkTo(deposit_box);
+
+        if (Player.isMoving())
+            return false;
+
+        if (!Interfaces07.isSelectOptionOpen()) {
+            if (Game.getUptext().equals("Use " + name + " ->")) {
+                if (Clicking.click("Use", deposit_box))
+                    Timing07.waitCondition(Interfaces07::isSelectOptionOpen, General.random(1500, 2000));
+            } else {
+                if (Clicking.click("Use", items))
+                    Timing07.waitCondition(() -> Game.getUptext().equals("Use " + name + " ->"), General.random(1500, 2000));
             }
+        }
 
-            String option = getOption(amount);
-            if (NPCChat.selectOption(option, true)) {
-                if (option.equals("X")) {
-                    if (Timing07.waitCondition(() -> {
-                        AntiBan.waitItemInteractionDelay();
-                        return Interfaces07.isEnterAmountMenuUp();
-                    }, General.random(1000, 1200))) {
-                        Keyboard.typeSend("" + amount);
-                        return Timing07.waitCondition(() -> Inventory.getCount(item.getID()) <= 0, General.random(1000, 1200));
-                    }
-                } else {
-                    return Timing07.waitCondition(() -> Inventory.getCount(item.getID()) <= 0, General.random(1000, 1200));
+        final String option = getOption(amount);
+        if (NPCChat.selectOption(option, true)) {
+            if (option.equals("X")) {
+                if (Timing07.waitCondition(Interfaces07::isEnterAmountMenuUp, General.random(1500, 2000))) {
+                    Keyboard.typeSend("" + amount);
+                    return Timing07.waitCondition(() -> Inventory.getCount(item_definition.getID()) <= 0, General.random(1500, 2000));
                 }
+            } else {
+                return Timing07.waitCondition(() -> Inventory.getCount(item_definition.getID()) <= 0, General.random(1500, 2000));
             }
         }
 

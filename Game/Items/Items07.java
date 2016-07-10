@@ -5,7 +5,7 @@ import org.tribot.api2007.types.RSItemDefinition;
 
 /**
  * Created by Sphiinx on 2/14/2016.
- * Re-written by Sphiinx on 6/11/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public class Items07 {
 
@@ -18,11 +18,11 @@ public class Items07 {
         if (item == null)
             return null;
 
-        RSItemDefinition definition = item.getDefinition();
+        final RSItemDefinition definition = item.getDefinition();
         if (definition == null)
             return null;
 
-        String[] actions = definition.getActions();
+        final String[] actions = definition.getActions();
         if (actions != null)
             return actions;
 

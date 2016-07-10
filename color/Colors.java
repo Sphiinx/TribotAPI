@@ -4,7 +4,7 @@ import java.awt.*;
 
 /**
  * Created by Sphiinx on 6/12/2016.
- * Re-written by Sphiinx on 6/12/2016
+ * Re-written by Sphiinx on 7/8/2016.
  */
 public enum Colors {
 
@@ -22,6 +22,9 @@ public enum Colors {
         this.COLOR = color;
     }
 
+    /**
+     * Returns the specified color.
+     * */
     public Color getCOLOR() {
         return COLOR;
     }
