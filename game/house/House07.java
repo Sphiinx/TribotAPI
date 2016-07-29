@@ -11,32 +11,32 @@ import org.tribot.api2007.types.RSInterface;
 public class House07 {
 
     /**
-     * The master index for the game options interface.
+     * The mule_username index for the game options interface.
      */
     private static final int GAME_OPTIONS_INTERFACE = 261;
 
     /**
-     * The master child index for the game options house options button interface.
+     * The mule_username child index for the game options house options button interface.
      */
     private static final int HOUSE_OPTIONS_BUTTON_CHILD = 68;
 
     /**
-     * The master index for the house options interface.
+     * The mule_username index for the house options interface.
      */
     private static final int HOUSE_OPTIONS_INTERFACE = 370;
 
     /**
-     * The master child index for the house options expel guests interface.
+     * The mule_username child index for the house options expel guests interface.
      */
     private static final int EXPEL_GUESTS_CHILD = 12;
 
     /**
-     * The master child index for the house options leave house interface.
+     * The mule_username child index for the house options leave house interface.
      */
     private static final int LEAVE_HOUSE_CHILD = 13;
 
     /**
-     * The master child index for the house options call servant interface.
+     * The mule_username child index for the house options call servant interface.
      */
     private static final int CALL_SERVANT_CHILD = 14;
 

@@ -136,7 +136,6 @@ public class WorldSwitcher07 {
         }
 
         if (Login.getLoginState() == Login.STATE.LOGINSCREEN) {
-            General.println("Login Screen Hopping to world: " + world);
             if (!isAtWorldHopScreen()) {
                 openWorldHopScreen();
             } else if (hasMisconfiguredWorldSettings()) {
@@ -147,7 +146,6 @@ public class WorldSwitcher07 {
             return WorldHopper.getWorld() == world;
         }
 
-        General.println("Ingame Hopping to world: " + world);
         if (!GameTab.open(GameTab.TABS.LOGOUT) || !openWorldSwitchInterface() || !moveMouseInsideWorldSwitchInterface()) {
             return false;
         }
@@ -204,7 +202,6 @@ public class WorldSwitcher07 {
                         String text = components[i].getText();
                         try {
                             if (text != null && Integer.parseInt(text) == world) {
-                                General.println(i);
                                 CACHE.put(world, i - 2);
                                 return components[i - 2];
                             }
@@ -243,7 +240,6 @@ public class WorldSwitcher07 {
             }
 
             if (isDMM) {
-                General.println("Waiting DMM additional hop time");
                 General.sleep(11000, 13000);
             }
 
@@ -265,7 +261,6 @@ public class WorldSwitcher07 {
             public boolean active() {
                 General.sleep(100);
                 if (WorldHopper.getWorld() == world && (Login.getLoginState() == Login.STATE.INGAME || Login.getLoginState() == Login.STATE.LOGINSCREEN)) {
-                    General.println("We hopped to world: " + world);
                     return true;
                 }
                 return false;

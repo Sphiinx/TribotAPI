@@ -52,6 +52,33 @@ public class Objects07 {
     }
 
     /**
+     * Gets the RSObject at the specified tile. Does not return "null" objects.
+     *
+     * @param tile The specified tile.
+     * @return The object at the specified RSTile; Null if no RSObjects are found.
+     */
+    public static RSObject getObjectAt(RSTile tile) {
+        final RSObject[] objects = Objects.getAt(tile, Filters.Objects.tileEquals(tile));
+        if (objects.length <= 0)
+            return null;
+
+        for (RSObject object : objects) {
+            if (object == null)
+                continue;
+
+            final RSObjectDefinition object_definition = object.getDefinition();
+            if (object.getDefinition() == null)
+                continue;
+
+            final String name = object_definition.getName();
+            if (name != null && !name.equals("null"))
+                return object;
+        }
+
+        return null;
+    }
+
+    /**
      * Gets the nearest RSObject with the specified IDs.
      *
      * @param distance The specified distance.

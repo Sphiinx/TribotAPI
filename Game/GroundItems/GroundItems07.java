@@ -7,6 +7,7 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
+import scripts.TribotAPI.game.walking.Walking07;
 
 /**
  * Created by Sphiinx on 1/10/2016.
@@ -78,9 +79,9 @@ public class GroundItems07 {
             return false;
 
         if (!items[0].isOnScreen())
-            WebWalking.walkTo(items[0]);
+            Walking07.screenWalkToRSGroundItem(items[0]);
         else
-            return Clicking.click("Take", items);
+            return Clicking.click("Take " + name, items[0]);
 
         return false;
     }

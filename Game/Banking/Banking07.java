@@ -15,7 +15,7 @@ import scripts.TribotAPI.game.objects.Objects07;
 public class Banking07 {
 
     /**
-     * The master index for the banking Interface.
+     * The mule_username index for the banking Interface.
      */
     private static final int BANKING_INTERFACE = 12;
 
@@ -27,7 +27,12 @@ public class Banking07 {
     /**
      * The child index for the note button in the banking Interface.
      */
-    private static final int NOTE_INTERFACE = 24;
+    private static final int NOTE_INTERFACE = 26;
+
+    /**
+     * The child index for the item button in the banking Interface.
+     */
+    private static final int ITEM_INTERFACE = 24;
 
     /**
      * The varbit index for the banking Interface.
@@ -62,7 +67,7 @@ public class Banking07 {
         final String[] banks = new String[]{
                 "Bank booth",
                 "Banker",
-                "Bank chest",
+                "Bank chest"
         };
 
         final RSObject bank = Objects07.getObject(15, banks);
@@ -73,12 +78,38 @@ public class Banking07 {
     }
 
     /**
+     * Checks if the RSPlayer is in at the Grand Exchange.
+     *
+     * @return True if the RSPlayer is in at the Grand Exchange; false otherwise.
+     */
+    public static boolean isAtGrandExchange() {
+        final String[] booths = new String[]{
+                "Grand Exchange booth"
+        };
+
+        final RSObject booth = Objects07.getObject(15, booths);
+        if (booth == null)
+            return false;
+
+        return booth.isOnScreen() && booth.isClickable();
+    }
+
+    /**
      * Checks if the note option in the banking screen is selected.
      *
      * @return True if note is selected; false otherwise.
      */
     public static boolean isNotedSelected() {
         return Game.getSetting(NOTE_VARBIT) == 1;
+    }
+
+    /**
+     * Checks if the item option in the banking screen is selected.
+     *
+     * @return True if item is selected; false otherwise.
+     */
+    public static boolean isItemSelected() {
+        return Game.getSetting(NOTE_VARBIT) == 0;
     }
 
     /**
@@ -102,6 +133,26 @@ public class Banking07 {
     }
 
     /**
+     * Turns item withdrawing on in the banking screen.
+     * Takes into account if the bank screen is open.
+     *
+     * @return True if the item interface was selected; false otherwise;
+     */
+    public static boolean selectItem() {
+        if (!Banking.isBankScreenOpen())
+            return false;
+
+        if (Interfaces.get(BANKING_INTERFACE) == null)
+            return false;
+
+        final RSInterfaceChild item_interface = Interfaces.get(BANKING_INTERFACE, ITEM_INTERFACE);
+        if (item_interface == null)
+            return false;
+
+        return item_interface.click();
+    }
+
+    /**
      * Gets the amount of space in the RSPlayers bank.
      *
      * @return The amount of space in the RSPlayers bank.
@@ -112,6 +163,9 @@ public class Banking07 {
             return -1;
 
         String text = amount.getText();
+        if (text == null)
+            return -1;
+
         if (text.length() <= 0)
             return -1;
 

@@ -1,6 +1,5 @@
 package scripts.TribotAPI.game.combat;
 
-import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.RSCharacter;
@@ -16,19 +15,9 @@ import scripts.TribotAPI.game.timing.Timing07;
 public class Combat07 {
 
     /**
-     * The master index for the combat interface.
+     * The mule_username index for the combat interface.
      */
     private static final int COMBAT_INTERFACE = 593;
-
-    /**
-     * The child indexes for each combat style button.
-     */
-    private static final int[] COMBAT_STYLE_INTERFACES = {3, 7, 11, 15};
-
-    /**
-     * The setting index to get the selected style.
-     */
-    private static final int SELECTED_STYLE_SETTING = 43;
 
     /**
      * The child index for the special attack button.
@@ -44,52 +33,6 @@ public class Combat07 {
      * The varbit index for checking if special attack is enabled or disabled.
      */
     private static final int SPECIAL_ATTACK_SETTING = 301;
-
-    /**
-     * The child index for the auto retaliate button.
-     */
-    private static final int AUTO_RETALIATE_INTERFACE = 27;
-
-    /**
-     * The varbit index to check if auto retaliate is enabled or disabled.
-     */
-    private static final int AUTO_RETALIATE_SETTING = 172;
-
-    /**
-     * Gets the selected combat style index.
-     * This value will be from 0-3.
-     *
-     * @return The selected combat style index.
-     */
-    public static int getSelectedStyleIndex() {
-        return Game.getSetting(SELECTED_STYLE_SETTING);
-    }
-
-    /**
-     * Selects the combat style with the specified index. The specified index must be 0-3.
-     * Takes into account if the style is already selected.
-     * Opens the combat tab if it's not open.
-     *
-     * @param index The index.
-     * @return True if the style was selected; false otherwise.
-     */
-    public static boolean selectCombatStyle(int index) {
-        if (index < 0 || index > 3)
-            return false;
-
-        if (getSelectedStyleIndex() == index)
-            return false;
-
-        if (!GameTab.TABS.COMBAT.isOpen())
-            if (GameTab.TABS.COMBAT.open())
-                Timing07.waitCondition(GameTab.TABS.COMBAT::isOpen, General.random(1500, 2000));
-
-        final RSInterface style_button = Interfaces.get(COMBAT_INTERFACE, COMBAT_STYLE_INTERFACES[index]);
-        if (style_button == null)
-            return false;
-
-        return Clicking.click(style_button);
-    }
 
     /**
      * Gets the RSPlayers special attack percent.
@@ -128,37 +71,6 @@ public class Combat07 {
         final boolean selected = isSpecialAttackSelected();
         if (special_attack.click())
             return Timing07.waitCondition(() -> selected != isSpecialAttackSelected(), General.random(1500, 2000));
-
-        return false;
-    }
-
-    /**
-     * Checks to see if auto retaliate is enabled.
-     *
-     * @return True if it is enabled; false otherwise.
-     */
-    public static boolean isAutoRetaliateEnabled() {
-        return Game.getSetting(AUTO_RETALIATE_SETTING) == 0;
-    }
-
-    /**
-     * Selects the auto retaliate button whether it's selected or not.
-     * Opens the combat tab if it's not open.
-     *
-     * @return True if auto retaliate was selected or de-selected; false otherwise.
-     */
-    public static boolean selectAutoRetaliate() {
-        if (!GameTab.TABS.COMBAT.isOpen())
-            if (GameTab.TABS.COMBAT.open())
-                Timing07.waitCondition(GameTab.TABS.COMBAT::isOpen, General.random(1000, 1200));
-
-        final RSInterface auto_retaliate = Interfaces.get(COMBAT_INTERFACE, AUTO_RETALIATE_INTERFACE);
-        if (auto_retaliate == null)
-            return false;
-
-        final boolean enabled = isAutoRetaliateEnabled();
-        if (auto_retaliate.click())
-            return Timing07.waitCondition(() -> enabled != isAutoRetaliateEnabled(), General.random(1000, 1200));
 
         return false;
     }
@@ -203,7 +115,7 @@ public class Combat07 {
      * @return True if in combat; false otherwise.
      */
     public static boolean isInCombat() {
-        return Combat.getAttackingEntities().length > 0 || Player.getRSPlayer().isInCombat() || Combat.isUnderAttack();
+        return Combat.getAttackingEntities().length > 0 || Combat.isUnderAttack();
     }
 
 }

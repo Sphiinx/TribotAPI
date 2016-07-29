@@ -10,7 +10,8 @@ public enum Fonts {
 
     PAINT_TITLE_FONT(new Font("Verdana", 0, 20)),
     PAINT_VERSION_FONT(new Font("Verdana", Font.ITALIC, 15)),
-    PAINT_INFO_FONT(new Font("Verdana", 0, 13));
+    PAINT_INFO_FONT(new Font("Verdana", 0, 13)),
+    PAINT_TABS_FONT(new Font("Verdana", Font.ITALIC, 13));
 
     private final Font FONT;
 

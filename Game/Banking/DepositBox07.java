@@ -89,7 +89,7 @@ public class DepositBox07 {
         if (!Interfaces07.isSelectOptionOpen()) {
             if (Game.getUptext().equals("Use " + name + " ->")) {
                 if (Clicking.click("Use", deposit_box))
-                    Timing07.waitCondition(Interfaces07::isSelectOptionOpen, General.random(1500, 2000));
+                    return Timing07.waitCondition(() -> Interfaces07.isSelectOptionOpen() || Inventory.getCount(item_definition.getID()) <= 0, General.random(1500, 2000));
             } else {
                 if (Clicking.click("Use", items))
                     Timing07.waitCondition(() -> Game.getUptext().equals("Use " + name + " ->"), General.random(1500, 2000));

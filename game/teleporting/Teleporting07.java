@@ -25,7 +25,7 @@ public class Teleporting07 {
     private static RSObject obelisk;
 
     /**
-     * The master model index for the obelisk teleporting animation.
+     * The mule_username model index for the obelisk teleporting animation.
      */
     private static final int obelisk_animation_id = 14825;
 
@@ -107,7 +107,7 @@ public class Teleporting07 {
     }
 
     /**
-     * Walks to the center obelisk tile for the obelisk the player is at.
+     * Walks to the center obelisk cow_pen_tile for the obelisk the player is at.
      */
     private static void walkToObeliskTile() {
         switch (Player07.getWildernessLevel()) {

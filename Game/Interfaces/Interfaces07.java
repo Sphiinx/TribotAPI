@@ -24,7 +24,7 @@ public class Interfaces07 {
         final Filter<RSInterface> filter = new Filter<RSInterface>() {
             @Override
             public boolean accept(RSInterface rs_interface) {
-                return rs_interface != null && rs_interface.getText().equals(text);
+                return rs_interface != null && rs_interface.getText().contains(text);
             }
         };
 

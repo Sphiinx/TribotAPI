@@ -9,7 +9,7 @@ import org.tribot.api.General;
 public class Logging {
 
     /**
-     * The master string with the Scripter username.
+     * The mule_username string with the Scripter username.
      */
     private static final String scripter = "Sphiinx";
 

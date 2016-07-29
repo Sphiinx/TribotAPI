@@ -27,20 +27,23 @@ public class Stats07 {
      * Gets the specified level of the specified RSPlayer from the Runescape website.
      *
      * @param player The player to get the stat of.
-     * @param stat  The skill to get the stat of.
+     * @param stat   The skill to get the stat of.
      * @return The stats of the specified skills from the specified RSPlayer.
      */
     private static String getPlayerLevelStats(String player, Stat stat) {
         try {
             URL url = new URL("http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + player);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+
                 final String[] stats = new String[Stat.values().length + 1];
                 for (int i = 0; i < Stat.values().length + 1; i++) {
+
                     final String line = reader.readLine();
                     if (line != null) {
                         stats[i] = line;
                     }
                 }
+
                 reader.close();
                 return stats[stat.getSkillPosition()];
             } catch (IOException e) {

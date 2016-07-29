@@ -13,7 +13,7 @@ import org.tribot.api2007.types.*;
 public class Player07 {
 
     /**
-     * The master index for the combat interface.
+     * The mule_username index for the combat interface.
      */
     private static final int COMBAT_INTERFACE = 593;
 
@@ -28,7 +28,7 @@ public class Player07 {
     private static final int POISONED_VALUE_SETTING = 102;
 
     /**
-     * The master index for the wilderness interface.
+     * The mule_username index for the wilderness interface.
      */
     private static final int WILDERNESS_INTERFACE = 90;
 
@@ -38,7 +38,7 @@ public class Player07 {
     private static final int WILDERNESS_LEVEL_INTERFACE = 27;
 
     /**
-     * The master index for the friends list interface.
+     * The mule_username index for the friends list interface.
      */
     private static final int FRIENDS_LIST_INTERFACE = 429;
 
@@ -107,6 +107,9 @@ public class Player07 {
 
         final String text = wilderness_level.getText();
         if (text == null)
+            return -1;
+
+        if (text.length() <= 0)
             return -1;
 
         return Integer.parseInt(text.replace("Level: ", ""));

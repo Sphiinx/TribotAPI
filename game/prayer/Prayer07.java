@@ -12,12 +12,12 @@ import scripts.TribotAPI.game.prayer.enums.QuickPrayer;
 public class Prayer07 {
 
     /**
-     * The master interface for the minimap interface.
+     * The mule_username interface for the minimap interface.
      * */
     private static final int MINIMAP_INTERFACE = 160;
 
     /**
-     * The master child interface for the minimap prayer icon interface.
+     * The mule_username child interface for the minimap prayer icon interface.
      * */
     private static final int MINIMAP_PRAYER_ICON_CHILD = 16;
 
@@ -41,7 +41,7 @@ public class Prayer07 {
      *
      * @return True if successful; false otherwise.
      * */
-    public static boolean activateQuickPrayers() {
+    public static boolean activateQuickPrayers(boolean b) {
         if (Skills.SKILLS.PRAYER.getCurrentLevel() <= 0)
             return false;
 
@@ -49,10 +49,17 @@ public class Prayer07 {
         if (MINIMAP_PRAYER_ICON == null)
             return false;
 
-        if (MINIMAP_PRAYER_ICON.getTextureID() == QuickPrayer.ENABLED_ICON.getTextureID())
-            return false;
+        if (b) {
+            if (MINIMAP_PRAYER_ICON.getTextureID() == QuickPrayer.ENABLED_ICON.getTextureID())
+                return false;
 
-        return MINIMAP_PRAYER_ICON.click("Activate Quick-prayers");
+            return MINIMAP_PRAYER_ICON.click("Activate Quick-prayers");
+        } else {
+            if (MINIMAP_PRAYER_ICON.getTextureID() == QuickPrayer.DISABLED_ICON.getTextureID())
+                return false;
+
+            return MINIMAP_PRAYER_ICON.click("Deactivate Quick-prayers");
+        }
     }
 
 }

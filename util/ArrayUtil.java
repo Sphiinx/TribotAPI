@@ -1,12 +1,34 @@
 package scripts.TribotAPI.util;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by Sphiinx on 2/16/2016.
  * Re-written by Sphiinx on 7/8/2016.
  */
 public class ArrayUtil {
+
+    /**
+     * Initialization of the randomisation object.
+     * */
+    private static Random random = new Random();
+
+    /**
+     * Gets a random integer from an integer array/
+     *
+     * @param array The array in which to get a random number from.
+     * @return A random integer from the integer array.
+     * */
+    public static int getRandomInt(int[] array){
+        if (array == null)
+            return -1;
+
+        if (array.length <= 0)
+            return -1;
+
+        return array[random.nextInt(array.length)];
+    }
 
     /**
      * Checks to see if the specified integer array contains the specified value.

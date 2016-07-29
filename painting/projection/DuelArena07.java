@@ -13,92 +13,92 @@ import java.awt.*;
 public class DuelArena07 {
 
     /**
-     * The master interface for the duel arena interface;
+     * The mule_username interface for the duel arena interface;
      */
     private final int DUEL_INTERFACE = 107;
 
     /**
-     * The master child interface for the duel arena challenger name interface;
+     * The mule_username child interface for the duel arena challenger name interface;
      */
     private final int DUEL_INTERFACE_CHALLGENGER_NAME_CHILD = 99;
 
     /**
-     * The master x position for the duel stats background.
+     * The mule_username x position for the duel stats background.
      */
     private int duel_stats_background_x = 363;
 
     /**
-     * The master y position for the duel stats background.
+     * The mule_username y position for the duel stats background.
      */
     private int duel_stats_background_y = 345;
 
     /**
-     * The master width for the duel stats background.
+     * The mule_username width for the duel stats background.
      */
     private final int DUEL_STATS_BACKGROUND_W = 150;
 
     /**
-     * The master height for the duel stats background.
+     * The mule_username height for the duel stats background.
      */
     private final int DUEL_STATS_BACKGROUND_H = 125;
 
     /**
-     * The master y position for the attack text and levels.
+     * The mule_username y position for the attack text and levels.
      * */
     private final int ATTACK_TEXT_Y = duel_stats_background_y + 45;
 
     /**
-     * The master y position for the strength text and levels.
+     * The mule_username y position for the strength text and levels.
      * */
     private final int STRENGTH_TEXT_Y = duel_stats_background_y + 60;
 
     /**
-     * The master y position for the defence text and levels.
+     * The mule_username y position for the defence text and levels.
      * */
     private final int DEFENCE_TEXT_Y = duel_stats_background_y + 75;
 
     /**
-     * The master y position for the hitpoints text and levels.
+     * The mule_username y position for the hitpoints text and levels.
      * */
     private final int HITPOINTS_TEXT_Y = duel_stats_background_y + 90;
 
     /**
-     * The master y position for the winrate text and %.
+     * The mule_username y position for the winrate text and %.
      * */
     private final int WINRATE_TEXT_Y = duel_stats_background_y + 105;
 
     /**
-     * The master y position for the x text and int.
+     * The mule_username y position for the x text and int.
      * */
     private final int STAKE_X_TEXT_Y = duel_stats_background_y + 120;
 
     /**
-     * The master x position for the players level text buffer.
+     * The mule_username x position for the players level text buffer.
      * */
     private final int PLAYER_LEVEL_TEXT_X = duel_stats_background_x + 80;
 
     /**
-     * The master x position for the challengers level text buffer.
+     * The mule_username x position for the challengers level text buffer.
      * */
     private final int CHALLENGER_LEVEL_TEXT_X = duel_stats_background_x + 120;
 
     /**
-     * The master y position for the challenger title.
+     * The mule_username y position for the challenger title.
      * */
     private final int CHALLENGER_TITLE_Y = duel_stats_background_y + 12;
 
     /**
-     * The master x position for the level text.
+     * The mule_username x position for the level text.
      * */
     private final int STAT_TEXT_X = duel_stats_background_x + 4;
 
     /**
-     * The master x position for the YOU  THEM text.
+     * The mule_username x position for the YOU  THEM text.
      * */
     private final int YOU_THEM_X = duel_stats_background_x + 75;
 
     /**
-     * The master y position for the YOU  THEM text.
+     * The mule_username y position for the YOU  THEM text.
      * */
     private final int YOU_THEM_Y = duel_stats_background_y + 30;
 

@@ -34,6 +34,9 @@ public class Utility07 {
      * @return Random point in the rectangle.
      */
     public static Point getRandomPoint(Rectangle r) {
+        if (r == null)
+            return null;
+
         final int randomX = General.random(r.x, r.x + r.width);
         final int randomY = General.random(r.y, r.y + r.height);
 
@@ -46,7 +49,7 @@ public class Utility07 {
      *
      * @return ...
      */
-    public static String loadingPeriods() {
+    public static String getLoadingPeriods() {
         final long time = System.currentTimeMillis() % 3000;
         if (time < 600)
             return "";

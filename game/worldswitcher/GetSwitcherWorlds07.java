@@ -15,22 +15,22 @@ import java.util.ArrayList;
 public class GetSwitcherWorlds07 {
 
     /**
-     * The master index for the world switcher interface.
+     * The mule_username index for the world switcher interface.
      */
     private static final int WORLD_SWITCHER_INTERFACE = 69;
 
     /**
-     * The master index for the worlds interface.
+     * The mule_username index for the worlds interface.
      */
     private static final int WORLDS_INTERFACE = 7;
 
     /**
-     * The master index for the logout interface.
+     * The mule_username index for the logout interface.
      */
     private static final int LOGOUT_INTERFACE = 182;
 
     /**
-     * The master index for the logout button interface.
+     * The mule_username index for the logout button interface.
      */
     private static final int WORLD_SWITCHER_BUTTON_INTERFACE = 5;
 
@@ -45,11 +45,11 @@ public class GetSwitcherWorlds07 {
             if (GameTab.TABS.LOGOUT.open())
                 Timing07.waitCondition(GameTab.TABS.LOGOUT::isOpen, General.random(1500, 2000));
 
-        final RSInterface worldSwitcherButton = Interfaces.get(LOGOUT_INTERFACE, WORLD_SWITCHER_BUTTON_INTERFACE);
-        if (worldSwitcherButton == null)
+        final RSInterface world_switcher_button = Interfaces.get(LOGOUT_INTERFACE, WORLD_SWITCHER_BUTTON_INTERFACE);
+        if (world_switcher_button == null)
             return false;
 
-        return worldSwitcherButton.click("World Switcher");
+        return world_switcher_button.click("World Switcher");
     }
 
     /**
@@ -58,8 +58,8 @@ public class GetSwitcherWorlds07 {
      * @return True if it's open; false otherwise.
      */
     public static boolean isWorldSwitcherOpen() {
-        final RSInterface worldSwitcher = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE);
-        return worldSwitcher != null;
+        final RSInterface world_switcher = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE);
+        return world_switcher != null;
     }
 
     /**
@@ -73,20 +73,28 @@ public class GetSwitcherWorlds07 {
         if (!isWorldSwitcherOpen())
             return null;
 
-        for (int i = 2; i < 419; i += 6) {
+        final RSInterface world_list = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE);
+        if (world_list == null)
+            return null;
+
+        if (world_list.getChildren() == null)
+            return null;
+
+        for (int i = 2; i < world_list.getChildren().length; i += 6) {
             final RSInterface world = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i);
             if (world == null)
                 return null;
 
-            final RSInterface worldTexture = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i - 1);
-            if (worldTexture == null)
+            final RSInterface world_texture = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i - 1);
+            if (world_texture == null)
                 return null;
 
-            if (worldTexture.getTextureID() == TEXTURE_ID) {
-                final int worldNumber = Integer.parseInt(world.getText());
-                worlds.add(worldNumber);
+            if (world_texture.getTextureID() == TEXTURE_ID) {
+                final int world_number = Integer.parseInt(world.getText());
+                worlds.add(world_number);
             }
         }
+
         return worlds.stream().mapToInt(i -> i).toArray();
     }
 
