@@ -1,5 +1,6 @@
-package scripts.TribotAPI.game.objects;
+package scripts.tribotapi.game.objects;
 
+import org.tribot.api.General;
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api.util.Sorting;
 import org.tribot.api2007.Objects;
@@ -87,7 +88,6 @@ public class Objects07 {
      */
     public static RSObject getObject(int distance, int... id) {
         final RSObject[] object = Objects.find(distance, Filters.Objects.idEquals(id));
-        Sorting.sortByDistance(object, Player.getPosition(), true);
         return object.length > 0 ? object[0] : null;
     }
 
@@ -103,24 +103,84 @@ public class Objects07 {
             return null;
 
         final RSObject[] object = Objects.find(distance, Filters.Objects.nameEquals(name));
-        Sorting.sortByDistance(object, Player.getPosition(), true);
         return object.length > 0 ? object[0] : null;
     }
 
     /**
-     * Gets the nearest RSObject with the specified filter.
+     * Gets RSObjects with the specified filter; sortable by the nearest object.
      *
-     * @param filter   The filter.
-     * @param distance The specified distance.
+     * @param distance     The specified distance.
+     * @param sort_objects True if we should sort the objects in ascending order by the closet object; false otherwise.
+     * @param filter       The filter.
      * @return The nearest RSObject; Null if no RSObjects were found.
      */
-    public static RSObject getObject(Filter<RSObject> filter, int distance) {
+    public static RSObject getObject(int distance, boolean sort_objects, Filter<RSObject> filter) {
         if (filter == null)
             return null;
 
-        final RSObject[] objs = Objects.find(distance, filter);
-        Sorting.sortByDistance(objs, Player.getPosition(), true);
-        return objs.length > 0 ? objs[0] : null;
+        final RSObject[] object = Objects.find(distance, filter);
+        if (sort_objects)
+            Sorting.sortByDistance(object, Player.getPosition(), true);
+        return object.length > 0 ? object[0] : null;
+    }
+
+    /**
+     * Gets the nearest RSObject with the specified color.
+     *
+     * @param distance     The specified distance.
+     * @param color        The color.
+     * @param sort_objects True if we should sort the objects in ascending order by the closet object; false otherwise.
+     * @return The nearest RSObject; Null if no RSObjects were found.
+     */
+    public static RSObject getObjectByColor(int distance, int color, boolean sort_objects) {
+        return getObject(distance, sort_objects, new Filter<RSObject>() {
+            @Override
+            public boolean accept(RSObject object) {
+                final RSObjectDefinition object_definition = object.getDefinition();
+                if (object_definition == null)
+                    return false;
+
+                for (short object_color : object_definition.getModifiedColors()) {
+                    if (object_color == color) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        });
+    }
+
+    /**
+     * Gets the nearest RSObject object in the area with the specified color.
+     *
+     * @param distance     The specified distance.
+     * @param color        The color.
+     * @param sort_objects True if we should sort the objects in ascending order by the closet object; false otherwise.
+     * @return The nearest RSObject; Null if no RSObjects were found.
+     */
+    public static RSObject getObjectByColorInArea(RSTile tile, int distance, int color, boolean sort_objects) {
+        return getObject(distance, sort_objects, new Filter<RSObject>() {
+            @Override
+            public boolean accept(RSObject object) {
+                final RSArea radius_area = new RSArea(tile, distance);
+                if (!radius_area.contains(object))
+                    return false;
+
+                final RSObjectDefinition object_definition = object.getDefinition();
+                if (object_definition == null)
+                    return false;
+
+
+                for (short object_color : object_definition.getModifiedColors()) {
+                    if (object_color == color) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        });
     }
 
 }

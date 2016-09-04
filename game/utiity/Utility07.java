@@ -1,8 +1,6 @@
-package scripts.TribotAPI.game.utiity;
+package scripts.tribotapi.game.utiity;
 
 import org.tribot.api.General;
-import org.tribot.api2007.Interfaces;
-import org.tribot.api2007.types.RSInterface;
 
 import java.awt.*;
 

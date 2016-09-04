@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.player;
+package scripts.tribotapi.game.player;
 
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api.util.Sorting;
@@ -13,7 +13,7 @@ import org.tribot.api2007.types.*;
 public class Player07 {
 
     /**
-     * The mule_username index for the combat interface.
+     * The master index for the combat interface.
      */
     private static final int COMBAT_INTERFACE = 593;
 
@@ -28,17 +28,17 @@ public class Player07 {
     private static final int POISONED_VALUE_SETTING = 102;
 
     /**
-     * The mule_username index for the wilderness interface.
+     * The master index for the wilderness interface.
      */
     private static final int WILDERNESS_INTERFACE = 90;
 
     /**
      * The child index for each combat wilderness level.
      */
-    private static final int WILDERNESS_LEVEL_INTERFACE = 27;
+    private static final int WILDERNESS_LEVEL_INTERFACE = 29;
 
     /**
-     * The mule_username index for the friends list interface.
+     * The master index for the friends list interface.
      */
     private static final int FRIENDS_LIST_INTERFACE = 429;
 

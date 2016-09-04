@@ -1,9 +1,9 @@
-package scripts.TribotAPI.painting.paint.paintables.tabs;
+package scripts.tribotapi.painting.paint.paintables.tabs;
 
-import scripts.TribotAPI.color.Colors;
-import scripts.TribotAPI.font.Fonts;
-import scripts.TribotAPI.painting.paint.PaintManager;
-import scripts.TribotAPI.painting.paint.Paintable;
+import scripts.tribotapi.color.Colors;
+import scripts.tribotapi.font.Fonts;
+import scripts.tribotapi.painting.paint.PaintManager;
+import scripts.tribotapi.painting.paint.Paintable;
 
 import java.awt.*;
 

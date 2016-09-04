@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.prayer.enums;
+package scripts.tribotapi.game.prayer.enums;
 
 /**
  * Created by Sphiinx on 7/6/2016.

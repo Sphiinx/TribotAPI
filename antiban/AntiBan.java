@@ -1,4 +1,4 @@
-package scripts.TribotAPI.antiban;
+package scripts.tribotapi.antiban;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -10,11 +10,11 @@ import org.tribot.api.util.abc.ABCProperties;
 import org.tribot.api.util.abc.ABCUtil;
 import org.tribot.api2007.*;
 import org.tribot.api2007.types.*;
-import scripts.TribotAPI.game.entities.Entities07;
-import scripts.TribotAPI.game.items.Items07;
-import scripts.TribotAPI.game.mouse.Mouse07;
-import scripts.TribotAPI.game.npcs.NPCs07;
-import scripts.TribotAPI.game.objects.Objects07;
+import scripts.tribotapi.game.entities.Entities07;
+import scripts.tribotapi.game.items.Items07;
+import scripts.tribotapi.game.mouse.Mouse07;
+import scripts.tribotapi.game.npcs.NPCs07;
+import scripts.tribotapi.game.objects.Objects07;
 
 /**
  * Created by Sphiinx on 2/14/2016.
@@ -575,7 +575,7 @@ public final class AntiBan {
         //</editor-fold>
 
         final int objectID = id;
-        final RSObject next = Objects07.getObject(new Filter<RSObject>() {
+        final RSObject next = Objects07.getObject(15, true, new Filter<RSObject>() {
             //<editor-fold defaultstate="collapsed" desc="Filter">
             @Override
             public boolean accept(RSObject o) {
@@ -592,7 +592,7 @@ public final class AntiBan {
                 return false;
             }
             //</editor-fold>
-        }, 15);
+        });
         if (next != null) {
             if (!Entities07.isHovering(next.getModel()) && Clicking.hover(next)) {
                 Timing.waitCondition(new Condition() {

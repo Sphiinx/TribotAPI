@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.worldswitcher;
+package scripts.tribotapi.game.worldswitcher;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.General;
@@ -10,8 +10,8 @@ import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSInterfaceChild;
 import org.tribot.api2007.types.RSInterfaceComponent;
 import org.tribot.api2007.types.RSItem;
-import scripts.TribotAPI.game.game.Game07;
-import scripts.TribotAPI.game.utiity.Utility07;
+import scripts.tribotapi.game.game.Game07;
+import scripts.tribotapi.game.utiity.Utility07;
 
 import java.awt.*;
 import java.util.Arrays;

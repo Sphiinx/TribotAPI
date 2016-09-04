@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.interfaces;
+package scripts.tribotapi.game.interfaces;
 
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.Interfaces;
@@ -50,14 +50,15 @@ public class Interfaces07 {
     private static RSInterface[] matches(Filter<RSInterface> filter, RSInterface[] interfaces) {
         final ArrayList<RSInterface> matches = new ArrayList<>();
         for (RSInterface i : interfaces) {
-            if (i != null) {
-                if (filter.accept(i))
-                    matches.add(i);
+            if (i == null)
+                continue;
 
-                final RSInterface[] children = i.getChildren();
-                if (children != null)
-                    matches.addAll(Arrays.asList(matches(filter, children)));
-            }
+            if (filter.accept(i))
+                matches.add(i);
+
+            final RSInterface[] children = i.getChildren();
+            if (children != null)
+                matches.addAll(Arrays.asList(matches(filter, children)));
         }
 
         return matches.toArray(new RSInterface[matches.size()]);

@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.pricechecking;
+package scripts.tribotapi.game.pricechecking;
 
 import java.io.BufferedReader;
 import java.io.IOException;

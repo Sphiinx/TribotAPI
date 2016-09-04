@@ -1,10 +1,10 @@
-package scripts.TribotAPI.game.worldswitcher;
+package scripts.tribotapi.game.worldswitcher;
 
 import org.tribot.api.General;
 import org.tribot.api2007.GameTab;
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.types.RSInterface;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.tribotapi.game.timing.Timing07;
 
 import java.util.ArrayList;
 
@@ -15,22 +15,22 @@ import java.util.ArrayList;
 public class GetSwitcherWorlds07 {
 
     /**
-     * The mule_username index for the world switcher interface.
+     * The master index for the world switcher interface.
      */
     private static final int WORLD_SWITCHER_INTERFACE = 69;
 
     /**
-     * The mule_username index for the worlds interface.
+     * The master index for the worlds interface.
      */
     private static final int WORLDS_INTERFACE = 7;
 
     /**
-     * The mule_username index for the logout interface.
+     * The master index for the logout interface.
      */
     private static final int LOGOUT_INTERFACE = 182;
 
     /**
-     * The mule_username index for the logout button interface.
+     * The master index for the logout button interface.
      */
     private static final int WORLD_SWITCHER_BUTTON_INTERFACE = 5;
 
@@ -77,10 +77,11 @@ public class GetSwitcherWorlds07 {
         if (world_list == null)
             return null;
 
-        if (world_list.getChildren() == null)
+        final RSInterface[] world_list_children = world_list.getChildren();
+        if (world_list_children == null)
             return null;
 
-        for (int i = 2; i < world_list.getChildren().length; i += 6) {
+        for (int i = 2; i < world_list_children.length; i += 6) {
             final RSInterface world = Interfaces.get(WORLD_SWITCHER_INTERFACE, WORLDS_INTERFACE).getChild(i);
             if (world == null)
                 return null;

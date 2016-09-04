@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.walking;
+package scripts.tribotapi.game.walking;
 
 import org.tribot.api.General;
 import org.tribot.api.types.generic.Condition;
@@ -6,7 +6,6 @@ import org.tribot.api2007.Projection;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.*;
-import scripts.TribotAPI.game.npcs.NPCs07;
 
 import java.awt.*;
 

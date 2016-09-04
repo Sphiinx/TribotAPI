@@ -1,10 +1,10 @@
-package scripts.TribotAPI.game.mouse;
+package scripts.tribotapi.game.mouse;
 
 import org.tribot.api.General;
 import org.tribot.api.input.Mouse;
 import org.tribot.api2007.ChooseOption;
 import org.tribot.api2007.Game;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.tribotapi.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 2/14/2016.

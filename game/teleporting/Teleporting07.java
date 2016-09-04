@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.teleporting;
+package scripts.tribotapi.game.teleporting;
 
 
 import org.tribot.api.Clicking;
@@ -7,11 +7,10 @@ import org.tribot.api2007.Player;
 import org.tribot.api2007.Walking;
 import org.tribot.api2007.WebWalking;
 import org.tribot.api2007.types.RSObject;
-import scripts.TribotAPI.game.objects.Objects07;
-import scripts.TribotAPI.game.player.Player07;
-import scripts.TribotAPI.game.teleporting.enums.Obelisk;
-import scripts.TribotAPI.game.timing.Condition07;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.tribotapi.game.objects.Objects07;
+import scripts.tribotapi.game.player.Player07;
+import scripts.tribotapi.game.teleporting.enums.Obelisk;
+import scripts.tribotapi.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 6/29/2016.
@@ -25,7 +24,7 @@ public class Teleporting07 {
     private static RSObject obelisk;
 
     /**
-     * The mule_username model index for the obelisk teleporting animation.
+     * The master model index for the obelisk teleporting animation.
      */
     private static final int obelisk_animation_id = 14825;
 
@@ -57,8 +56,8 @@ public class Teleporting07 {
                 if (Timing07.waitCondition(() -> {
                     RSObject object = Objects07.getObject(15, "Obelisk");
                     return object != null && object.getID() == obelisk_animation_id;
-
-                }, General.random(1500, 2000))) {
+                }, General.random(2500, 3000))) {
+                    General.println("Calling");
                     walkToObeliskTile();
                     return Timing07.waitCondition(() -> Player07.getWildernessLevel() <= 30, General.random(6500, 7000));
                 }
@@ -95,8 +94,8 @@ public class Teleporting07 {
                 if (Timing07.waitCondition(() -> {
                     RSObject object = Objects07.getObject(15, "Obelisk");
                     return object != null && object.getID() == obelisk_animation_id;
-
-                }, General.random(1500, 2000))) {
+                }, General.random(2500, 3000))) {
+                    General.println("Calling");
                     walkToObeliskTile();
                     return Timing07.waitCondition(() -> Player07.getWildernessLevel() <= 30, General.random(6000, 6500));
                 }

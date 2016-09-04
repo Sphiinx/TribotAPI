@@ -1,4 +1,4 @@
-package scripts.TribotAPI.util;
+package scripts.tribotapi.util;
 
 import org.tribot.api.General;
 
@@ -9,7 +9,7 @@ import org.tribot.api.General;
 public class Logging {
 
     /**
-     * The mule_username string with the Scripter username.
+     * The master string with the Scripter username.
      */
     private static final String scripter = "Sphiinx";
 

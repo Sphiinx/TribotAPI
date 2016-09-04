@@ -1,4 +1,4 @@
-package scripts.TribotAPI.color;
+package scripts.tribotapi.color;
 
 import java.awt.*;
 

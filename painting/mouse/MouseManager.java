@@ -1,7 +1,7 @@
-package scripts.TribotAPI.painting.mouse;
+package scripts.tribotapi.painting.mouse;
 
 import org.tribot.api.input.Mouse;
-import scripts.TribotAPI.color.Colors;
+import scripts.tribotapi.color.Colors;
 
 import java.awt.*;
 

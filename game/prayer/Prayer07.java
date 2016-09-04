@@ -1,9 +1,9 @@
-package scripts.TribotAPI.game.prayer;
+package scripts.tribotapi.game.prayer;
 
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.Skills;
 import org.tribot.api2007.types.RSInterface;
-import scripts.TribotAPI.game.prayer.enums.QuickPrayer;
+import scripts.tribotapi.game.prayer.enums.QuickPrayer;
 
 /**
  * Created by Sphiinx on 7/6/2016.
@@ -12,12 +12,12 @@ import scripts.TribotAPI.game.prayer.enums.QuickPrayer;
 public class Prayer07 {
 
     /**
-     * The mule_username interface for the minimap interface.
+     * The master interface for the minimap interface.
      * */
     private static final int MINIMAP_INTERFACE = 160;
 
     /**
-     * The mule_username child interface for the minimap prayer icon interface.
+     * The master child interface for the minimap prayer icon interface.
      * */
     private static final int MINIMAP_PRAYER_ICON_CHILD = 16;
 

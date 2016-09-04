@@ -1,8 +1,9 @@
-package scripts.TribotAPI.painting.paint;
+package scripts.tribotapi.painting.paint;
 
+import org.tribot.api.General;
 import org.tribot.api.Timing;
 import org.tribot.api2007.Skills;
-import scripts.TribotAPI.game.utiity.Utility07;
+import scripts.tribotapi.game.utiity.Utility07;
 
 /**
  * Created by Sphiinx on 6/22/2016.
@@ -43,14 +44,13 @@ public class Calculations {
      * Gets the time to next level with time formatting.
      *
      * @param skill The skill to get the time to next level.
-     * @param xp_gained The amount of xp gained.
      * @param run_time The script run time.
      * */
-    public static String getTimeToNextLevel(Skills.SKILLS skill, int xp_gained, long run_time) {
-        if (skill.getActualLevel() >= 99 || xp_gained == 0)
+    public static String getTimeToNextLevel(SkillData skill, long run_time) {
+        if (skill.getActualLevel() >= 99 || skill.getXPGained() == 0)
             return "00:00:00";
 
-        return Timing.msToString(((Skills.getXPToNextLevel(skill)) / xp_gained) * run_time);
+        return Timing.msToString((skill.getExperienceToNextLevel() * 3600000L) / ((3600000L / run_time) * skill.getXPGained()));
     }
 
 }

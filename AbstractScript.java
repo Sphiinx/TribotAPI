@@ -1,4 +1,4 @@
-package scripts.TribotAPI;
+package scripts.tribotapi;
 
 import com.allatori.annotations.DoNotRename;
 import org.tribot.api.General;
@@ -8,17 +8,18 @@ import org.tribot.api2007.Walking;
 import org.tribot.api2007.util.ThreadSettings;
 import org.tribot.script.Script;
 import org.tribot.script.interfaces.*;
-import scripts.TaskFramework.framework.Task;
-import scripts.TaskFramework.framework.TaskManager;
-import scripts.TribotAPI.gui.GUI;
-import scripts.TribotAPI.painting.mouse.MouseManager;
-import scripts.TribotAPI.painting.paint.PaintManager;
-import scripts.TribotAPI.painting.paint.SkillData;
-import scripts.TribotAPI.painting.paint.enums.DataPosition;
-import scripts.TribotAPI.painting.paint.paintables.InteractivePaint;
-import scripts.TribotAPI.painting.paint.paintables.SkillBackground;
-import scripts.TribotAPI.painting.paint.paintables.tabs.*;
-import scripts.TribotAPI.util.Logging;
+import org.tribot.util.Util;
+import scripts.task_framework.framework.Task;
+import scripts.task_framework.framework.TaskManager;
+import scripts.tribotapi.gui.GUI;
+import scripts.tribotapi.painting.mouse.MouseManager;
+import scripts.tribotapi.painting.paint.PaintManager;
+import scripts.tribotapi.painting.paint.SkillData;
+import scripts.tribotapi.painting.paint.enums.DataPosition;
+import scripts.tribotapi.painting.paint.paintables.InteractivePaint;
+import scripts.tribotapi.painting.paint.paintables.SkillBackground;
+import scripts.tribotapi.painting.paint.paintables.tabs.*;
+import scripts.tribotapi.util.Logging;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -39,7 +40,7 @@ public abstract class AbstractScript extends Script implements Painting, MousePa
     /**
      * The master object for the paint manager.
      * */
-    protected PaintManager paint_manager = new PaintManager(new InteractivePaint(Client.getManifest(this.getClass()).name(), Client.getManifest(this.getClass()).version()), new SkillBackground(), new GeneralTab(), new StatsTab(), new GUITab(), new ScreenshotTab(), new TogglePaintTab());
+    protected PaintManager paint_manager = new PaintManager(new InteractivePaint(Client.getManifest(this.getClass()).name(), Client.getManifest(this.getClass()).version()), new SkillBackground(), new GeneralTab(), new StatsTab(), new GUITab(), new ScreenshotTab(), new TogglePaintTab(), new StackTraceTab());
 
     /**
      * The master object for the mouse manager.
@@ -70,6 +71,9 @@ public abstract class AbstractScript extends Script implements Painting, MousePa
         ThreadSettings.get().setClickingAPIUseDynamic(true);
         Walking.setWalkingTimeout(1000);
         SkillData.initialiseAll();
+
+        if (FileManagment.createDirectory(Util.getWorkingDirectory().getAbsolutePath(), "SPXScripts"))
+            FileManagment.createDirectory(Util.getWorkingDirectory().getAbsolutePath() + "\\SPXScripts", Client.getManifest(this.getClass()).name().replace(" ", "_"));
 
         General.sleep(150); // The GUI didn't seem to instantiate quick enough.
         if (this.gui != null) {

@@ -1,4 +1,4 @@
-package scripts.TribotAPI.painting.paint;
+package scripts.tribotapi.painting.paint;
 
 import java.awt.*;
 

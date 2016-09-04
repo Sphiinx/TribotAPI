@@ -1,4 +1,4 @@
-package scripts.TribotAPI.util;
+package scripts.tribotapi.util;
 
 import org.tribot.api.General;
 
@@ -43,6 +43,12 @@ public class Utility {
         return g.getFontMetrics().stringWidth(text);
     }
 
+    /**
+     * Opens the specified URI.
+     *
+     * @param uri The URI to open.
+     * @return True if successful; false otherwise.
+     * */
     public static boolean openURL(String uri) {
         if (!Desktop.isDesktopSupported()) {
             General.println("Sorry! It seems your desktop instance does not support opening URL's.");
@@ -58,6 +64,26 @@ public class Utility {
         }
 
         return false;
+    }
+
+    /**
+     * Replaces the null fake spaces in text.
+     *
+     * @param text The text.
+     * @return The text with the null fake space replaced with a real space.
+     * */
+    public static String removeNullSpace(String text) {
+        if (text == null)
+            return null;
+        
+        String fixed_text = "";
+        for (int i = 0; i < text.length(); i++) {
+            final char character = text.charAt(i);
+            final int numValue = Character.getNumericValue(character);
+            fixed_text += numValue == -1 ? " " : character;
+        }
+
+        return fixed_text;
     }
 
 }

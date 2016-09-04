@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.entities;
+package scripts.tribotapi.game.entities;
 
 import org.tribot.api.input.Mouse;
 import org.tribot.api2007.types.RSModel;

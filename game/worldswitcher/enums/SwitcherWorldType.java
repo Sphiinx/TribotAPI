@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.worldswitcher.enums;
+package scripts.tribotapi.game.worldswitcher.enums;
 
 /**
  * Created by Sphiinx on 4/5/2016.

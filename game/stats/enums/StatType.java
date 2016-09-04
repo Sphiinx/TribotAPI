@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.stats.enums;
+package scripts.tribotapi.game.stats.enums;
 
 /**
  * Created by Sphiinx on 7/7/2016.

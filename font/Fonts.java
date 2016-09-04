@@ -1,4 +1,4 @@
-package scripts.TribotAPI.font;
+package scripts.tribotapi.font;
 
 import java.awt.*;
 

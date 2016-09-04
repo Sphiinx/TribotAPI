@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.inventory;
+package scripts.tribotapi.game.inventory;
 
 import org.tribot.api.General;
 import org.tribot.api.Timing;

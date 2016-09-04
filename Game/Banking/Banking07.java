@@ -1,12 +1,12 @@
-package scripts.TribotAPI.game.banking;
+package scripts.tribotapi.game.banking;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.*;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.*;
-import scripts.TribotAPI.game.npcs.NPCs07;
-import scripts.TribotAPI.game.objects.Objects07;
+import scripts.tribotapi.game.npcs.NPCs07;
+import scripts.tribotapi.game.objects.Objects07;
 
 /**
  * Created by Sphiinx on 1/10/2016.
@@ -15,7 +15,7 @@ import scripts.TribotAPI.game.objects.Objects07;
 public class Banking07 {
 
     /**
-     * The mule_username index for the banking Interface.
+     * The master index for the banking Interface.
      */
     private static final int BANKING_INTERFACE = 12;
 

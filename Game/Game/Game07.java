@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.game;
+package scripts.tribotapi.game.game;
 
 import org.tribot.api2007.Game;
 import org.tribot.api2007.Login;

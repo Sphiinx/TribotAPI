@@ -1,4 +1,4 @@
-package scripts.TribotAPI.gui;
+package scripts.tribotapi.gui;
 
 /**
  * Created by Sphiinx on 7/12/2016.

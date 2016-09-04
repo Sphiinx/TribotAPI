@@ -1,7 +1,7 @@
-package scripts.TribotAPI.game.stats;
+package scripts.tribotapi.game.stats;
 
-import scripts.TribotAPI.game.stats.enums.Stat;
-import scripts.TribotAPI.game.stats.enums.StatType;
+import scripts.tribotapi.game.stats.enums.Stat;
+import scripts.tribotapi.game.stats.enums.StatType;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package scripts.TribotAPI.painting.paint.enums;
+package scripts.tribotapi.painting.paint.enums;
 
 /**
  * Created by Sphiinx on 6/22/2016.

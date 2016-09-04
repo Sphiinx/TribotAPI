@@ -1,15 +1,15 @@
-package scripts.TribotAPI.painting.paint;
+package scripts.tribotapi.painting.paint;
 
 
 import org.tribot.script.Script;
-import scripts.TribotAPI.color.Colors;
-import scripts.TribotAPI.font.Fonts;
-import scripts.TribotAPI.game.utiity.Utility07;
-import scripts.TribotAPI.painting.paint.enums.DataPosition;
-import scripts.TribotAPI.painting.paint.paintables.tabs.GeneralTab;
-import scripts.TribotAPI.painting.paint.paintables.tabs.StatsTab;
-import scripts.TribotAPI.painting.paint.paintables.tabs.TogglePaintTab;
-import scripts.TribotAPI.util.Utility;
+import scripts.tribotapi.color.Colors;
+import scripts.tribotapi.font.Fonts;
+import scripts.tribotapi.game.utiity.Utility07;
+import scripts.tribotapi.painting.paint.enums.DataPosition;
+import scripts.tribotapi.painting.paint.paintables.tabs.GeneralTab;
+import scripts.tribotapi.painting.paint.paintables.tabs.StatsTab;
+import scripts.tribotapi.painting.paint.paintables.tabs.TogglePaintTab;
+import scripts.tribotapi.util.Utility;
 
 import java.awt.*;
 
@@ -223,7 +223,7 @@ public class PaintManager {
         skill.update();
         return skill.getActualLevel() + " " +
                 "[" + Integer.toString(skill.getPercentToNextLevel()) + "% to " + (skill.getActualLevel() + 1) + "]" + " " +
-                "[" + Utility07.formatNumber(skill.getXPGained()) + " xp" + " | " + Calculations.getXPPerHour(skill.getXPGained(), run_time) + " | " + "TTL: " + Calculations.getTimeToNextLevel(skill.getSkill(), skill.getXPGained(), run_time) + "]";
+                "[" + Utility07.formatNumber(skill.getXPGained()) + " xp" + " | " + Calculations.getXPPerHour(skill.getXPGained(), run_time) + " | " + "TTL: " + Calculations.getTimeToNextLevel(skill, run_time) + "]";
     }
 
     /**

@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.teleporting.enums;
+package scripts.tribotapi.game.teleporting.enums;
 
 import org.tribot.api.util.Sorting;
 import org.tribot.api2007.Player;

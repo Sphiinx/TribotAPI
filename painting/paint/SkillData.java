@@ -1,4 +1,4 @@
-package scripts.TribotAPI.painting.paint;
+package scripts.tribotapi.painting.paint;
 
 import org.tribot.api2007.Skills;
 
@@ -106,7 +106,7 @@ public enum SkillData {
      * @return The actual level of the skill.
      * */
     public int getActualLevel() {
-        return SKILL.getCurrentLevel();
+        return SKILL.getActualLevel();
     }
 
     /**

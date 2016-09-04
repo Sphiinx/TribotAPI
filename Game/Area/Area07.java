@@ -1,10 +1,10 @@
-package scripts.TribotAPI.game.area;
+package scripts.tribotapi.game.area;
 
 import org.tribot.api2007.Player;
 import org.tribot.api2007.Players;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSArea;
-import scripts.TribotAPI.game.game.Game07;
+import scripts.tribotapi.game.game.Game07;
 
 /**
  * Created by Sphiinx on 2/16/2016.

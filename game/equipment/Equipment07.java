@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.equipment;
+package scripts.tribotapi.game.equipment;
 
 import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.Equipment;

@@ -1,12 +1,9 @@
-package scripts.TribotAPI;
+package scripts.tribotapi;
 
 import org.tribot.api.General;
-import org.tribot.api.input.Keyboard;
-import org.tribot.api2007.Walking;
-import org.tribot.api2007.util.ThreadSettings;
 import org.tribot.script.Script;
 import org.tribot.script.ScriptManifest;
-import scripts.TribotAPI.util.Logging;
+import scripts.tribotapi.util.Logging;
 
 /**
  * Created by Sphiinx on 7/23/2016.

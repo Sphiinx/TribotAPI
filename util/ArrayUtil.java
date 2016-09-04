@@ -1,4 +1,4 @@
-package scripts.TribotAPI.util;
+package scripts.tribotapi.util;
 
 import java.util.Arrays;
 import java.util.Random;

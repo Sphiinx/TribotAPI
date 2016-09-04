@@ -1,4 +1,4 @@
-package scripts.TribotAPI.gui;
+package scripts.tribotapi.gui;
 
 /**
  * Created by Sphiinx on 7/12/2016.
@@ -13,8 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import scripts.TribotAPI.game.timing.Timing07;
-import scripts.TribotAPI.util.Logging;
+import scripts.tribotapi.game.timing.Timing07;
+import scripts.tribotapi.util.Logging;
 
 import javax.swing.*;
 import java.net.URL;
@@ -56,9 +56,8 @@ public class GUI extends Application {
                 try {
                     final Stage stage = new Stage();
 
-                    if (!this.decorated) {
+                    if (!this.decorated)
                         stage.initStyle(StageStyle.TRANSPARENT);
-                    }
 
                     start(stage);
                 } catch (Exception e) {

@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.combat;
+package scripts.tribotapi.game.combat;
 
 import org.tribot.api.General;
 import org.tribot.api2007.*;
@@ -6,7 +6,7 @@ import org.tribot.api2007.types.RSCharacter;
 import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSNPC;
 import org.tribot.api2007.types.RSPlayer;
-import scripts.TribotAPI.game.timing.Timing07;
+import scripts.tribotapi.game.timing.Timing07;
 
 /**
  * Created by Sphiinx on 1/10/2016.
@@ -15,7 +15,7 @@ import scripts.TribotAPI.game.timing.Timing07;
 public class Combat07 {
 
     /**
-     * The mule_username index for the combat interface.
+     * The master index for the combat interface.
      */
     private static final int COMBAT_INTERFACE = 593;
 

@@ -1,4 +1,4 @@
-package scripts.TribotAPI.game.grounditems;
+package scripts.tribotapi.game.grounditems;
 
 import org.tribot.api.Clicking;
 import org.tribot.api.types.generic.Filter;
@@ -7,7 +7,7 @@ import org.tribot.api2007.*;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
-import scripts.TribotAPI.game.walking.Walking07;
+import scripts.tribotapi.game.walking.Walking07;
 
 /**
  * Created by Sphiinx on 1/10/2016.
@@ -65,6 +65,9 @@ public class GroundItems07 {
      */
     public static boolean pickUpGroundItem(RSGroundItem... items) {
         if (items == null)
+            return false;
+
+        if (Player.isMoving())
             return false;
 
         final RSItemDefinition item_definition = items[0].getDefinition();
