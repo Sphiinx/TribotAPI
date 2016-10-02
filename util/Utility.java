@@ -1,6 +1,7 @@
 package scripts.tribotapi.util;
 
 import org.tribot.api.General;
+import scripts.tribotapi.util.Logging;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -51,7 +52,7 @@ public class Utility {
      * */
     public static boolean openURL(String uri) {
         if (!Desktop.isDesktopSupported()) {
-            General.println("Sorry! It seems your desktop instance does not support opening URL's.");
+            General.println("Your desktop instance does not support opening URL's.");
             return false;
         }
 

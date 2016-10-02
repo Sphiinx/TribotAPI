@@ -9,7 +9,6 @@ import org.tribot.api2007.GameTab;
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.types.RSInterface;
 import scripts.tribotapi.game.clanchat.enums.ClanRank;
-import scripts.tribotapi.game.stats.Stats07;
 import scripts.tribotapi.game.timing.Timing07;
 import scripts.tribotapi.util.Utility;
 
@@ -97,7 +96,7 @@ public class ClanChat07 {
             return false;
 
         final RSInterface chat_interface_channel_last_name = Interfaces.get(CHAT_INTERFACE, CHAT_INTERFACE_CHANNEL_LAST_NAME);
-        if (chat_interface_channel_last_name != null && !chat_interface_channel_last_name.isHidden()) {
+        if (chat_interface_channel_last_name != null && !chat_interface_channel_last_name.isHidden() && chat_interface_channel_last_name.getChildren() != null) {
 
             final RSInterface chat_interface_channel_last_name_component = chat_interface_channel_last_name.getChild(CHAT_INTERFACE_CHANNEL_LAST_NAME_COMPONENT);
             if (chat_interface_channel_last_name_component == null)
@@ -257,9 +256,9 @@ public class ClanChat07 {
      * Selects the player action on the specified player.
      *
      * @param player_name The name of the player to perform the action on.
-     * @param action The action to perform on the player.
+     * @param action      The action to perform on the player.
      * @return True if successful; false otherwise.
-     * */
+     */
     public static boolean playerAction(String player_name, String action) {
         if (!GameTab.TABS.CLAN.isOpen())
             return false;
@@ -293,7 +292,7 @@ public class ClanChat07 {
      * Scrolls to the player rectangle in the clan chat.
      *
      * @param player_rectangle The rectangle to scroll to.
-     * */
+     */
     private static void scrollToPlayerRectangle(Rectangle player_rectangle) {
         final RSInterface clan_chat_interface_scrollbar = Interfaces.get(CLAN_CHAT_INTERFACE, CLAN_CHAT_INTERFACE_SCROLLBAR);
         if (clan_chat_interface_scrollbar == null)
@@ -322,9 +321,9 @@ public class ClanChat07 {
      * Gets the interface for the specified player
      *
      * @param player_name The player to get the interface for.
-     * @param component The component to get.
+     * @param component   The component to get.
      * @return The RSInterface with the specified component.
-     * */
+     */
     private static RSInterface getPlayerInterface(String player_name, int component) {
         final RSInterface clan_chat_players_interface = Interfaces.get(CLAN_CHAT_INTERFACE, CLAN_CHAT_INTERFACE_PLAYERS);
         if (clan_chat_players_interface == null)

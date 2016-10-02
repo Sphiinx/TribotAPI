@@ -9,6 +9,7 @@ import org.tribot.api2007.util.ThreadSettings;
 import org.tribot.script.Script;
 import org.tribot.script.interfaces.*;
 import org.tribot.util.Util;
+import scripts.generalapi.FileManagment;
 import scripts.task_framework.framework.Task;
 import scripts.task_framework.framework.TaskManager;
 import scripts.tribotapi.gui.GUI;
@@ -24,6 +25,7 @@ import scripts.tribotapi.util.Logging;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -73,7 +75,7 @@ public abstract class AbstractScript extends Script implements Painting, MousePa
         SkillData.initialiseAll();
 
         if (FileManagment.createDirectory(Util.getWorkingDirectory().getAbsolutePath(), "SPXScripts"))
-            FileManagment.createDirectory(Util.getWorkingDirectory().getAbsolutePath() + "\\SPXScripts", Client.getManifest(this.getClass()).name().replace(" ", "_"));
+            FileManagment.createDirectory(Util.getWorkingDirectory().getAbsolutePath() + File.separator + "SPXScripts", Client.getManifest(this.getClass()).name().replace(" ", "_"));
 
         General.sleep(150); // The GUI didn't seem to instantiate quick enough.
         if (this.gui != null) {
