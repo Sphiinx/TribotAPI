@@ -4,6 +4,7 @@ import org.tribot.api.Clicking;
 import org.tribot.api.General;
 import org.tribot.api.input.Keyboard;
 import org.tribot.api2007.*;
+import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSItem;
 import org.tribot.api2007.types.RSItemDefinition;
 import org.tribot.api2007.types.RSObject;
@@ -17,6 +18,21 @@ import scripts.tribotapi.game.timing.Timing07;
  * Re-written by Sphiinx on 7/8/2016.
  */
 public class DepositBox07 {
+
+    /**
+     * The master RSInterface for the deposit box.
+     * */
+    private static final int deposit_box_interface = 192;
+
+    /**
+     * The master child RSInterface for the deposit box.
+     * */
+    private static final int deposit_box_close_child =1;
+
+    /**
+     * The master component RSInterface for the deposit box close button.
+     * */
+    private static final int deposit_box_close_component = 11;
 
     /**
      * Checks if the RSPlayer is at a deposit box.
@@ -70,6 +86,16 @@ public class DepositBox07 {
 
         if (items[0].getDefinition() == null)
             return false;
+
+        final RSInterface deposit_box_screen = Interfaces.get(deposit_box_interface, deposit_box_close_child);
+        if (deposit_box_screen != null) {
+            final RSInterface close_button = deposit_box_screen.getChild(deposit_box_close_component);
+            if (close_button == null)
+                return false;
+
+            if (Clicking.click(close_button))
+                Timing07.waitCondition(() -> Interfaces.get(deposit_box_interface) == null, General.random(1500, 2000));
+        }
 
         final RSItemDefinition item_definition = items[0].getDefinition();
         final String name = item_definition.getName();
