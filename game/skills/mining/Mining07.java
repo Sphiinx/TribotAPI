@@ -1,10 +1,10 @@
-package scripts.tribotapi.game.mining;
+package scripts.tribotapi.game.skills.mining;
 
 import org.tribot.api2007.Equipment;
 import org.tribot.api2007.Inventory;
 import org.tribot.api2007.Skills;
 import scripts.tribotapi.game.banking.Banking07;
-import scripts.tribotapi.game.mining.enums.Pickaxe;
+import scripts.tribotapi.game.skills.mining.enums.Pickaxe;
 
 /**
  * Created by Sphiinx on 8/16/2016.
@@ -12,10 +12,10 @@ import scripts.tribotapi.game.mining.enums.Pickaxe;
 public class Mining07 {
 
     /**
-     * Gets the best usable pickaxe the user has.
+     * Gets the best usable pickaxe the RSPlayer has.
      *
      * @param is_checking_bank True if we are checking the bank for the best usable pickaxe; false otherwise.
-     * @return The best usable pickaxe the user has.
+     * @return The best usable pickaxe the RSPlayer has.
      */
     public static Pickaxe getBestUsablePickaxe(boolean is_checking_bank) {
         final Pickaxe[] picks = Pickaxe.values();
@@ -32,9 +32,9 @@ public class Mining07 {
     }
 
     /**
-     * Gets the highest level of pickaxe the user can use.
+     * Gets the highest level of pickaxe the RSPlayer can use.
      *
-     * @return The highest level pf pickaxe the user can use.
+     * @return The highest level pf pickaxe the RSPlayer can use.
      */
     public static Pickaxe currentAppropriatePickaxe() {
         final Pickaxe[] picks = Pickaxe.values();

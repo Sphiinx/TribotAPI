@@ -1,4 +1,4 @@
-package scripts.tribotapi.game.mining.enums;
+package scripts.tribotapi.game.skills.mining.enums;
 
 import java.util.Arrays;
 

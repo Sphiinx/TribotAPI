@@ -48,6 +48,9 @@ public class Calculations {
      * @param run_time The script run time.
      * */
     public static String getTimeToNextLevel(SkillData skill, long run_time) {
+        if (skill == null)
+            return "00:00:00";
+
         if (skill.getActualLevel() >= 99 || skill.getXPGained() == 0)
             return "00:00:00";
 
