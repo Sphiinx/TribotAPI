@@ -8,6 +8,7 @@ import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSGroundItem;
 import org.tribot.api2007.types.RSItemDefinition;
 import scripts.tribotapi.game.walking.Walking07;
+import scripts.tribotapi.util.Logging;
 
 /**
  * Created by Sphiinx on 1/10/2016.

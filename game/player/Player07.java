@@ -35,7 +35,7 @@ public class Player07 {
     /**
      * The child index for each combat wilderness level.
      */
-    private static final int WILDERNESS_LEVEL_INTERFACE = 29;
+    private static final int WILDERNESS_LEVEL_INTERFACE = 33;
 
     /**
      * The master index for the friends list interface.

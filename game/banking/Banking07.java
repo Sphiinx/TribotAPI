@@ -27,12 +27,12 @@ public class Banking07 {
     /**
      * The child index for the note button in the banking Interface.
      */
-    private static final int NOTE_INTERFACE = 26;
+    private static final int NOTE_INTERFACE = 24;
 
     /**
      * The child index for the item button in the banking Interface.
      */
-    private static final int ITEM_INTERFACE = 24;
+    private static final int ITEM_INTERFACE = 22;
 
     /**
      * The varbit index for the banking Interface.
@@ -84,7 +84,8 @@ public class Banking07 {
      */
     public static boolean isAtGrandExchange() {
         final String[] booths = new String[]{
-                "Grand Exchange booth"
+                "Grand Exchange booth",
+                "Grand Exchange Clerk"
         };
 
         final RSObject booth = Objects07.getObject(15, booths);

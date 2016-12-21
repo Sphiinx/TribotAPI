@@ -20,6 +20,33 @@ import java.awt.event.KeyEvent;
 public class Inventory07 {
 
     /**
+     * Checks if the inventory has changed from the given inventory cache.
+     *
+     * @param inventory_cache The inventory cache to check.
+     * @return True if the inventory has changed; false otherwise.
+     */
+    public static boolean hasInventoryChanged(RSItem[] inventory_cache) {
+        if (inventory_cache == null)
+            return false;
+
+        final RSItem[] current_inventory_cache = Inventory.getAll();
+        if (current_inventory_cache == null)
+            return false;
+
+        if (inventory_cache.length != current_inventory_cache.length) {
+            return true;
+        } else {
+            for (RSItem cache_item : inventory_cache) {
+                for (RSItem current_cache_item : current_inventory_cache)
+                    if (cache_item.getStack() != current_cache_item.getStack())
+                        return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Gets the number of free space in the RSPlayers inventory.
      *
      * @return How many free spaces is in the RSPlayers inventory.
@@ -81,7 +108,7 @@ public class Inventory07 {
      * Emulates mouse keys and drops all the inventory items except the specified ids.
      *
      * @param sleep_mod A multiplier for the delay in between dropping items. The lower the number, the shorter the delay.
-     * @param ignore   The ids of the items that should not be dropped.
+     * @param ignore    The ids of the items that should not be dropped.
      * @return True if all items were dropped except for those specified, false otherwise.
      */
     public static boolean mouseKeysDropAllExcept(int sleep_mod, int... ignore) {

@@ -81,10 +81,8 @@ public class GUI extends Application {
      * The main entry point for all JavaFX applications.
      * The start method is called after the init method has returned,
      * and after the system is ready for the application to begin running.
-     * <p>
-     * <p>
+     *
      * NOTE: This method is called on the JavaFX Application Thread.
-     * </p>
      *
      * @param stage the primary stage for this application, onto which
      *              the application scene can be set. The primary stage will be embedded in

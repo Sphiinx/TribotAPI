@@ -7,6 +7,7 @@ import org.tribot.api2007.types.RSInterface;
 import scripts.tribotapi.game.timing.Timing07;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sphiinx on 4/5/2016.
@@ -69,7 +70,7 @@ public class GetSwitcherWorlds07 {
      * @return An Int Array with the worlds for the specified type.
      */
     public static int[] getWorlds(int TEXTURE_ID) {
-        final ArrayList<Integer> worlds = new ArrayList<>();
+        final List<Integer> worlds = new ArrayList<>();
         if (!isWorldSwitcherOpen())
             return null;
 
